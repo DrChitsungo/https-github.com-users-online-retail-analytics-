@@ -15,6 +15,8 @@ COPY docs ./docs
 COPY scripts ./scripts
 COPY tests ./tests
 COPY pytest.ini ./
+# files read by tests/test_repo_hygiene.py
+COPY .gitignore .env.example Dockerfile README.md ./
 
 # Run as an unprivileged user; data and reports are mounted at runtime, the secret is passed with --env-file/-e.
 RUN useradd --create-home --uid 10001 pipeline && mkdir -p /app/data /app/reports /app/.prefect && chown -R pipeline /app
