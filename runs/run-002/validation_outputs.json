@@ -1,0 +1,1839 @@
+{
+  "critical_failures": 0,
+  "expectations_evaluated": 99,
+  "expectations_passed": 99,
+  "great_expectations_version": "1.24.1",
+  "publish_allowed": true,
+  "reconciliation": [
+    {
+      "abs_difference": 0.0,
+      "actual": 1067371.0,
+      "check": "rows: raw = retained + quarantined + excluded",
+      "expected": 1067371.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 1033062.0,
+      "check": "rows: retained partition = fact rows",
+      "expected": 1033062.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 5973.0,
+      "check": "rows: quarantined partition = quarantine file",
+      "expected": 5973.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 28336.0,
+      "check": "rows: excluded partition = excluded file",
+      "expected": 28336.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 22523.0,
+      "check": "rows: excluded overlap = verified block-2 window rows",
+      "expected": 22523.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 19287250.568,
+      "check": "revenue: independent raw sum = sum of retained + quarantined + excluded",
+      "expected": 19287250.568,
+      "tolerance": 0.01,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 18981261.516999997,
+      "check": "revenue: retained partition = fact line_revenue",
+      "expected": 18981261.517,
+      "tolerance": 0.01,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 18981261.516999997,
+      "check": "revenue: fact = daily net revenue",
+      "expected": 18981261.516999997,
+      "tolerance": 0.01,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 10752075.0,
+      "check": "units: fact net quantity = daily units_sold - units_cancelled",
+      "expected": 10752075.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 19700954.457000002,
+      "check": "revenue: fact gross sales = weekly SKU gross sales",
+      "expected": 19700954.457000002,
+      "tolerance": 0.01,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 10752075.0,
+      "check": "units: fact net quantity = weekly SKU net units",
+      "expected": 10752075.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 16411894.747,
+      "check": "revenue: identified-customer fact revenue = RFM monetary_net",
+      "expected": 16411894.747,
+      "tolerance": 0.01,
+      "within_tolerance": true
+    },
+    {
+      "abs_difference": 0.0,
+      "actual": 5875.0,
+      "check": "customers: distinct customer_key in fact = dim_customer rows",
+      "expected": 5875.0,
+      "tolerance": 0.0,
+      "within_tolerance": true
+    }
+  ],
+  "suites": [
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "line_id",
+            "raw_row_id",
+            "invoice_no",
+            "stock_code",
+            "invoice_ts",
+            "invoice_date",
+            "quantity",
+            "unit_price",
+            "line_revenue",
+            "is_cancellation",
+            "customer_key",
+            "customer_identified",
+            "country",
+            "source_block",
+            "is_exact_duplicate_within_source"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "line_id",
+              "raw_row_id",
+              "invoice_no",
+              "stock_code",
+              "invoice_ts",
+              "invoice_date",
+              "quantity",
+              "unit_price",
+              "line_revenue",
+              "is_cancellation",
+              "customer_key",
+              "customer_identified",
+              "country",
+              "source_block",
+              "is_exact_duplicate_within_source"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 1033062,
+      "success": true,
+      "suite": "fact_sales_line__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "stock_code",
+            "description",
+            "n_description_variants",
+            "first_sold_date",
+            "last_sold_date",
+            "n_lines",
+            "median_unit_price"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "stock_code",
+              "description",
+              "n_description_variants",
+              "first_sold_date",
+              "last_sold_date",
+              "n_lines",
+              "median_unit_price"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 4739,
+      "success": true,
+      "suite": "dim_product__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "customer_key",
+            "country_primary",
+            "n_countries",
+            "first_purchase_date",
+            "last_purchase_date",
+            "n_sales_invoices",
+            "n_cancellation_invoices"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "customer_key",
+              "country_primary",
+              "n_countries",
+              "first_purchase_date",
+              "last_purchase_date",
+              "n_sales_invoices",
+              "n_cancellation_invoices"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 5875,
+      "success": true,
+      "suite": "dim_customer__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "date",
+            "year",
+            "month",
+            "iso_year",
+            "iso_week",
+            "week_start",
+            "day_of_week",
+            "is_partial_month"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "date",
+              "year",
+              "month",
+              "iso_year",
+              "iso_week",
+              "week_start",
+              "day_of_week",
+              "is_partial_month"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 739,
+      "success": true,
+      "suite": "dim_date__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "invoice_date",
+            "country",
+            "sales_invoices",
+            "sale_lines",
+            "units_sold",
+            "gross_sales_revenue",
+            "cancellation_invoices",
+            "cancellation_lines",
+            "units_cancelled",
+            "cancellation_revenue",
+            "net_revenue"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "invoice_date",
+              "country",
+              "sales_invoices",
+              "sale_lines",
+              "units_sold",
+              "gross_sales_revenue",
+              "cancellation_invoices",
+              "cancellation_lines",
+              "units_cancelled",
+              "cancellation_revenue",
+              "net_revenue"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 3160,
+      "success": true,
+      "suite": "agg_daily_sales__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "week_start",
+            "stock_code",
+            "units_sold",
+            "gross_sales_revenue",
+            "n_sales_invoices",
+            "units_cancelled",
+            "cancellation_revenue",
+            "net_units"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "week_start",
+              "stock_code",
+              "units_sold",
+              "gross_sales_revenue",
+              "n_sales_invoices",
+              "units_cancelled",
+              "cancellation_revenue",
+              "net_units"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 197630,
+      "success": true,
+      "suite": "agg_weekly_sku_demand__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 1,
+      "expectations_passed": 1,
+      "results": [
+        {
+          "column": [
+            "customer_key",
+            "first_purchase_date",
+            "last_purchase_date",
+            "frequency_invoices",
+            "monetary_gross",
+            "monetary_net",
+            "n_cancellation_invoices",
+            "recency_days",
+            "snapshot_date"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "customer_key",
+              "first_purchase_date",
+              "last_purchase_date",
+              "frequency_invoices",
+              "monetary_gross",
+              "monetary_net",
+              "n_cancellation_invoices",
+              "recency_days",
+              "snapshot_date"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 5875,
+      "success": true,
+      "suite": "agg_customer_rfm_base__schema",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 36,
+      "expectations_passed": 36,
+      "results": [
+        {
+          "column": null,
+          "expectation": "expect_table_row_count_to_be_between",
+          "mostly": null,
+          "result": {
+            "observed_value": 1033062
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "line_id",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "line_id",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "invoice_no",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "stock_code",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "invoice_ts",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "invoice_ts",
+          "expectation": "expect_column_values_to_be_in_type_list",
+          "mostly": null,
+          "result": {
+            "observed_value": "datetime64"
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "invoice_date",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "invoice_date",
+          "expectation": "expect_column_values_to_be_in_type_list",
+          "mostly": null,
+          "result": {
+            "observed_value": "datetime64"
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "quantity",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "quantity",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "quantity",
+          "expectation": "expect_column_values_to_not_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "unit_price",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "unit_price",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "unit_price",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": 0.9999,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 1,
+            "unexpected_percent": 9.679961125276121e-05,
+            "unexpected_percent_nonmissing": 9.679961125276121e-05,
+            "unexpected_percent_total": 9.679961125276121e-05
+          },
+          "severity": "warning",
+          "success": true
+        },
+        {
+          "column": "line_revenue",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "is_cancellation",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_identified",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "country",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "country",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "source_block",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "source_block",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "raw_row_id",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "raw_row_id",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 227214,
+            "missing_percent": 21.994226871184885,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": 0.7,
+          "result": {
+            "element_count": 1033062,
+            "unexpected_count": 227214,
+            "unexpected_percent": 21.994226871184885
+          },
+          "severity": "warning",
+          "success": true
+        },
+        {
+          "column": "chk_cancel_sign_consistent",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_cancel_prefix_consistent",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_revenue_formula",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_ts_in_expected_range",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_date_matches_ts",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_identified_matches_key",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_stock_in_dim_product",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_customer_in_dim_customer",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_date_in_dim_date",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 1033062,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "is_exact_duplicate_within_source",
+          "expectation": "expect_column_mean_to_be_between",
+          "mostly": null,
+          "result": {
+            "observed_value": 0.011412674166700547
+          },
+          "severity": "warning",
+          "success": true
+        }
+      ],
+      "rows_validated": 1033062,
+      "success": true,
+      "suite": "fact_sales_line",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 9,
+      "expectations_passed": 9,
+      "results": [
+        {
+          "column": "stock_code",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "stock_code",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "description",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "description",
+          "expectation": "expect_column_values_to_not_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "description",
+          "expectation": "expect_column_values_to_not_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "n_description_variants",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "n_description_variants",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": 0.95,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 7,
+            "unexpected_percent": 0.14771048744460857,
+            "unexpected_percent_nonmissing": 0.14771048744460857,
+            "unexpected_percent_total": 0.14771048744460857
+          },
+          "severity": "warning",
+          "success": true
+        },
+        {
+          "column": "n_lines",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_first_le_last_sold",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 4739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 4739,
+      "success": true,
+      "suite": "dim_product",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 7,
+      "expectations_passed": 7,
+      "results": [
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "country_primary",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "n_countries",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "n_countries",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": 0.99,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 12,
+            "unexpected_percent": 0.20425531914893616,
+            "unexpected_percent_nonmissing": 0.20425531914893616,
+            "unexpected_percent_total": 0.20425531914893616
+          },
+          "severity": "warning",
+          "success": true
+        },
+        {
+          "column": "chk_first_le_last_purchase",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 5875,
+      "success": true,
+      "suite": "dim_customer",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 5,
+      "expectations_passed": 5,
+      "results": [
+        {
+          "column": "date",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "date",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 739,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "iso_week",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "day_of_week",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_week_start_is_monday",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 739,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 739,
+      "success": true,
+      "suite": "dim_date",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 13,
+      "expectations_passed": 13,
+      "results": [
+        {
+          "column": [
+            "invoice_date",
+            "country"
+          ],
+          "expectation": "expect_compound_columns_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "invoice_date",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "country",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "net_revenue",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "sales_invoices",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "sale_lines",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "units_sold",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "gross_sales_revenue",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "cancellation_invoices",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "cancellation_lines",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "units_cancelled",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "cancellation_revenue",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_net_equals_gross_plus_cancellation",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 3160,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 3160,
+      "success": true,
+      "suite": "agg_daily_sales",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 10,
+      "expectations_passed": 10,
+      "results": [
+        {
+          "column": [
+            "week_start",
+            "stock_code"
+          ],
+          "expectation": "expect_compound_columns_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "week_start",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "stock_code",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "units_sold",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "units_cancelled",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "gross_sales_revenue",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "cancellation_revenue",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_net_units",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_week_start_is_monday",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_stock_in_dim_product",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 197630,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 197630,
+      "success": true,
+      "suite": "agg_weekly_sku_demand",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 9,
+      "expectations_passed": 9,
+      "results": [
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "customer_key",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "frequency_invoices",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "monetary_gross",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "recency_days",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 23,
+            "missing_percent": 0.39148936170212767,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_first_le_last_purchase",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "chk_customer_in_dim_customer",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 5875,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "last_purchase_date",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": 0.99,
+          "result": {
+            "element_count": 5875,
+            "unexpected_count": 23,
+            "unexpected_percent": 0.39148936170212767
+          },
+          "severity": "warning",
+          "success": true
+        }
+      ],
+      "rows_validated": 5875,
+      "success": true,
+      "suite": "agg_customer_rfm_base",
+      "warning_failures": 0
+    },
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 3,
+      "expectations_passed": 3,
+      "results": [
+        {
+          "column": null,
+          "expectation": "expect_table_row_count_to_be_between",
+          "mostly": null,
+          "result": {
+            "observed_value": 13
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "within_tolerance",
+          "expectation": "expect_column_values_to_be_in_set",
+          "mostly": null,
+          "result": {
+            "element_count": 13,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "abs_difference",
+          "expectation": "expect_column_values_to_be_between",
+          "mostly": null,
+          "result": {
+            "element_count": 13,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        }
+      ],
+      "rows_validated": 13,
+      "success": true,
+      "suite": "reconciliation",
+      "warning_failures": 0
+    }
+  ],
+  "warning_failures": 0
+}

@@ -1,0 +1,13 @@
+Fresh virtualenv verification
+Command: python -m venv venv && pip install -c requirements.lock.txt -r requirements.txt pytest==9.1.1   (exit code 0, see below)
+Python 3.13.17
+great_expectations        1.24.1
+numpy                     2.5.3
+pandas                    3.0.5
+prefect                   3.9.0
+pyarrow                   26.0.0
+pytest                    9.1.1
+PyYAML                    6.0.3
+
+Executed inside this venv: run-001 and run-002 (both SUCCEEDED), scripts/verify_reproducibility.py, scripts/demo_gate_failure.py, and the full test suite (64 passed; see pytest_results.txt).
+Not verified: Docker image build (no Docker daemon available).

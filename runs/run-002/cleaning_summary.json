@@ -1,0 +1,52 @@
+{
+  "overlap_evidence": {
+    "action": "block-2 rows in the overlap window excluded as confirmed duplicate ingestion (block-1 copies retained)",
+    "backward_steps_in_file_order": 1,
+    "expected_backward_steps": 1,
+    "hypothesised_boundary_row_id": 525461,
+    "invoices_in_window_block1": 1088,
+    "invoices_in_window_block2": 1088,
+    "multiset_identical": true,
+    "overlap_window": [
+      "2010-12-01 08:26:00",
+      "2010-12-09 20:01:00"
+    ],
+    "rows_block1_in_window": 22523,
+    "rows_block2_in_window": 22523,
+    "verified": true
+  },
+  "reason_counts": {
+    "EXC_DUP_OVERLAP": 22523,
+    "EXC_NON_MERCHANDISE": 5813,
+    "OK": 1033062,
+    "QRN_STOCK_ADJUSTMENT": 3391,
+    "QRN_ZERO_PRICE": 2582
+  },
+  "reason_descriptions": {
+    "EXC_DUP_OVERLAP": "Confirmed duplicate ingestion: record repeated in the overlapping window of the two source blocks",
+    "EXC_DUP_WITHIN_SOURCE": "Exact duplicate within a source block (only when drop_within_source_exact_duplicates is enabled)",
+    "EXC_NON_MERCHANDISE": "Ledger or service line (postage, fees, manual entries, adjustments, vouchers, test codes)",
+    "QRN_CANCEL_POSITIVE_QTY": "Cancellation invoice with non-negative quantity",
+    "QRN_MISSING_DESCRIPTION": "Missing product description on a priced line",
+    "QRN_NEGATIVE_PRICE": "Negative unit price",
+    "QRN_PARSE_FAILURE": "A required field failed numeric/datetime/format parsing",
+    "QRN_STOCK_ADJUSTMENT": "Negative quantity on a non-cancellation invoice (stock write-off / adjustment, no sale)",
+    "QRN_UNRECOGNISED_STOCKCODE": "Stock code matches neither merchandise nor known non-merchandise patterns",
+    "QRN_ZERO_PRICE": "Zero unit price (no revenue; free issue or unpriced adjustment)",
+    "QRN_ZERO_QUANTITY": "Zero quantity"
+  },
+  "reason_revenue": {
+    "EXC_DUP_OVERLAP": 377488.45,
+    "EXC_NON_MERCHANDISE": -71499.4,
+    "OK": 18981261.52,
+    "QRN_STOCK_ADJUSTMENT": 0.0,
+    "QRN_ZERO_PRICE": 0.0
+  },
+  "retained_exact_duplicate_rows_flagged": 11790,
+  "rows_excluded": 28336,
+  "rows_quarantined": 5973,
+  "rows_raw": 1067371,
+  "rows_retained": 1033062,
+  "staff_name_pattern_rows_raw": 71,
+  "stock_code_case_normalised_rows": 3471
+}

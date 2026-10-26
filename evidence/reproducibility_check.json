@@ -1,0 +1,59 @@
+{
+  "run_a": "run-001",
+  "run_b": "run-002",
+  "same_build_id": true,
+  "build_id": "41afeb4d5b118509",
+  "same_key_id": true,
+  "tables": [
+    {
+      "table": "agg_customer_rfm_base",
+      "rows_a": 5875,
+      "rows_b": 5875,
+      "content_identical": true,
+      "file_bytes_identical": true
+    },
+    {
+      "table": "agg_daily_sales",
+      "rows_a": 3160,
+      "rows_b": 3160,
+      "content_identical": true,
+      "file_bytes_identical": true
+    },
+    {
+      "table": "agg_weekly_sku_demand",
+      "rows_a": 197630,
+      "rows_b": 197630,
+      "content_identical": true,
+      "file_bytes_identical": true
+    },
+    {
+      "table": "dim_customer",
+      "rows_a": 5875,
+      "rows_b": 5875,
+      "content_identical": true,
+      "file_bytes_identical": true
+    },
+    {
+      "table": "dim_date",
+      "rows_a": 739,
+      "rows_b": 739,
+      "content_identical": true,
+      "file_bytes_identical": true
+    },
+    {
+      "table": "dim_product",
+      "rows_a": 4739,
+      "rows_b": 4739,
+      "content_identical": true,
+      "file_bytes_identical": true
+    },
+    {
+      "table": "fact_sales_line",
+      "rows_a": 1033062,
+      "rows_b": 1033062,
+      "content_identical": true,
+      "file_bytes_identical": true
+    }
+  ],
+  "all_content_identical": true
+}

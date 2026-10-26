@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.17, pytest-9.1.1, pluggy-1.7.0
+rootdir: /home/claude/retail-pipeline
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1
+collected 64 items
+
+tests/test_bias.py ....                                                  [  6%]
+tests/test_cleaning.py ..................                                [ 34%]
+tests/test_data_dictionary.py ......                                     [ 43%]
+tests/test_flow_integration.py .....                                     [ 51%]
+tests/test_privacy_audit.py ........                                     [ 64%]
+tests/test_repo_hygiene.py ....                                          [ 70%]
+tests/test_validation_gate.py ...................                        [100%]
+
+- generated xml file: /home/claude/retail-pipeline/reports/evidence/pytest_junit.xml -
+============================= 64 passed in 34.58s ==============================

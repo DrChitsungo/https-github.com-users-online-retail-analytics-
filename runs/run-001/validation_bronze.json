@@ -1,0 +1,253 @@
+{
+  "critical_failures": 0,
+  "expectations_evaluated": 16,
+  "expectations_passed": 16,
+  "great_expectations_version": "1.24.1",
+  "publish_allowed": true,
+  "suites": [
+    {
+      "critical_failures": 0,
+      "expectations_evaluated": 16,
+      "expectations_passed": 16,
+      "results": [
+        {
+          "column": [
+            "raw_row_id",
+            "Invoice",
+            "StockCode",
+            "Description",
+            "Quantity",
+            "InvoiceDate",
+            "Price",
+            "Customer ID",
+            "Country"
+          ],
+          "expectation": "expect_table_columns_to_match_ordered_list",
+          "mostly": null,
+          "result": {
+            "observed_value": [
+              "raw_row_id",
+              "Invoice",
+              "StockCode",
+              "Description",
+              "Quantity",
+              "InvoiceDate",
+              "Price",
+              "Customer ID",
+              "Country"
+            ]
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": null,
+          "expectation": "expect_table_row_count_to_be_between",
+          "mostly": null,
+          "result": {
+            "observed_value": 1067371
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "raw_row_id",
+          "expectation": "expect_column_values_to_be_unique",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Invoice",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Invoice",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "StockCode",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Quantity",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Quantity",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "InvoiceDate",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "InvoiceDate",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Price",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Price",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "missing_count": 0,
+            "missing_percent": 0.0,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Country",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Customer ID",
+          "expectation": "expect_column_values_to_match_regex",
+          "mostly": null,
+          "result": {
+            "element_count": 1067371,
+            "missing_count": 243007,
+            "missing_percent": 22.766872999172733,
+            "unexpected_count": 0,
+            "unexpected_percent": 0.0,
+            "unexpected_percent_nonmissing": 0.0,
+            "unexpected_percent_total": 0.0
+          },
+          "severity": "critical",
+          "success": true
+        },
+        {
+          "column": "Customer ID",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": 0.7,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 243007,
+            "unexpected_percent": 22.766872999172733
+          },
+          "severity": "warning",
+          "success": true
+        },
+        {
+          "column": "Description",
+          "expectation": "expect_column_values_to_not_be_null",
+          "mostly": 0.99,
+          "result": {
+            "element_count": 1067371,
+            "unexpected_count": 4382,
+            "unexpected_percent": 0.4105414143723223
+          },
+          "severity": "warning",
+          "success": true
+        }
+      ],
+      "rows_validated": 1067371,
+      "success": true,
+      "suite": "bronze_raw",
+      "warning_failures": 0
+    }
+  ],
+  "warning_failures": 0
+}

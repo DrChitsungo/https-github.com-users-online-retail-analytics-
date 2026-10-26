@@ -1,0 +1,14 @@
+check,expected,actual,tolerance,abs_difference,within_tolerance
+rows: raw = retained + quarantined + excluded,1067371.0,1067371.0,0.0,0.0,True
+rows: retained partition = fact rows,1033062.0,1033062.0,0.0,0.0,True
+rows: quarantined partition = quarantine file,5973.0,5973.0,0.0,0.0,True
+rows: excluded partition = excluded file,28336.0,28336.0,0.0,0.0,True
+rows: excluded overlap = verified block-2 window rows,22523.0,22523.0,0.0,0.0,True
+revenue: independent raw sum = sum of retained + quarantined + excluded,19287250.568,19287250.568,0.01,0.0,True
+revenue: retained partition = fact line_revenue,18981261.517,18981261.516999997,0.01,0.0,True
+revenue: fact = daily net revenue,18981261.516999997,18981261.516999997,0.01,0.0,True
+units: fact net quantity = daily units_sold - units_cancelled,10752075.0,10752075.0,0.0,0.0,True
+revenue: fact gross sales = weekly SKU gross sales,19700954.457000002,19700954.457000002,0.01,0.0,True
+units: fact net quantity = weekly SKU net units,10752075.0,10752075.0,0.0,0.0,True
+revenue: identified-customer fact revenue = RFM monetary_net,16411894.747,16411894.747,0.01,0.0,True
+customers: distinct customer_key in fact = dim_customer rows,5875.0,5875.0,0.0,0.0,True

@@ -1,0 +1,69 @@
+{
+  "baseline_critical_failures": 0,
+  "baseline_expectations": 99,
+  "failed_critical_expectations": [
+    {
+      "column": "line_id",
+      "expectation": "expect_column_values_to_be_unique",
+      "suite": "fact_sales_line",
+      "unexpected_count": 2
+    },
+    {
+      "column": "unit_price",
+      "expectation": "expect_column_values_to_be_between",
+      "suite": "fact_sales_line",
+      "unexpected_count": 1
+    },
+    {
+      "column": "customer_key",
+      "expectation": "expect_column_values_to_match_regex",
+      "suite": "fact_sales_line",
+      "unexpected_count": 1
+    },
+    {
+      "column": "chk_revenue_formula",
+      "expectation": "expect_column_values_to_be_in_set",
+      "suite": "fact_sales_line",
+      "unexpected_count": 2
+    },
+    {
+      "column": "chk_customer_in_dim_customer",
+      "expectation": "expect_column_values_to_be_in_set",
+      "suite": "fact_sales_line",
+      "unexpected_count": 1
+    },
+    {
+      "column": "within_tolerance",
+      "expectation": "expect_column_values_to_be_in_set",
+      "suite": "reconciliation",
+      "unexpected_count": 5
+    },
+    {
+      "column": "abs_difference",
+      "expectation": "expect_column_values_to_be_between",
+      "suite": "reconciliation",
+      "unexpected_count": 5
+    }
+  ],
+  "failed_reconciliation_checks": [
+    "revenue: retained partition = fact line_revenue",
+    "revenue: fact = daily net revenue",
+    "revenue: fact gross sales = weekly SKU gross sales",
+    "revenue: identified-customer fact revenue = RFM monetary_net",
+    "customers: distinct customer_key in fact = dim_customer rows"
+  ],
+  "faulty_critical_failures": 7,
+  "faulty_publish_allowed": false,
+  "injected_faults": [
+    "duplicate line_id",
+    "negative unit_price on a retained line",
+    "raw-looking customer_key '12345'",
+    "line_revenue altered by +1000"
+  ],
+  "latest_pointer_unchanged": true,
+  "legitimate_cancellation_lines_in_baseline_that_passed": 17974,
+  "publish_message": "publication blocked by gate(s): ['output critical expectations + reconciliation']",
+  "publish_raised_PublicationBlocked": true,
+  "published_directory_created": false,
+  "run_id_used_as_input": "run-002"
+}

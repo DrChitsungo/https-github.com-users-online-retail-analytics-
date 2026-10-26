@@ -1,0 +1,81 @@
+{
+  "audit_log": {
+    "contains_any_customer_key": false,
+    "contains_secret": false,
+    "events": 32
+  },
+  "build_id": "41afeb4d5b118509",
+  "code_hash": "8a7cecb7dd91c0d6",
+  "dispositions": {
+    "rows_excluded": 28336,
+    "rows_quarantined": 5973,
+    "rows_raw": 1067371,
+    "rows_retained": 1033062
+  },
+  "great_expectations_version": "1.24.1",
+  "overlap_evidence": {
+    "action": "block-2 rows in the overlap window excluded as confirmed duplicate ingestion (block-1 copies retained)",
+    "backward_steps_in_file_order": 1,
+    "expected_backward_steps": 1,
+    "hypothesised_boundary_row_id": 525461,
+    "invoices_in_window_block1": 1088,
+    "invoices_in_window_block2": 1088,
+    "multiset_identical": true,
+    "overlap_window": [
+      "2010-12-01 08:26:00",
+      "2010-12-09 20:01:00"
+    ],
+    "rows_block1_in_window": 22523,
+    "rows_block2_in_window": 22523,
+    "verified": true
+  },
+  "pipeline_version": "1.0.0",
+  "privacy": {
+    "key_id": "67f7ff8a",
+    "published_pii_hits": 0
+  },
+  "published_tables": {
+    "agg_customer_rfm_base": 5875,
+    "agg_daily_sales": 3160,
+    "agg_weekly_sku_demand": 197630,
+    "dim_customer": 5875,
+    "dim_date": 739,
+    "dim_product": 4739,
+    "fact_sales_line": 1033062
+  },
+  "reason_counts": {
+    "EXC_DUP_OVERLAP": 22523,
+    "EXC_NON_MERCHANDISE": 5813,
+    "OK": 1033062,
+    "QRN_STOCK_ADJUSTMENT": 3391,
+    "QRN_ZERO_PRICE": 2582
+  },
+  "retained_exact_duplicate_rows_flagged": 11790,
+  "rules_hash": "47e34be32fa103ec",
+  "rules_version": "2026.10.1",
+  "run_id": "run-002",
+  "runtime_seconds": 34.0,
+  "source": {
+    "file": "data/raw/online_retail_II.csv",
+    "meets_min_5000": true,
+    "rows": 1067371,
+    "sha256": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9"
+  },
+  "status": "SUCCEEDED",
+  "validation": {
+    "bronze": {
+      "critical_failures": 0,
+      "expectations_evaluated": 16,
+      "expectations_passed": 16,
+      "warning_failures": 0
+    },
+    "outputs": {
+      "critical_failures": 0,
+      "expectations_evaluated": 99,
+      "expectations_passed": 99,
+      "warning_failures": 0
+    },
+    "reconciliation_checks": 13,
+    "reconciliation_passed": 13
+  }
+}

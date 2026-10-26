@@ -1,0 +1,3322 @@
+{
+  "cancellation_patterns": {
+    "by_country": [
+      {
+        "ci95": [
+          0.1508,
+          0.1576
+        ],
+        "evaluable": true,
+        "events": 6595,
+        "flag": false,
+        "group": "United Kingdom",
+        "invoices": 42779,
+        "note": "",
+        "rate": 0.1542,
+        "ratio_to_overall": 0.977
+      },
+      {
+        "ci95": [
+          0.2462,
+          0.3004
+        ],
+        "evaluable": true,
+        "events": 282,
+        "flag": true,
+        "group": "Germany",
+        "invoices": 1035,
+        "note": "",
+        "rate": 0.2725,
+        "ratio_to_overall": 1.726
+      },
+      {
+        "ci95": [
+          0.1733,
+          0.2315
+        ],
+        "evaluable": true,
+        "events": 146,
+        "flag": true,
+        "group": "EIRE",
+        "invoices": 727,
+        "note": "",
+        "rate": 0.2008,
+        "ratio_to_overall": 1.272
+      },
+      {
+        "ci95": [
+          0.1317,
+          0.1851
+        ],
+        "evaluable": true,
+        "events": 111,
+        "flag": false,
+        "group": "France",
+        "invoices": 709,
+        "note": "",
+        "rate": 0.1566,
+        "ratio_to_overall": 0.992
+      },
+      {
+        "ci95": [
+          0.0273,
+          0.0847
+        ],
+        "evaluable": true,
+        "events": 11,
+        "flag": true,
+        "group": "Netherlands",
+        "invoices": 227,
+        "note": "",
+        "rate": 0.0485,
+        "ratio_to_overall": 0.307
+      },
+      {
+        "ci95": [
+          0.12,
+          0.2317
+        ],
+        "evaluable": true,
+        "events": 29,
+        "flag": false,
+        "group": "Belgium",
+        "invoices": 172,
+        "note": "",
+        "rate": 0.1686,
+        "ratio_to_overall": 1.068
+      },
+      {
+        "ci95": [
+          0.0979,
+          0.2038
+        ],
+        "evaluable": true,
+        "events": 24,
+        "flag": false,
+        "group": "Spain",
+        "invoices": 168,
+        "note": "",
+        "rate": 0.1429,
+        "ratio_to_overall": 0.905
+      },
+      {
+        "ci95": [
+          0.0814,
+          0.2058
+        ],
+        "evaluable": true,
+        "events": 15,
+        "flag": false,
+        "group": "Sweden",
+        "invoices": 114,
+        "note": "",
+        "rate": 0.1316,
+        "ratio_to_overall": 0.834
+      },
+      {
+        "ci95": [
+          0.1652,
+          0.3211
+        ],
+        "evaluable": true,
+        "events": 26,
+        "flag": true,
+        "group": "Switzerland",
+        "invoices": 111,
+        "note": "",
+        "rate": 0.2342,
+        "ratio_to_overall": 1.484
+      },
+      {
+        "ci95": [
+          0.1156,
+          0.2585
+        ],
+        "evaluable": true,
+        "events": 19,
+        "flag": false,
+        "group": "Australia",
+        "invoices": 108,
+        "note": "",
+        "rate": 0.1759,
+        "ratio_to_overall": 1.115
+      },
+      {
+        "ci95": [
+          0.1334,
+          0.284
+        ],
+        "evaluable": true,
+        "events": 21,
+        "flag": false,
+        "group": "Portugal",
+        "invoices": 106,
+        "note": "",
+        "rate": 0.1981,
+        "ratio_to_overall": 1.255
+      },
+      {
+        "ci95": [
+          0.1786,
+          0.3682
+        ],
+        "evaluable": false,
+        "events": 21,
+        "flag": false,
+        "group": "Italy",
+        "invoices": 80,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.2625,
+        "ratio_to_overall": 1.663
+      },
+      {
+        "ci95": [
+          0.191,
+          0.3904
+        ],
+        "evaluable": false,
+        "events": 21,
+        "flag": false,
+        "group": "Channel Islands",
+        "invoices": 75,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.28,
+        "ratio_to_overall": 1.774
+      },
+      {
+        "ci95": [
+          0.0466,
+          0.2015
+        ],
+        "evaluable": false,
+        "events": 6,
+        "flag": false,
+        "group": "Finland",
+        "invoices": 60,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.1,
+        "ratio_to_overall": 0.634
+      },
+      {
+        "ci95": [
+          0.2594,
+          0.5119
+        ],
+        "evaluable": false,
+        "events": 20,
+        "flag": false,
+        "group": "Japan",
+        "invoices": 53,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.3774,
+        "ratio_to_overall": 2.391
+      },
+      {
+        "ci95": [
+          0.0834,
+          0.2851
+        ],
+        "evaluable": false,
+        "events": 8,
+        "flag": false,
+        "group": "Denmark",
+        "invoices": 50,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.16,
+        "ratio_to_overall": 1.014
+      },
+      {
+        "ci95": [
+          0.0359,
+          0.2116
+        ],
+        "evaluable": false,
+        "events": 4,
+        "flag": false,
+        "group": "Austria",
+        "invoices": 44,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0909,
+        "ratio_to_overall": 0.576
+      },
+      {
+        "ci95": [
+          0.0832,
+          0.306
+        ],
+        "evaluable": false,
+        "events": 7,
+        "flag": false,
+        "group": "Cyprus",
+        "invoices": 42,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.1667,
+        "ratio_to_overall": 1.056
+      },
+      {
+        "ci95": [
+          0.0135,
+          0.1614
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Norway",
+        "invoices": 41,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0488,
+        "ratio_to_overall": 0.309
+      },
+      {
+        "ci95": [
+          0.1497,
+          0.4201
+        ],
+        "evaluable": false,
+        "events": 10,
+        "flag": false,
+        "group": "Poland",
+        "invoices": 38,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.2632,
+        "ratio_to_overall": 1.667
+      },
+      {
+        "ci95": [
+          0.0214,
+          0.2414
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Unspecified",
+        "invoices": 26,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0769,
+        "ratio_to_overall": 0.487
+      },
+      {
+        "ci95": [
+          0.1063,
+          0.4509
+        ],
+        "evaluable": false,
+        "events": 5,
+        "flag": false,
+        "group": "USA",
+        "invoices": 21,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.2381,
+        "ratio_to_overall": 1.508
+      },
+      {
+        "ci95": [
+          0.0279,
+          0.301
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Greece",
+        "invoices": 20,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.1,
+        "ratio_to_overall": 0.634
+      },
+      {
+        "ci95": [
+          0.1328,
+          0.5313
+        ],
+        "evaluable": false,
+        "events": 5,
+        "flag": false,
+        "group": "United Arab Emirates",
+        "invoices": 17,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.2941,
+        "ratio_to_overall": 1.863
+      },
+      {
+        "ci95": [
+          0.047,
+          0.448
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Bahrain",
+        "invoices": 12,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.1667,
+        "ratio_to_overall": 1.056
+      },
+      {
+        "ci95": [
+          0.0162,
+          0.3774
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Israel",
+        "invoices": 11,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0909,
+        "ratio_to_overall": 0.576
+      },
+      {
+        "ci95": [
+          0.1517,
+          0.6462
+        ],
+        "evaluable": false,
+        "events": 4,
+        "flag": false,
+        "group": "Malta",
+        "invoices": 11,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.3636,
+        "ratio_to_overall": 2.304
+      },
+      {
+        "ci95": [
+          0.0179,
+          0.4042
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Hong Kong",
+        "invoices": 10,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.1,
+        "ratio_to_overall": 0.634
+      },
+      {
+        "ci95": [
+          0.0,
+          0.3244
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Iceland",
+        "invoices": 8,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.3244
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Singapore",
+        "invoices": 8,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.3543
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Canada",
+        "invoices": 7,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.3903
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Lithuania",
+        "invoices": 6,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.15,
+          0.85
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Czech Republic",
+        "invoices": 4,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.5,
+        "ratio_to_overall": 3.168
+      },
+      {
+        "ci95": [
+          0.0456,
+          0.6994
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "European Community",
+        "invoices": 4,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.25,
+        "ratio_to_overall": 1.584
+      },
+      {
+        "ci95": [
+          0.0615,
+          0.7923
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Korea",
+        "invoices": 3,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.3333,
+        "ratio_to_overall": 2.112
+      },
+      {
+        "ci95": [
+          0.0,
+          0.5615
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "RSA",
+        "invoices": 3,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.6576
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Brazil",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.6576
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Lebanon",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0945,
+          0.9055
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Nigeria",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.5,
+        "ratio_to_overall": 3.168
+      },
+      {
+        "ci95": [
+          0.0945,
+          0.9055
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Saudi Arabia",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.5,
+        "ratio_to_overall": 3.168
+      },
+      {
+        "ci95": [
+          0.0,
+          0.6576
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Thailand",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.7935
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Bermuda",
+        "invoices": 1,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.0,
+          0.7935
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "West Indies",
+        "invoices": 1,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      }
+    ],
+    "by_identification": [
+      {
+        "ci95": [
+          0.1625,
+          0.1695
+        ],
+        "evaluable": true,
+        "events": 7283,
+        "flag": false,
+        "group": "identified",
+        "invoices": 43877,
+        "note": "",
+        "rate": 0.166,
+        "ratio_to_overall": 1.052
+      },
+      {
+        "ci95": [
+          0.034,
+          0.048
+        ],
+        "evaluable": true,
+        "events": 123,
+        "flag": true,
+        "group": "unidentified",
+        "invoices": 3045,
+        "note": "",
+        "rate": 0.0404,
+        "ratio_to_overall": 0.256
+      }
+    ],
+    "by_month": [
+      {
+        "ci95": [
+          0.1543,
+          0.1799
+        ],
+        "evaluable": true,
+        "events": 544,
+        "flag": false,
+        "group": "2010-11",
+        "invoices": 3263,
+        "note": "",
+        "rate": 0.1667,
+        "ratio_to_overall": 1.056
+      },
+      {
+        "ci95": [
+          0.1147,
+          0.1379
+        ],
+        "evaluable": true,
+        "events": 396,
+        "flag": true,
+        "group": "2011-11",
+        "invoices": 3147,
+        "note": "",
+        "rate": 0.1258,
+        "ratio_to_overall": 0.797
+      },
+      {
+        "ci95": [
+          0.14,
+          0.1674
+        ],
+        "evaluable": true,
+        "events": 406,
+        "flag": false,
+        "group": "2010-10",
+        "invoices": 2650,
+        "note": "",
+        "rate": 0.1532,
+        "ratio_to_overall": 0.971
+      },
+      {
+        "ci95": [
+          0.1199,
+          0.1476
+        ],
+        "evaluable": true,
+        "events": 308,
+        "flag": false,
+        "group": "2011-10",
+        "invoices": 2313,
+        "note": "",
+        "rate": 0.1332,
+        "ratio_to_overall": 0.844
+      },
+      {
+        "ci95": [
+          0.1271,
+          0.1567
+        ],
+        "evaluable": true,
+        "events": 299,
+        "flag": false,
+        "group": "2011-09",
+        "invoices": 2117,
+        "note": "",
+        "rate": 0.1412,
+        "ratio_to_overall": 0.895
+      },
+      {
+        "ci95": [
+          0.1367,
+          0.1673
+        ],
+        "evaluable": true,
+        "events": 319,
+        "flag": false,
+        "group": "2010-09",
+        "invoices": 2108,
+        "note": "",
+        "rate": 0.1513,
+        "ratio_to_overall": 0.959
+      },
+      {
+        "ci95": [
+          0.1691,
+          0.2028
+        ],
+        "evaluable": true,
+        "events": 379,
+        "flag": false,
+        "group": "2009-12",
+        "invoices": 2045,
+        "note": "",
+        "rate": 0.1853,
+        "ratio_to_overall": 1.174
+      },
+      {
+        "ci95": [
+          0.1596,
+          0.193
+        ],
+        "evaluable": true,
+        "events": 351,
+        "flag": false,
+        "group": "2010-03",
+        "invoices": 1998,
+        "note": "",
+        "rate": 0.1757,
+        "ratio_to_overall": 1.113
+      },
+      {
+        "ci95": [
+          0.1233,
+          0.1541
+        ],
+        "evaluable": true,
+        "events": 267,
+        "flag": false,
+        "group": "2011-05",
+        "invoices": 1935,
+        "note": "",
+        "rate": 0.138,
+        "ratio_to_overall": 0.874
+      },
+      {
+        "ci95": [
+          0.1493,
+          0.1824
+        ],
+        "evaluable": true,
+        "events": 319,
+        "flag": false,
+        "group": "2010-06",
+        "invoices": 1931,
+        "note": "",
+        "rate": 0.1652,
+        "ratio_to_overall": 1.047
+      },
+      {
+        "ci95": [
+          0.1891,
+          0.2258
+        ],
+        "evaluable": true,
+        "events": 387,
+        "flag": true,
+        "group": "2010-05",
+        "invoices": 1871,
+        "note": "",
+        "rate": 0.2068,
+        "ratio_to_overall": 1.31
+      },
+      {
+        "ci95": [
+          0.1465,
+          0.1801
+        ],
+        "evaluable": true,
+        "events": 301,
+        "flag": false,
+        "group": "2010-12",
+        "invoices": 1851,
+        "note": "",
+        "rate": 0.1626,
+        "ratio_to_overall": 1.03
+      },
+      {
+        "ci95": [
+          0.1476,
+          0.1816
+        ],
+        "evaluable": true,
+        "events": 299,
+        "flag": false,
+        "group": "2011-06",
+        "invoices": 1824,
+        "note": "",
+        "rate": 0.1639,
+        "ratio_to_overall": 1.039
+      },
+      {
+        "ci95": [
+          0.1558,
+          0.1905
+        ],
+        "evaluable": true,
+        "events": 314,
+        "flag": false,
+        "group": "2010-07",
+        "invoices": 1821,
+        "note": "",
+        "rate": 0.1724,
+        "ratio_to_overall": 1.092
+      },
+      {
+        "ci95": [
+          0.1466,
+          0.1815
+        ],
+        "evaluable": true,
+        "events": 281,
+        "flag": false,
+        "group": "2011-03",
+        "invoices": 1721,
+        "note": "",
+        "rate": 0.1633,
+        "ratio_to_overall": 1.034
+      },
+      {
+        "ci95": [
+          0.1385,
+          0.1729
+        ],
+        "evaluable": true,
+        "events": 263,
+        "flag": false,
+        "group": "2010-04",
+        "invoices": 1698,
+        "note": "",
+        "rate": 0.1549,
+        "ratio_to_overall": 0.981
+      },
+      {
+        "ci95": [
+          0.1241,
+          0.1572
+        ],
+        "evaluable": true,
+        "events": 236,
+        "flag": false,
+        "group": "2011-07",
+        "invoices": 1688,
+        "note": "",
+        "rate": 0.1398,
+        "ratio_to_overall": 0.886
+      },
+      {
+        "ci95": [
+          0.1309,
+          0.1652
+        ],
+        "evaluable": true,
+        "events": 242,
+        "flag": false,
+        "group": "2010-08",
+        "invoices": 1644,
+        "note": "",
+        "rate": 0.1472,
+        "ratio_to_overall": 0.933
+      },
+      {
+        "ci95": [
+          0.1351,
+          0.1705
+        ],
+        "evaluable": true,
+        "events": 240,
+        "flag": false,
+        "group": "2011-08",
+        "invoices": 1579,
+        "note": "",
+        "rate": 0.152,
+        "ratio_to_overall": 0.963
+      },
+      {
+        "ci95": [
+          0.1337,
+          0.1705
+        ],
+        "evaluable": true,
+        "events": 220,
+        "flag": false,
+        "group": "2011-04",
+        "invoices": 1455,
+        "note": "",
+        "rate": 0.1512,
+        "ratio_to_overall": 0.958
+      },
+      {
+        "ci95": [
+          0.1375,
+          0.1754
+        ],
+        "evaluable": true,
+        "events": 219,
+        "flag": false,
+        "group": "2010-02",
+        "invoices": 1408,
+        "note": "",
+        "rate": 0.1555,
+        "ratio_to_overall": 0.985
+      },
+      {
+        "ci95": [
+          0.166,
+          0.2078
+        ],
+        "evaluable": true,
+        "events": 247,
+        "flag": false,
+        "group": "2011-01",
+        "invoices": 1328,
+        "note": "",
+        "rate": 0.186,
+        "ratio_to_overall": 1.178
+      },
+      {
+        "ci95": [
+          0.1665,
+          0.209
+        ],
+        "evaluable": true,
+        "events": 241,
+        "flag": false,
+        "group": "2010-01",
+        "invoices": 1290,
+        "note": "",
+        "rate": 0.1868,
+        "ratio_to_overall": 1.184
+      },
+      {
+        "ci95": [
+          0.1303,
+          0.1693
+        ],
+        "evaluable": true,
+        "events": 191,
+        "flag": false,
+        "group": "2011-02",
+        "invoices": 1284,
+        "note": "",
+        "rate": 0.1488,
+        "ratio_to_overall": 0.942
+      },
+      {
+        "ci95": [
+          0.1229,
+          0.1675
+        ],
+        "evaluable": true,
+        "events": 137,
+        "flag": false,
+        "group": "2011-12",
+        "invoices": 953,
+        "note": "",
+        "rate": 0.1438,
+        "ratio_to_overall": 0.911
+      }
+    ],
+    "cancellations_with_original_invoice_in_data": "0% of cancellation invoice numbers match any other invoice number (verified in profiling); cancellations cannot be linked to the sale they reverse.",
+    "overall_invoice_rate": 0.1578
+  },
+  "cleaning_impact": {
+    "by_country": [
+      {
+        "country": "United Kingdom",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 49108,
+        "raw_lines": 981330,
+        "removal_rate": 0.0314,
+        "retained_lines": 950526,
+        "share_ratio": 1.001
+      },
+      {
+        "country": "EIRE",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 806,
+        "raw_lines": 17866,
+        "removal_rate": 0.0259,
+        "retained_lines": 17404,
+        "share_ratio": 1.006
+      },
+      {
+        "country": "Germany",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 1095,
+        "raw_lines": 17624,
+        "removal_rate": 0.0536,
+        "retained_lines": 16679,
+        "share_ratio": 0.978
+      },
+      {
+        "country": "France",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 746,
+        "raw_lines": 14330,
+        "removal_rate": 0.0539,
+        "retained_lines": 13557,
+        "share_ratio": 0.977
+      },
+      {
+        "country": "Netherlands",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 250,
+        "raw_lines": 5140,
+        "removal_rate": 0.0239,
+        "retained_lines": 5017,
+        "share_ratio": 1.008
+      },
+      {
+        "country": "Spain",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 188,
+        "raw_lines": 3811,
+        "removal_rate": 0.0415,
+        "retained_lines": 3653,
+        "share_ratio": 0.99
+      },
+      {
+        "country": "Switzerland",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 123,
+        "raw_lines": 3189,
+        "removal_rate": 0.0204,
+        "retained_lines": 3124,
+        "share_ratio": 1.012
+      },
+      {
+        "country": "Belgium",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 183,
+        "raw_lines": 3123,
+        "removal_rate": 0.0519,
+        "retained_lines": 2961,
+        "share_ratio": 0.98
+      },
+      {
+        "country": "Portugal",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 124,
+        "raw_lines": 2620,
+        "removal_rate": 0.0569,
+        "retained_lines": 2471,
+        "share_ratio": 0.974
+      },
+      {
+        "country": "Australia",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 117,
+        "raw_lines": 1913,
+        "removal_rate": 0.0178,
+        "retained_lines": 1879,
+        "share_ratio": 1.015
+      },
+      {
+        "country": "Channel Islands",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 79,
+        "raw_lines": 1664,
+        "removal_rate": 0.0168,
+        "retained_lines": 1636,
+        "share_ratio": 1.016
+      },
+      {
+        "country": "Italy",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 92,
+        "raw_lines": 1534,
+        "removal_rate": 0.0404,
+        "retained_lines": 1472,
+        "share_ratio": 0.991
+      },
+      {
+        "country": "Norway",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 53,
+        "raw_lines": 1455,
+        "removal_rate": 0.1244,
+        "retained_lines": 1274,
+        "share_ratio": 0.905
+      },
+      {
+        "country": "Sweden",
+        "evaluable": true,
+        "flag": false,
+        "raw_invoices": 129,
+        "raw_lines": 1364,
+        "removal_rate": 0.044,
+        "retained_lines": 1304,
+        "share_ratio": 0.988
+      },
+      {
+        "country": "Cyprus",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 45,
+        "raw_lines": 1176,
+        "removal_rate": 0.0043,
+        "retained_lines": 1171,
+        "share_ratio": 1.029
+      },
+      {
+        "country": "Finland",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 68,
+        "raw_lines": 1049,
+        "removal_rate": 0.0505,
+        "retained_lines": 996,
+        "share_ratio": 0.981
+      },
+      {
+        "country": "Austria",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 51,
+        "raw_lines": 938,
+        "removal_rate": 0.0394,
+        "retained_lines": 901,
+        "share_ratio": 0.992
+      },
+      {
+        "country": "Denmark",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 53,
+        "raw_lines": 817,
+        "removal_rate": 0.0539,
+        "retained_lines": 773,
+        "share_ratio": 0.978
+      },
+      {
+        "country": "Unspecified",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 28,
+        "raw_lines": 756,
+        "removal_rate": 0.0026,
+        "retained_lines": 754,
+        "share_ratio": 1.03
+      },
+      {
+        "country": "Greece",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 21,
+        "raw_lines": 663,
+        "removal_rate": 0.0075,
+        "retained_lines": 658,
+        "share_ratio": 1.025
+      },
+      {
+        "country": "Japan",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 56,
+        "raw_lines": 582,
+        "removal_rate": 0.0361,
+        "retained_lines": 561,
+        "share_ratio": 0.996
+      },
+      {
+        "country": "USA",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 25,
+        "raw_lines": 535,
+        "removal_rate": 0.0093,
+        "retained_lines": 530,
+        "share_ratio": 1.024
+      },
+      {
+        "country": "Poland",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 38,
+        "raw_lines": 535,
+        "removal_rate": 0.0262,
+        "retained_lines": 521,
+        "share_ratio": 1.006
+      },
+      {
+        "country": "United Arab Emirates",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 22,
+        "raw_lines": 500,
+        "removal_rate": 0.012,
+        "retained_lines": 494,
+        "share_ratio": 1.021
+      },
+      {
+        "country": "Israel",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 11,
+        "raw_lines": 371,
+        "removal_rate": 0.0,
+        "retained_lines": 371,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "Hong Kong",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 21,
+        "raw_lines": 364,
+        "removal_rate": 0.033,
+        "retained_lines": 352,
+        "share_ratio": 0.999
+      },
+      {
+        "country": "Singapore",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 14,
+        "raw_lines": 346,
+        "removal_rate": 0.0405,
+        "retained_lines": 332,
+        "share_ratio": 0.991
+      },
+      {
+        "country": "Malta",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 16,
+        "raw_lines": 299,
+        "removal_rate": 0.0268,
+        "retained_lines": 291,
+        "share_ratio": 1.006
+      },
+      {
+        "country": "Iceland",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 8,
+        "raw_lines": 253,
+        "removal_rate": 0.1225,
+        "retained_lines": 222,
+        "share_ratio": 0.907
+      },
+      {
+        "country": "Canada",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 8,
+        "raw_lines": 228,
+        "removal_rate": 0.0044,
+        "retained_lines": 227,
+        "share_ratio": 1.029
+      },
+      {
+        "country": "Lithuania",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 6,
+        "raw_lines": 189,
+        "removal_rate": 0.1852,
+        "retained_lines": 154,
+        "share_ratio": 0.842
+      },
+      {
+        "country": "RSA",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 5,
+        "raw_lines": 169,
+        "removal_rate": 0.0178,
+        "retained_lines": 166,
+        "share_ratio": 1.015
+      },
+      {
+        "country": "Bahrain",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 12,
+        "raw_lines": 126,
+        "removal_rate": 0.0,
+        "retained_lines": 126,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "Brazil",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 2,
+        "raw_lines": 94,
+        "removal_rate": 0.0,
+        "retained_lines": 94,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "Thailand",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 2,
+        "raw_lines": 76,
+        "removal_rate": 0.0,
+        "retained_lines": 76,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "Korea",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 3,
+        "raw_lines": 63,
+        "removal_rate": 0.0,
+        "retained_lines": 63,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "European Community",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 5,
+        "raw_lines": 61,
+        "removal_rate": 0.0492,
+        "retained_lines": 58,
+        "share_ratio": 0.982
+      },
+      {
+        "country": "Lebanon",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 3,
+        "raw_lines": 58,
+        "removal_rate": 0.0172,
+        "retained_lines": 57,
+        "share_ratio": 1.015
+      },
+      {
+        "country": "West Indies",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 1,
+        "raw_lines": 54,
+        "removal_rate": 0.0,
+        "retained_lines": 54,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "Bermuda",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 1,
+        "raw_lines": 34,
+        "removal_rate": 0.0,
+        "retained_lines": 34,
+        "share_ratio": 1.033
+      },
+      {
+        "country": "Nigeria",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 3,
+        "raw_lines": 32,
+        "removal_rate": 0.0312,
+        "retained_lines": 31,
+        "share_ratio": 1.001
+      },
+      {
+        "country": "Czech Republic",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 5,
+        "raw_lines": 30,
+        "removal_rate": 0.0667,
+        "retained_lines": 28,
+        "share_ratio": 0.964
+      },
+      {
+        "country": "Saudi Arabia",
+        "evaluable": false,
+        "flag": false,
+        "raw_invoices": 2,
+        "raw_lines": 10,
+        "removal_rate": 0.0,
+        "retained_lines": 10,
+        "share_ratio": 1.033
+      }
+    ],
+    "countries_flagged": [],
+    "overall_removal_rate": 0.0321,
+    "removal_by_reason": {
+      "EXC_DUP_OVERLAP": 22523,
+      "EXC_NON_MERCHANDISE": 5813,
+      "QRN_STOCK_ADJUSTMENT": 3391,
+      "QRN_ZERO_PRICE": 2582
+    },
+    "removal_rate_by_identification": {
+      "identified": 0.0225,
+      "unidentified": 0.065
+    }
+  },
+  "country_representation": {
+    "countries_small_cell": 20,
+    "countries_thin": 39,
+    "effective_number_of_countries": 1.2,
+    "hhi_invoices": 0.8322,
+    "n_countries": 43,
+    "small_cell_countries": [
+      "EIRE",
+      "United Arab Emirates",
+      "Israel",
+      "Hong Kong",
+      "Singapore",
+      "Malta",
+      "Iceland",
+      "RSA",
+      "Lithuania",
+      "Bahrain",
+      "Brazil",
+      "Thailand",
+      "Korea",
+      "European Community",
+      "Lebanon",
+      "West Indies",
+      "Bermuda",
+      "Nigeria",
+      "Czech Republic",
+      "Saudi Arabia"
+    ],
+    "table": [
+      {
+        "country": "United Kingdom",
+        "dominant": true,
+        "gross_sales_revenue": 16856330.956,
+        "identified_customers": 5357,
+        "invoices": 42779,
+        "lines": 950526,
+        "share_identified_customers": 0.91,
+        "share_invoices": 0.9117,
+        "share_lines": 0.9201,
+        "share_revenue": 0.8556,
+        "small_cell": false,
+        "thin": false
+      },
+      {
+        "country": "EIRE",
+        "dominant": false,
+        "gross_sales_revenue": 623795.85,
+        "identified_customers": 3,
+        "invoices": 727,
+        "lines": 17404,
+        "share_identified_customers": 0.0005,
+        "share_invoices": 0.0155,
+        "share_lines": 0.0168,
+        "share_revenue": 0.0317,
+        "small_cell": true,
+        "thin": false
+      },
+      {
+        "country": "Germany",
+        "dominant": false,
+        "gross_sales_revenue": 383847.671,
+        "identified_customers": 107,
+        "invoices": 1035,
+        "lines": 16679,
+        "share_identified_customers": 0.0182,
+        "share_invoices": 0.0221,
+        "share_lines": 0.0161,
+        "share_revenue": 0.0195,
+        "small_cell": false,
+        "thin": false
+      },
+      {
+        "country": "France",
+        "dominant": false,
+        "gross_sales_revenue": 311288.38,
+        "identified_customers": 93,
+        "invoices": 709,
+        "lines": 13557,
+        "share_identified_customers": 0.0158,
+        "share_invoices": 0.0151,
+        "share_lines": 0.0131,
+        "share_revenue": 0.0158,
+        "small_cell": false,
+        "thin": false
+      },
+      {
+        "country": "Netherlands",
+        "dominant": false,
+        "gross_sales_revenue": 549775.06,
+        "identified_customers": 22,
+        "invoices": 227,
+        "lines": 5017,
+        "share_identified_customers": 0.0037,
+        "share_invoices": 0.0048,
+        "share_lines": 0.0049,
+        "share_revenue": 0.0279,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Spain",
+        "dominant": false,
+        "gross_sales_revenue": 97818.07,
+        "identified_customers": 38,
+        "invoices": 168,
+        "lines": 3653,
+        "share_identified_customers": 0.0065,
+        "share_invoices": 0.0036,
+        "share_lines": 0.0035,
+        "share_revenue": 0.005,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Switzerland",
+        "dominant": false,
+        "gross_sales_revenue": 94046.89,
+        "identified_customers": 22,
+        "invoices": 111,
+        "lines": 3124,
+        "share_identified_customers": 0.0037,
+        "share_invoices": 0.0024,
+        "share_lines": 0.003,
+        "share_revenue": 0.0048,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Belgium",
+        "dominant": false,
+        "gross_sales_revenue": 57012.67,
+        "identified_customers": 29,
+        "invoices": 172,
+        "lines": 2961,
+        "share_identified_customers": 0.0049,
+        "share_invoices": 0.0037,
+        "share_lines": 0.0029,
+        "share_revenue": 0.0029,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Portugal",
+        "dominant": false,
+        "gross_sales_revenue": 47406.87,
+        "identified_customers": 23,
+        "invoices": 106,
+        "lines": 2471,
+        "share_identified_customers": 0.0039,
+        "share_invoices": 0.0023,
+        "share_lines": 0.0024,
+        "share_revenue": 0.0024,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Australia",
+        "dominant": false,
+        "gross_sales_revenue": 167867.51,
+        "identified_customers": 15,
+        "invoices": 108,
+        "lines": 1879,
+        "share_identified_customers": 0.0025,
+        "share_invoices": 0.0023,
+        "share_lines": 0.0018,
+        "share_revenue": 0.0085,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Channel Islands",
+        "dominant": false,
+        "gross_sales_revenue": 44040.23,
+        "identified_customers": 13,
+        "invoices": 75,
+        "lines": 1636,
+        "share_identified_customers": 0.0022,
+        "share_invoices": 0.0016,
+        "share_lines": 0.0016,
+        "share_revenue": 0.0022,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Italy",
+        "dominant": false,
+        "gross_sales_revenue": 28951.95,
+        "identified_customers": 17,
+        "invoices": 80,
+        "lines": 1472,
+        "share_identified_customers": 0.0029,
+        "share_invoices": 0.0017,
+        "share_lines": 0.0014,
+        "share_revenue": 0.0015,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Sweden",
+        "dominant": false,
+        "gross_sales_revenue": 86353.04,
+        "identified_customers": 19,
+        "invoices": 114,
+        "lines": 1304,
+        "share_identified_customers": 0.0032,
+        "share_invoices": 0.0024,
+        "share_lines": 0.0013,
+        "share_revenue": 0.0044,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Norway",
+        "dominant": false,
+        "gross_sales_revenue": 38575.36,
+        "identified_customers": 12,
+        "invoices": 41,
+        "lines": 1274,
+        "share_identified_customers": 0.002,
+        "share_invoices": 0.0009,
+        "share_lines": 0.0012,
+        "share_revenue": 0.002,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Cyprus",
+        "dominant": false,
+        "gross_sales_revenue": 24614.44,
+        "identified_customers": 11,
+        "invoices": 42,
+        "lines": 1171,
+        "share_identified_customers": 0.0019,
+        "share_invoices": 0.0009,
+        "share_lines": 0.0011,
+        "share_revenue": 0.0012,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Finland",
+        "dominant": false,
+        "gross_sales_revenue": 25180.1,
+        "identified_customers": 13,
+        "invoices": 60,
+        "lines": 996,
+        "share_identified_customers": 0.0022,
+        "share_invoices": 0.0013,
+        "share_lines": 0.001,
+        "share_revenue": 0.0013,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Austria",
+        "dominant": false,
+        "gross_sales_revenue": 20297.01,
+        "identified_customers": 13,
+        "invoices": 44,
+        "lines": 901,
+        "share_identified_customers": 0.0022,
+        "share_invoices": 0.0009,
+        "share_lines": 0.0009,
+        "share_revenue": 0.001,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Denmark",
+        "dominant": false,
+        "gross_sales_revenue": 67422.69,
+        "identified_customers": 12,
+        "invoices": 50,
+        "lines": 773,
+        "share_identified_customers": 0.002,
+        "share_invoices": 0.0011,
+        "share_lines": 0.0007,
+        "share_revenue": 0.0034,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Unspecified",
+        "dominant": false,
+        "gross_sales_revenue": 10936.01,
+        "identified_customers": 6,
+        "invoices": 26,
+        "lines": 754,
+        "share_identified_customers": 0.001,
+        "share_invoices": 0.0006,
+        "share_lines": 0.0007,
+        "share_revenue": 0.0006,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Greece",
+        "dominant": false,
+        "gross_sales_revenue": 18711.19,
+        "identified_customers": 5,
+        "invoices": 20,
+        "lines": 658,
+        "share_identified_customers": 0.0008,
+        "share_invoices": 0.0004,
+        "share_lines": 0.0006,
+        "share_revenue": 0.0009,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Japan",
+        "dominant": false,
+        "gross_sales_revenue": 43023.91,
+        "identified_customers": 10,
+        "invoices": 53,
+        "lines": 561,
+        "share_identified_customers": 0.0017,
+        "share_invoices": 0.0011,
+        "share_lines": 0.0005,
+        "share_revenue": 0.0022,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "USA",
+        "dominant": false,
+        "gross_sales_revenue": 7920.01,
+        "identified_customers": 8,
+        "invoices": 21,
+        "lines": 530,
+        "share_identified_customers": 0.0014,
+        "share_invoices": 0.0004,
+        "share_lines": 0.0005,
+        "share_revenue": 0.0004,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Poland",
+        "dominant": false,
+        "gross_sales_revenue": 10214.29,
+        "identified_customers": 6,
+        "invoices": 38,
+        "lines": 521,
+        "share_identified_customers": 0.001,
+        "share_invoices": 0.0008,
+        "share_lines": 0.0005,
+        "share_revenue": 0.0005,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "United Arab Emirates",
+        "dominant": false,
+        "gross_sales_revenue": 10273.23,
+        "identified_customers": 4,
+        "invoices": 17,
+        "lines": 494,
+        "share_identified_customers": 0.0007,
+        "share_invoices": 0.0004,
+        "share_lines": 0.0005,
+        "share_revenue": 0.0005,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Israel",
+        "dominant": false,
+        "gross_sales_revenue": 11334.66,
+        "identified_customers": 4,
+        "invoices": 11,
+        "lines": 371,
+        "share_identified_customers": 0.0007,
+        "share_invoices": 0.0002,
+        "share_lines": 0.0004,
+        "share_revenue": 0.0006,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Hong Kong",
+        "dominant": false,
+        "gross_sales_revenue": 13875.25,
+        "identified_customers": 0,
+        "invoices": 10,
+        "lines": 352,
+        "share_identified_customers": 0.0,
+        "share_invoices": 0.0002,
+        "share_lines": 0.0003,
+        "share_revenue": 0.0007,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Singapore",
+        "dominant": false,
+        "gross_sales_revenue": 13158.16,
+        "identified_customers": 1,
+        "invoices": 8,
+        "lines": 332,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0002,
+        "share_lines": 0.0003,
+        "share_revenue": 0.0007,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Malta",
+        "dominant": false,
+        "gross_sales_revenue": 4757.34,
+        "identified_customers": 2,
+        "invoices": 11,
+        "lines": 291,
+        "share_identified_customers": 0.0003,
+        "share_invoices": 0.0002,
+        "share_lines": 0.0003,
+        "share_revenue": 0.0002,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Canada",
+        "dominant": false,
+        "gross_sales_revenue": 4332.1,
+        "identified_customers": 5,
+        "invoices": 7,
+        "lines": 227,
+        "share_identified_customers": 0.0008,
+        "share_invoices": 0.0001,
+        "share_lines": 0.0002,
+        "share_revenue": 0.0002,
+        "small_cell": false,
+        "thin": true
+      },
+      {
+        "country": "Iceland",
+        "dominant": false,
+        "gross_sales_revenue": 4921.53,
+        "identified_customers": 1,
+        "invoices": 8,
+        "lines": 222,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0002,
+        "share_lines": 0.0002,
+        "share_revenue": 0.0002,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "RSA",
+        "dominant": false,
+        "gross_sales_revenue": 3369.03,
+        "identified_customers": 2,
+        "invoices": 3,
+        "lines": 166,
+        "share_identified_customers": 0.0003,
+        "share_invoices": 0.0001,
+        "share_lines": 0.0002,
+        "share_revenue": 0.0002,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Lithuania",
+        "dominant": false,
+        "gross_sales_revenue": 4892.68,
+        "identified_customers": 1,
+        "invoices": 6,
+        "lines": 154,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0001,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0002,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Bahrain",
+        "dominant": false,
+        "gross_sales_revenue": 3109.79,
+        "identified_customers": 2,
+        "invoices": 12,
+        "lines": 126,
+        "share_identified_customers": 0.0003,
+        "share_invoices": 0.0003,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0002,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Brazil",
+        "dominant": false,
+        "gross_sales_revenue": 1411.87,
+        "identified_customers": 2,
+        "invoices": 2,
+        "lines": 94,
+        "share_identified_customers": 0.0003,
+        "share_invoices": 0.0,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0001,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Thailand",
+        "dominant": false,
+        "gross_sales_revenue": 3070.54,
+        "identified_customers": 1,
+        "invoices": 2,
+        "lines": 76,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0002,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Korea",
+        "dominant": false,
+        "gross_sales_revenue": 1118.51,
+        "identified_customers": 2,
+        "invoices": 3,
+        "lines": 63,
+        "share_identified_customers": 0.0003,
+        "share_invoices": 0.0001,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0001,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "European Community",
+        "dominant": false,
+        "gross_sales_revenue": 1159.25,
+        "identified_customers": 1,
+        "invoices": 4,
+        "lines": 58,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0001,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0001,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Lebanon",
+        "dominant": false,
+        "gross_sales_revenue": 1905.58,
+        "identified_customers": 1,
+        "invoices": 2,
+        "lines": 57,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0001,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "West Indies",
+        "dominant": false,
+        "gross_sales_revenue": 536.41,
+        "identified_customers": 1,
+        "invoices": 1,
+        "lines": 54,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0,
+        "share_lines": 0.0001,
+        "share_revenue": 0.0,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Bermuda",
+        "dominant": false,
+        "gross_sales_revenue": 1253.14,
+        "identified_customers": 0,
+        "invoices": 1,
+        "lines": 34,
+        "share_identified_customers": 0.0,
+        "share_invoices": 0.0,
+        "share_lines": 0.0,
+        "share_revenue": 0.0001,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Nigeria",
+        "dominant": false,
+        "gross_sales_revenue": 112.57,
+        "identified_customers": 1,
+        "invoices": 2,
+        "lines": 31,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0,
+        "share_lines": 0.0,
+        "share_revenue": 0.0,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Czech Republic",
+        "dominant": false,
+        "gross_sales_revenue": 786.74,
+        "identified_customers": 1,
+        "invoices": 4,
+        "lines": 28,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0001,
+        "share_lines": 0.0,
+        "share_revenue": 0.0,
+        "small_cell": true,
+        "thin": true
+      },
+      {
+        "country": "Saudi Arabia",
+        "dominant": false,
+        "gross_sales_revenue": 145.92,
+        "identified_customers": 1,
+        "invoices": 2,
+        "lines": 10,
+        "share_identified_customers": 0.0002,
+        "share_invoices": 0.0,
+        "share_lines": 0.0,
+        "share_revenue": 0.0,
+        "small_cell": true,
+        "thin": true
+      }
+    ],
+    "top1_country": "United Kingdom",
+    "top1_share_lines": 0.9201,
+    "top1_share_revenue": 0.8556,
+    "top3_share_lines": 0.9531
+  },
+  "customer_identification_coverage": {
+    "by_cancellation": [
+      {
+        "ci95": [
+          0.9234,
+          0.9286
+        ],
+        "evaluable": true,
+        "events": 36594,
+        "flag": false,
+        "group": "sale",
+        "invoices": 39516,
+        "note": "",
+        "rate": 0.9261,
+        "ratio_to_overall": 0.99
+      },
+      {
+        "ci95": [
+          0.9802,
+          0.9861
+        ],
+        "evaluable": true,
+        "events": 7283,
+        "flag": false,
+        "group": "cancellation",
+        "invoices": 7406,
+        "note": "",
+        "rate": 0.9834,
+        "ratio_to_overall": 1.052
+      }
+    ],
+    "by_country": [
+      {
+        "ci95": [
+          0.9292,
+          0.934
+        ],
+        "evaluable": true,
+        "events": 39853,
+        "flag": false,
+        "group": "United Kingdom",
+        "invoices": 42779,
+        "note": "",
+        "rate": 0.9316,
+        "ratio_to_overall": 0.996
+      },
+      {
+        "ci95": [
+          0.9963,
+          1.0
+        ],
+        "evaluable": true,
+        "events": 1035,
+        "flag": false,
+        "group": "Germany",
+        "invoices": 1035,
+        "note": "",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.8861,
+          0.928
+        ],
+        "evaluable": true,
+        "events": 661,
+        "flag": false,
+        "group": "EIRE",
+        "invoices": 727,
+        "note": "",
+        "rate": 0.9092,
+        "ratio_to_overall": 0.972
+      },
+      {
+        "ci95": [
+          0.9779,
+          0.9943
+        ],
+        "evaluable": true,
+        "events": 701,
+        "flag": false,
+        "group": "France",
+        "invoices": 709,
+        "note": "",
+        "rate": 0.9887,
+        "ratio_to_overall": 1.057
+      },
+      {
+        "ci95": [
+          0.9834,
+          1.0
+        ],
+        "evaluable": true,
+        "events": 227,
+        "flag": false,
+        "group": "Netherlands",
+        "invoices": 227,
+        "note": "",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9782,
+          1.0
+        ],
+        "evaluable": true,
+        "events": 172,
+        "flag": false,
+        "group": "Belgium",
+        "invoices": 172,
+        "note": "",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9776,
+          1.0
+        ],
+        "evaluable": true,
+        "events": 168,
+        "flag": false,
+        "group": "Spain",
+        "invoices": 168,
+        "note": "",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.952,
+          0.9984
+        ],
+        "evaluable": true,
+        "events": 113,
+        "flag": false,
+        "group": "Sweden",
+        "invoices": 114,
+        "note": "",
+        "rate": 0.9912,
+        "ratio_to_overall": 1.06
+      },
+      {
+        "ci95": [
+          0.9235,
+          0.9908
+        ],
+        "evaluable": true,
+        "events": 108,
+        "flag": false,
+        "group": "Switzerland",
+        "invoices": 111,
+        "note": "",
+        "rate": 0.973,
+        "ratio_to_overall": 1.04
+      },
+      {
+        "ci95": [
+          0.9657,
+          1.0
+        ],
+        "evaluable": true,
+        "events": 108,
+        "flag": false,
+        "group": "Australia",
+        "invoices": 108,
+        "note": "",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9338,
+          0.9948
+        ],
+        "evaluable": true,
+        "events": 104,
+        "flag": false,
+        "group": "Portugal",
+        "invoices": 106,
+        "note": "",
+        "rate": 0.9811,
+        "ratio_to_overall": 1.049
+      },
+      {
+        "ci95": [
+          0.9542,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 80,
+        "flag": false,
+        "group": "Italy",
+        "invoices": 80,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9513,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 75,
+        "flag": false,
+        "group": "Channel Islands",
+        "invoices": 75,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9398,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 60,
+        "flag": false,
+        "group": "Finland",
+        "invoices": 60,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9324,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 53,
+        "flag": false,
+        "group": "Japan",
+        "invoices": 53,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9286,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 50,
+        "flag": false,
+        "group": "Denmark",
+        "invoices": 50,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9197,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 44,
+        "flag": false,
+        "group": "Austria",
+        "invoices": 44,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9162,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 42,
+        "flag": false,
+        "group": "Cyprus",
+        "invoices": 42,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9143,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 41,
+        "flag": false,
+        "group": "Norway",
+        "invoices": 41,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.9082,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 38,
+        "flag": false,
+        "group": "Poland",
+        "invoices": 38,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.4622,
+          0.8059
+        ],
+        "evaluable": false,
+        "events": 17,
+        "flag": false,
+        "group": "Unspecified",
+        "invoices": 26,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.6538,
+        "ratio_to_overall": 0.699
+      },
+      {
+        "ci95": [
+          0.8454,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 21,
+        "flag": false,
+        "group": "USA",
+        "invoices": 21,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.8389,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 20,
+        "flag": false,
+        "group": "Greece",
+        "invoices": 20,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.4687,
+          0.8672
+        ],
+        "evaluable": false,
+        "events": 12,
+        "flag": false,
+        "group": "United Arab Emirates",
+        "invoices": 17,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.7059,
+        "ratio_to_overall": 0.755
+      },
+      {
+        "ci95": [
+          0.1381,
+          0.6094
+        ],
+        "evaluable": false,
+        "events": 4,
+        "flag": false,
+        "group": "Bahrain",
+        "invoices": 12,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.3333,
+        "ratio_to_overall": 0.356
+      },
+      {
+        "ci95": [
+          0.4343,
+          0.9025
+        ],
+        "evaluable": false,
+        "events": 8,
+        "flag": false,
+        "group": "Israel",
+        "invoices": 11,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.7273,
+        "ratio_to_overall": 0.778
+      },
+      {
+        "ci95": [
+          0.7412,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 11,
+        "flag": false,
+        "group": "Malta",
+        "invoices": 11,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          -0.0,
+          0.2775
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Hong Kong",
+        "invoices": 10,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.6756,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 8,
+        "flag": false,
+        "group": "Iceland",
+        "invoices": 8,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.6756,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 8,
+        "flag": false,
+        "group": "Singapore",
+        "invoices": 8,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.6457,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 7,
+        "flag": false,
+        "group": "Canada",
+        "invoices": 7,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.6097,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 6,
+        "flag": false,
+        "group": "Lithuania",
+        "invoices": 6,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.5101,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 4,
+        "flag": false,
+        "group": "Czech Republic",
+        "invoices": 4,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.5101,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 4,
+        "flag": false,
+        "group": "European Community",
+        "invoices": 4,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.4385,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 3,
+        "flag": false,
+        "group": "Korea",
+        "invoices": 3,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.2077,
+          0.9385
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "RSA",
+        "invoices": 3,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.6667,
+        "ratio_to_overall": 0.713
+      },
+      {
+        "ci95": [
+          0.3424,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Brazil",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.0945,
+          0.9055
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Lebanon",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.5,
+        "ratio_to_overall": 0.535
+      },
+      {
+        "ci95": [
+          0.0945,
+          0.9055
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "Nigeria",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.5,
+        "ratio_to_overall": 0.535
+      },
+      {
+        "ci95": [
+          0.3424,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Saudi Arabia",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.3424,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 2,
+        "flag": false,
+        "group": "Thailand",
+        "invoices": 2,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      },
+      {
+        "ci95": [
+          0.0,
+          0.7935
+        ],
+        "evaluable": false,
+        "events": 0,
+        "flag": false,
+        "group": "Bermuda",
+        "invoices": 1,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 0.0,
+        "ratio_to_overall": 0.0
+      },
+      {
+        "ci95": [
+          0.2065,
+          1.0
+        ],
+        "evaluable": false,
+        "events": 1,
+        "flag": false,
+        "group": "West Indies",
+        "invoices": 1,
+        "note": "fewer than 100 invoices: not evaluated",
+        "rate": 1.0,
+        "ratio_to_overall": 1.069
+      }
+    ],
+    "by_month": [
+      {
+        "ci95": [
+          0.9437,
+          0.9584
+        ],
+        "evaluable": true,
+        "events": 3105,
+        "flag": false,
+        "group": "2010-11",
+        "invoices": 3263,
+        "note": "",
+        "rate": 0.9516,
+        "ratio_to_overall": 1.018
+      },
+      {
+        "ci95": [
+          0.9567,
+          0.9698
+        ],
+        "evaluable": true,
+        "events": 3033,
+        "flag": false,
+        "group": "2011-11",
+        "invoices": 3147,
+        "note": "",
+        "rate": 0.9638,
+        "ratio_to_overall": 1.031
+      },
+      {
+        "ci95": [
+          0.9364,
+          0.9537
+        ],
+        "evaluable": true,
+        "events": 2506,
+        "flag": false,
+        "group": "2010-10",
+        "invoices": 2650,
+        "note": "",
+        "rate": 0.9457,
+        "ratio_to_overall": 1.011
+      },
+      {
+        "ci95": [
+          0.9453,
+          0.9624
+        ],
+        "evaluable": true,
+        "events": 2208,
+        "flag": false,
+        "group": "2011-10",
+        "invoices": 2313,
+        "note": "",
+        "rate": 0.9546,
+        "ratio_to_overall": 1.021
+      },
+      {
+        "ci95": [
+          0.9532,
+          0.9695
+        ],
+        "evaluable": true,
+        "events": 2037,
+        "flag": false,
+        "group": "2011-09",
+        "invoices": 2117,
+        "note": "",
+        "rate": 0.9622,
+        "ratio_to_overall": 1.029
+      },
+      {
+        "ci95": [
+          0.9257,
+          0.9465
+        ],
+        "evaluable": true,
+        "events": 1975,
+        "flag": false,
+        "group": "2010-09",
+        "invoices": 2108,
+        "note": "",
+        "rate": 0.9369,
+        "ratio_to_overall": 1.002
+      },
+      {
+        "ci95": [
+          0.901,
+          0.9253
+        ],
+        "evaluable": true,
+        "events": 1869,
+        "flag": false,
+        "group": "2009-12",
+        "invoices": 2045,
+        "note": "",
+        "rate": 0.9139,
+        "ratio_to_overall": 0.977
+      },
+      {
+        "ci95": [
+          0.9157,
+          0.9385
+        ],
+        "evaluable": true,
+        "events": 1854,
+        "flag": false,
+        "group": "2010-03",
+        "invoices": 1998,
+        "note": "",
+        "rate": 0.9279,
+        "ratio_to_overall": 0.992
+      },
+      {
+        "ci95": [
+          0.9224,
+          0.9446
+        ],
+        "evaluable": true,
+        "events": 1808,
+        "flag": false,
+        "group": "2011-05",
+        "invoices": 1935,
+        "note": "",
+        "rate": 0.9344,
+        "ratio_to_overall": 0.999
+      },
+      {
+        "ci95": [
+          0.9145,
+          0.9378
+        ],
+        "evaluable": true,
+        "events": 1790,
+        "flag": false,
+        "group": "2010-06",
+        "invoices": 1931,
+        "note": "",
+        "rate": 0.927,
+        "ratio_to_overall": 0.991
+      },
+      {
+        "ci95": [
+          0.9198,
+          0.9427
+        ],
+        "evaluable": true,
+        "events": 1744,
+        "flag": false,
+        "group": "2010-05",
+        "invoices": 1871,
+        "note": "",
+        "rate": 0.9321,
+        "ratio_to_overall": 0.997
+      },
+      {
+        "ci95": [
+          0.8999,
+          0.9255
+        ],
+        "evaluable": true,
+        "events": 1691,
+        "flag": false,
+        "group": "2010-12",
+        "invoices": 1851,
+        "note": "",
+        "rate": 0.9136,
+        "ratio_to_overall": 0.977
+      },
+      {
+        "ci95": [
+          0.9113,
+          0.9356
+        ],
+        "evaluable": true,
+        "events": 1686,
+        "flag": false,
+        "group": "2011-06",
+        "invoices": 1824,
+        "note": "",
+        "rate": 0.9243,
+        "ratio_to_overall": 0.988
+      },
+      {
+        "ci95": [
+          0.9041,
+          0.9294
+        ],
+        "evaluable": true,
+        "events": 1671,
+        "flag": false,
+        "group": "2010-07",
+        "invoices": 1821,
+        "note": "",
+        "rate": 0.9176,
+        "ratio_to_overall": 0.981
+      },
+      {
+        "ci95": [
+          0.9091,
+          0.9344
+        ],
+        "evaluable": true,
+        "events": 1588,
+        "flag": false,
+        "group": "2011-03",
+        "invoices": 1721,
+        "note": "",
+        "rate": 0.9227,
+        "ratio_to_overall": 0.987
+      },
+      {
+        "ci95": [
+          0.913,
+          0.9379
+        ],
+        "evaluable": true,
+        "events": 1573,
+        "flag": false,
+        "group": "2010-04",
+        "invoices": 1698,
+        "note": "",
+        "rate": 0.9264,
+        "ratio_to_overall": 0.991
+      },
+      {
+        "ci95": [
+          0.9074,
+          0.9331
+        ],
+        "evaluable": true,
+        "events": 1555,
+        "flag": false,
+        "group": "2011-07",
+        "invoices": 1688,
+        "note": "",
+        "rate": 0.9212,
+        "ratio_to_overall": 0.985
+      },
+      {
+        "ci95": [
+          0.9036,
+          0.9302
+        ],
+        "evaluable": true,
+        "events": 1509,
+        "flag": false,
+        "group": "2010-08",
+        "invoices": 1644,
+        "note": "",
+        "rate": 0.9179,
+        "ratio_to_overall": 0.982
+      },
+      {
+        "ci95": [
+          0.9409,
+          0.9619
+        ],
+        "evaluable": true,
+        "events": 1504,
+        "flag": false,
+        "group": "2011-08",
+        "invoices": 1579,
+        "note": "",
+        "rate": 0.9525,
+        "ratio_to_overall": 1.019
+      },
+      {
+        "ci95": [
+          0.9193,
+          0.945
+        ],
+        "evaluable": true,
+        "events": 1358,
+        "flag": false,
+        "group": "2011-04",
+        "invoices": 1455,
+        "note": "",
+        "rate": 0.9333,
+        "ratio_to_overall": 0.998
+      },
+      {
+        "ci95": [
+          0.9128,
+          0.94
+        ],
+        "evaluable": true,
+        "events": 1306,
+        "flag": false,
+        "group": "2010-02",
+        "invoices": 1408,
+        "note": "",
+        "rate": 0.9276,
+        "ratio_to_overall": 0.992
+      },
+      {
+        "ci95": [
+          0.9068,
+          0.9356
+        ],
+        "evaluable": true,
+        "events": 1225,
+        "flag": false,
+        "group": "2011-01",
+        "invoices": 1328,
+        "note": "",
+        "rate": 0.9224,
+        "ratio_to_overall": 0.986
+      },
+      {
+        "ci95": [
+          0.9066,
+          0.9359
+        ],
+        "evaluable": true,
+        "events": 1190,
+        "flag": false,
+        "group": "2010-01",
+        "invoices": 1290,
+        "note": "",
+        "rate": 0.9225,
+        "ratio_to_overall": 0.986
+      },
+      {
+        "ci95": [
+          0.9028,
+          0.9327
+        ],
+        "evaluable": true,
+        "events": 1180,
+        "flag": false,
+        "group": "2011-02",
+        "invoices": 1284,
+        "note": "",
+        "rate": 0.919,
+        "ratio_to_overall": 0.983
+      },
+      {
+        "ci95": [
+          0.9422,
+          0.9681
+        ],
+        "evaluable": true,
+        "events": 912,
+        "flag": false,
+        "group": "2011-12",
+        "invoices": 953,
+        "note": "",
+        "rate": 0.957,
+        "ratio_to_overall": 1.023
+      }
+    ],
+    "identified_vs_unidentified_sales_invoices": {
+      "mean_invoice_revenue_identified": 467.97,
+      "mean_invoice_revenue_unidentified": 881.59,
+      "mean_lines_identified": 21.54,
+      "mean_lines_unidentified": 77.65
+    },
+    "overall_invoice_rate": 0.9351,
+    "overall_line_rate": 0.7801,
+    "revenue_share_unidentified": 0.1354
+  },
+  "findings": [
+    "United Kingdom accounts for 92.0% of retained lines and 85.6% of gross sales revenue; effective number of countries = 1.2 of 43.",
+    "39 of 43 countries each hold under 1% of lines; 20 have fewer than 5 identified customers.",
+    "Customer ID is present on 78.0% of retained lines and 93.5% of retained invoices (unidentified invoices are fewer but much larger); unidentified lines carry 13.5% of net revenue. Countries with flagged identification coverage: none.",
+    "Cancellation invoices are 15.8% of retained invoices. Countries with flagged cancellation rates: Germany, EIRE, Netherlands, Switzerland.",
+    "Partial reporting months: 2011-12; Q4 (Oct-Dec) holds 37.0% of gross sales revenue.",
+    "Cleaning removes 3.21% of raw lines overall; removal rate is 6.50% for unidentified-customer lines vs 2.25% for identified. Countries whose share shifts beyond the band: none."
+  ],
+  "implications": [
+    "Aggregate KPIs, forecasts and segments are dominated by the United Kingdom; non-UK results rest on thin samples and should be reported with sample sizes or grouped.",
+    "RFM, churn and lifetime-value models can only learn from identified customers; if unidentified purchasing differs, models describe a sub-population.",
+    "Two annual cycles (December three) limit seasonality estimates; the final partial month must not be compared with full months.",
+    "Cancellations cannot be linked to their original sale, so cancellation rates are invoice-level and not product-return rates."
+  ],
+  "limitations": [
+    "No external benchmark or population reference was available; reference = dataset's own overall rate and equal calendar coverage.",
+    "Country is a business attribute; no demographic attributes exist, so demographic fairness is NOT assessed.",
+    "Ratio-band thresholds are internal screening heuristics, chosen for documentation and review, not statistical or legal standards."
+  ],
+  "mitigations": [
+    "Report all KPIs with group sample sizes; apply a minimum-n rule or group small countries (e.g. 'Other') before charting or modelling.",
+    "Keep unidentified-customer transactions in revenue, product and demand analytics; restrict only customer-level models to identified customers and state this coverage.",
+    "Flag partial months (dim_date.is_partial_month) and exclude them from month-over-month growth and seasonal fitting.",
+    "Evaluate forecast and churn model errors by country group (Module 2 Fairlearn plan) once models exist; this pipeline stage only supplies the representation baseline.",
+    "Re-run this suite on every refresh and review flagged groups at the AI Ethics Committee's monthly meeting (Module 1 governance)."
+  ],
+  "scope": {
+    "group_attributes_available": [
+      "Country"
+    ],
+    "protected_characteristics_available": [],
+    "statement": "Internal representation imbalance only; no demographic fairness claim is possible from this dataset.",
+    "thresholds": {
+      "dominant_group_share": 0.5,
+      "min_group_invoices": 100,
+      "ratio_band": [
+        0.8,
+        1.25
+      ],
+      "removal_ratio_band": [
+        0.8,
+        1.25
+      ],
+      "thin_group_share": 0.01
+    }
+  },
+  "time_coverage": {
+    "calendar_month_repetitions": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 2,
+      "10": 2,
+      "11": 2,
+      "12": 3
+    },
+    "first_date": "2009-12-01",
+    "last_date": "2011-12-09",
+    "monthly": [
+      {
+        "days_observed": 21,
+        "gross_revenue": 801102.97,
+        "month": "2009-12",
+        "partial": false,
+        "sales_invoices": 1666
+      },
+      {
+        "days_observed": 24,
+        "gross_revenue": 613850.81,
+        "month": "2010-01",
+        "partial": false,
+        "sales_invoices": 1049
+      },
+      {
+        "days_observed": 24,
+        "gross_revenue": 539744.69,
+        "month": "2010-02",
+        "partial": false,
+        "sales_invoices": 1189
+      },
+      {
+        "days_observed": 27,
+        "gross_revenue": 764333.85,
+        "month": "2010-03",
+        "partial": false,
+        "sales_invoices": 1647
+      },
+      {
+        "days_observed": 23,
+        "gross_revenue": 648993.82,
+        "month": "2010-04",
+        "partial": false,
+        "sales_invoices": 1435
+      },
+      {
+        "days_observed": 24,
+        "gross_revenue": 645645.39,
+        "month": "2010-05",
+        "partial": false,
+        "sales_invoices": 1484
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 699316.02,
+        "month": "2010-06",
+        "partial": false,
+        "sales_invoices": 1612
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 634896.99,
+        "month": "2010-07",
+        "partial": false,
+        "sales_invoices": 1507
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 676060.72,
+        "month": "2010-08",
+        "partial": false,
+        "sales_invoices": 1402
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 871878.34,
+        "month": "2010-09",
+        "partial": false,
+        "sales_invoices": 1789
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 1098017.67,
+        "month": "2010-10",
+        "partial": false,
+        "sales_invoices": 2244
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 1435680.12,
+        "month": "2010-11",
+        "partial": false,
+        "sales_invoices": 2719
+      },
+      {
+        "days_observed": 20,
+        "gross_revenue": 777931.77,
+        "month": "2010-12",
+        "partial": false,
+        "sales_invoices": 1550
+      },
+      {
+        "days_observed": 24,
+        "gross_revenue": 671933.19,
+        "month": "2011-01",
+        "partial": false,
+        "sales_invoices": 1081
+      },
+      {
+        "days_observed": 24,
+        "gross_revenue": 508886.2,
+        "month": "2011-02",
+        "partial": false,
+        "sales_invoices": 1093
+      },
+      {
+        "days_observed": 27,
+        "gross_revenue": 691257.61,
+        "month": "2011-03",
+        "partial": false,
+        "sales_invoices": 1440
+      },
+      {
+        "days_observed": 21,
+        "gross_revenue": 516218.12,
+        "month": "2011-04",
+        "partial": false,
+        "sales_invoices": 1235
+      },
+      {
+        "days_observed": 25,
+        "gross_revenue": 741192.41,
+        "month": "2011-05",
+        "partial": false,
+        "sales_invoices": 1668
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 738751.87,
+        "month": "2011-06",
+        "partial": false,
+        "sales_invoices": 1525
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 689364.41,
+        "month": "2011-07",
+        "partial": false,
+        "sales_invoices": 1452
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 725513.5,
+        "month": "2011-08",
+        "partial": false,
+        "sales_invoices": 1339
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 1030475.36,
+        "month": "2011-09",
+        "partial": false,
+        "sales_invoices": 1818
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 1106669.82,
+        "month": "2011-10",
+        "partial": false,
+        "sales_invoices": 2005
+      },
+      {
+        "days_observed": 26,
+        "gross_revenue": 1457745.53,
+        "month": "2011-11",
+        "partial": false,
+        "sales_invoices": 2751
+      },
+      {
+        "days_observed": 8,
+        "gross_revenue": 615493.27,
+        "month": "2011-12",
+        "partial": true,
+        "sales_invoices": 816
+      }
+    ],
+    "months_covered_three_times": [
+      12
+    ],
+    "months_spanned": 25,
+    "note": "Only about two annual cycles are observed; seasonality estimates rest on two (December: three) repetitions.",
+    "partial_months": [
+      "2011-12"
+    ],
+    "q4_share_of_gross_revenue": 0.3702
+  }
+}
