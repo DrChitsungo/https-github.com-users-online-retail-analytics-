@@ -1,0 +1,93 @@
+{
+  "expectations": [
+    {
+      "kwargs": {
+        "column": "customer_key"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "kwargs": {
+        "column": "customer_key"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "kwargs": {
+        "column": "customer_key",
+        "regex": "^[0-9a-f]{32}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    },
+    {
+      "kwargs": {
+        "column": "frequency_invoices",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "kwargs": {
+        "column": "monetary_gross",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "kwargs": {
+        "column": "recency_days",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "kwargs": {
+        "column": "chk_first_le_last_purchase",
+        "value_set": [
+          true
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_in_set"
+    },
+    {
+      "kwargs": {
+        "column": "chk_customer_in_dim_customer",
+        "value_set": [
+          true
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_in_set"
+    },
+    {
+      "kwargs": {
+        "column": "last_purchase_date",
+        "mostly": 0.99
+      },
+      "meta": {},
+      "severity": "warning",
+      "type": "expect_column_values_to_not_be_null"
+    }
+  ],
+  "id": null,
+  "meta": {
+    "great_expectations_version": "1.24.1"
+  },
+  "name": "agg_customer_rfm_base_suite",
+  "notes": null
+}

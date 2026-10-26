@@ -1,0 +1,455 @@
+{
+ "rows": 1067371,
+ "sha": "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9",
+ "bytes": 94850204,
+ "date_min": "2009-12-01 07:45:00",
+ "date_max": "2011-12-09 12:50:00",
+ "countries": 43,
+ "distinct_customers": 5942,
+ "miss": {
+  "Invoice": 0,
+  "StockCode": 0,
+  "Description": 4382,
+  "Quantity": 0,
+  "InvoiceDate": 0,
+  "Price": 0,
+  "Customer ID": 243007,
+  "Country": 0
+ },
+ "canc_rows": 19494,
+ "canc_inv": 8292,
+ "neg_qty": 22950,
+ "neg_non_c": 3457,
+ "zero_price": 6202,
+ "neg_price": 5,
+ "nonpattern_rows": 6094,
+ "dup_extra": 34335,
+ "dup_involved": 67242,
+ "rep_inv_sku": 88585,
+ "rep_nonident": 21343,
+ "ws": 213035,
+ "multi_desc": 1212,
+ "lower_sc": 3471,
+ "disp": {
+  "rows_excluded": 28336,
+  "rows_quarantined": 5973,
+  "rows_raw": 1067371,
+  "rows_retained": 1033062
+ },
+ "reasons": {
+  "EXC_DUP_OVERLAP": 22523,
+  "EXC_NON_MERCHANDISE": 5813,
+  "OK": 1033062,
+  "QRN_STOCK_ADJUSTMENT": 3391,
+  "QRN_ZERO_PRICE": 2582
+ },
+ "reason_rev": {
+  "EXC_DUP_OVERLAP": 377488.45,
+  "EXC_NON_MERCHANDISE": -71499.4,
+  "OK": 18981261.52,
+  "QRN_STOCK_ADJUSTMENT": 0.0,
+  "QRN_ZERO_PRICE": 0.0
+ },
+ "dupflag": 11790,
+ "overlap": {
+  "action": "block-2 rows in the overlap window excluded as confirmed duplicate ingestion (block-1 copies retained)",
+  "backward_steps_in_file_order": 1,
+  "expected_backward_steps": 1,
+  "hypothesised_boundary_row_id": 525461,
+  "invoices_in_window_block1": 1088,
+  "invoices_in_window_block2": 1088,
+  "multiset_identical": true,
+  "overlap_window": [
+   "2010-12-01 08:26:00",
+   "2010-12-09 20:01:00"
+  ],
+  "rows_block1_in_window": 22523,
+  "rows_block2_in_window": 22523,
+  "verified": true
+ },
+ "staff": 71,
+ "val": {
+  "bronze": {
+   "critical_failures": 0,
+   "expectations_evaluated": 16,
+   "expectations_passed": 16,
+   "warning_failures": 0
+  },
+  "outputs": {
+   "critical_failures": 0,
+   "expectations_evaluated": 99,
+   "expectations_passed": 99,
+   "warning_failures": 0
+  },
+  "reconciliation_checks": 13,
+  "reconciliation_passed": 13
+ },
+ "recon": [
+  {
+   "abs_difference": 0.0,
+   "actual": 1067371.0,
+   "check": "rows: raw = retained + quarantined + excluded",
+   "expected": 1067371.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 1033062.0,
+   "check": "rows: retained partition = fact rows",
+   "expected": 1033062.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 5973.0,
+   "check": "rows: quarantined partition = quarantine file",
+   "expected": 5973.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 28336.0,
+   "check": "rows: excluded partition = excluded file",
+   "expected": 28336.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 22523.0,
+   "check": "rows: excluded overlap = verified block-2 window rows",
+   "expected": 22523.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 19287250.568,
+   "check": "revenue: independent raw sum = sum of retained + quarantined + excluded",
+   "expected": 19287250.568,
+   "tolerance": 0.01,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 18981261.516999997,
+   "check": "revenue: retained partition = fact line_revenue",
+   "expected": 18981261.517,
+   "tolerance": 0.01,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 18981261.516999997,
+   "check": "revenue: fact = daily net revenue",
+   "expected": 18981261.516999997,
+   "tolerance": 0.01,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 10752075.0,
+   "check": "units: fact net quantity = daily units_sold - units_cancelled",
+   "expected": 10752075.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 19700954.457000002,
+   "check": "revenue: fact gross sales = weekly SKU gross sales",
+   "expected": 19700954.457000002,
+   "tolerance": 0.01,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 10752075.0,
+   "check": "units: fact net quantity = weekly SKU net units",
+   "expected": 10752075.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 16411894.747,
+   "check": "revenue: identified-customer fact revenue = RFM monetary_net",
+   "expected": 16411894.747,
+   "tolerance": 0.01,
+   "within_tolerance": true
+  },
+  {
+   "abs_difference": 0.0,
+   "actual": 5875.0,
+   "check": "customers: distinct customer_key in fact = dim_customer rows",
+   "expected": 5875.0,
+   "tolerance": 0.0,
+   "within_tolerance": true
+  }
+ ],
+ "tables": {
+  "agg_customer_rfm_base": 5875,
+  "agg_daily_sales": 3160,
+  "agg_weekly_sku_demand": 197630,
+  "dim_customer": 5875,
+  "dim_date": 739,
+  "dim_product": 4739,
+  "fact_sales_line": 1033062
+ },
+ "build_id": "41afeb4d5b118509",
+ "key_id": "67f7ff8a",
+ "runtime": 34.0,
+ "audit": {
+  "contains_any_customer_key": false,
+  "contains_secret": false,
+  "events": 32
+ },
+ "gate": {
+  "baseline_critical_failures": 0,
+  "faulty_critical_failures": 7,
+  "publish_raised_PublicationBlocked": true,
+  "legitimate_cancellation_lines_in_baseline_that_passed": 17974
+ },
+ "repro": {
+  "identical": true,
+  "n": 7
+ },
+ "bias": {
+  "top1": 0.9201,
+  "top1rev": 0.8556,
+  "eff": 1.2,
+  "thin": 39,
+  "small": 20,
+  "n": 43,
+  "top": [
+   [
+    "United Kingdom",
+    0.9201
+   ],
+   [
+    "EIRE",
+    0.0168
+   ],
+   [
+    "Germany",
+    0.0161
+   ],
+   [
+    "France",
+    0.0131
+   ],
+   [
+    "Netherlands",
+    0.0049
+   ],
+   [
+    "Spain",
+    0.0035
+   ]
+  ],
+  "id_line": 0.7801,
+  "id_inv": 0.9351,
+  "unid_rev": 0.1354,
+  "canc": 0.1578,
+  "canc_flag": [
+   [
+    "Germany",
+    0.2725,
+    1.726,
+    1035
+   ],
+   [
+    "EIRE",
+    0.2008,
+    1.272,
+    727
+   ],
+   [
+    "Netherlands",
+    0.0485,
+    0.307,
+    227
+   ],
+   [
+    "Switzerland",
+    0.2342,
+    1.484,
+    111
+   ]
+  ],
+  "q4": 0.3702,
+  "partial": [
+   "2011-12"
+  ],
+  "rm": {
+   "identified": 0.0225,
+   "unidentified": 0.065
+  },
+  "rm_all": 0.0321,
+  "monthly": [
+   [
+    "2009-12",
+    1666,
+    801102.97,
+    false
+   ],
+   [
+    "2010-01",
+    1049,
+    613850.81,
+    false
+   ],
+   [
+    "2010-02",
+    1189,
+    539744.69,
+    false
+   ],
+   [
+    "2010-03",
+    1647,
+    764333.85,
+    false
+   ],
+   [
+    "2010-04",
+    1435,
+    648993.82,
+    false
+   ],
+   [
+    "2010-05",
+    1484,
+    645645.39,
+    false
+   ],
+   [
+    "2010-06",
+    1612,
+    699316.02,
+    false
+   ],
+   [
+    "2010-07",
+    1507,
+    634896.99,
+    false
+   ],
+   [
+    "2010-08",
+    1402,
+    676060.72,
+    false
+   ],
+   [
+    "2010-09",
+    1789,
+    871878.34,
+    false
+   ],
+   [
+    "2010-10",
+    2244,
+    1098017.67,
+    false
+   ],
+   [
+    "2010-11",
+    2719,
+    1435680.12,
+    false
+   ],
+   [
+    "2010-12",
+    1550,
+    777931.77,
+    false
+   ],
+   [
+    "2011-01",
+    1081,
+    671933.19,
+    false
+   ],
+   [
+    "2011-02",
+    1093,
+    508886.2,
+    false
+   ],
+   [
+    "2011-03",
+    1440,
+    691257.61,
+    false
+   ],
+   [
+    "2011-04",
+    1235,
+    516218.12,
+    false
+   ],
+   [
+    "2011-05",
+    1668,
+    741192.41,
+    false
+   ],
+   [
+    "2011-06",
+    1525,
+    738751.87,
+    false
+   ],
+   [
+    "2011-07",
+    1452,
+    689364.41,
+    false
+   ],
+   [
+    "2011-08",
+    1339,
+    725513.5,
+    false
+   ],
+   [
+    "2011-09",
+    1818,
+    1030475.36,
+    false
+   ],
+   [
+    "2011-10",
+    2005,
+    1106669.82,
+    false
+   ],
+   [
+    "2011-11",
+    2751,
+    1457745.53,
+    false
+   ],
+   [
+    "2011-12",
+    816,
+    615493.27,
+    true
+   ]
+  ]
+ },
+ "priv_hits": 0,
+ "tests": 64,
+ "fact_revenue": {
+  "abs_difference": 0.0,
+  "actual": 18981261.516999997,
+  "check": "revenue: retained partition = fact line_revenue",
+  "expected": 18981261.517,
+  "tolerance": 0.01,
+  "within_tolerance": true
+ }
+}

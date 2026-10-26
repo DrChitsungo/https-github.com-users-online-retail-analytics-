@@ -1,0 +1,27 @@
+{
+  "expectations": [
+    {
+      "kwargs": {
+        "column_list": [
+          "week_start",
+          "stock_code",
+          "units_sold",
+          "gross_sales_revenue",
+          "n_sales_invoices",
+          "units_cancelled",
+          "cancellation_revenue",
+          "net_units"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    }
+  ],
+  "id": null,
+  "meta": {
+    "great_expectations_version": "1.24.1"
+  },
+  "name": "agg_weekly_sku_demand__schema_suite",
+  "notes": null
+}

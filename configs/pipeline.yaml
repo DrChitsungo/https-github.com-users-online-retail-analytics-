@@ -1,0 +1,73 @@
+# Retail Analytics Decision Support Platform - Module 3 pipeline configuration.
+# Every threshold below is a documented, reviewable decision. Changing a rule changes
+# rules_hash, which is recorded in every run manifest and audit event.
+
+pipeline_version: "1.0.0"
+rules_version: "2026.10.1"
+
+source:
+  name: "Online Retail II"
+  provider: "UCI Machine Learning Repository (dataset 502); Chen, D. (2019)"
+  file: "data/raw/online_retail_II.csv"
+  # Pins the exact data version verified during profiling. A mismatch blocks the run.
+  expected_sha256: "32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9"
+  expected_columns: [Invoice, StockCode, Description, Quantity, InvoiceDate, Price, Customer ID, Country]
+  datetime_format: "%Y-%m-%d %H:%M:%S"
+  min_rows_required: 5000            # assignment requirement
+  # Actual update behaviour of the SOURCE (verified: static file, no ongoing feed).
+  actual_update_frequency: "Static historical snapshot (Dec 2009 - Dec 2011); no further updates"
+
+rules:
+  # Stock codes that are ledger/service lines, not merchandise. Matched on upper-cased code.
+  non_merchandise_patterns:
+    - '^(?:POST|DOT|M|C2|C3|D|S|B|BANK CHARGES|ADJUST2?|AMAZONFEE|CRUK|GIFT)$'
+    - '^TEST\d+$'
+    - '^GIFT_\d{4}_\d+$'
+  # Accepted merchandise code shapes (anything else is quarantined as unrecognised).
+  product_code_patterns:
+    - '^\d{5}[A-Z]{0,3}$'
+    - '^DCGS[A-Z0-9]*$'
+    - '^SP\d+$'
+    - '^PADS$'
+  cancellation_invoice_prefix: "C"
+  # Cross-worksheet overlap: rows are dropped ONLY if the overlap window is verified by
+  # exact record comparison (multiset equality of all eight raw fields). Not verified => nothing dropped.
+  overlap:
+    enabled: true
+    expected_backward_steps: 1
+  # Exact duplicate rows WITHIN a source block may be legitimate repeated scans. They are
+  # retained and flagged by default; set true to drop (sensitivity reported either way).
+  drop_within_source_exact_duplicates: false
+
+privacy:
+  secret_env_var: "CUSTOMER_KEY_SECRET"
+  min_secret_length: 32
+  pseudonym_hex_length: 32
+  service_actor_env_var: "PIPELINE_ACTOR"
+  default_actor: "svc-retail-pipeline"
+  small_cell_threshold: 5            # countries with fewer identified customers are flagged
+
+validation:
+  tolerance_currency: 0.01
+  # Warning thresholds (critical checks are fixed invariants in validation.py)
+  max_missing_customer_share_warn: 0.30
+  max_exact_duplicate_share_warn: 0.02
+  max_quarantine_share_warn: 0.02
+  expected_date_range: ["2009-12-01", "2011-12-31"]   # source covers Dec 2009 - 9 Dec 2011
+  max_price_retained: 10000
+  max_abs_quantity: 100000
+
+bias:
+  # Internal screening thresholds. No external benchmark exists in this dataset, so findings
+  # are INTERNAL REPRESENTATION IMBALANCE, not proof of population bias.
+  thin_group_share: 0.01             # group below 1% of rows is "thinly represented"
+  dominant_group_share: 0.50         # group above 50% of rows is "dominant"
+  ratio_band: [0.8, 1.25]            # screening band for group-rate / overall-rate (not a legal test)
+  min_group_invoices: 100            # ratios only evaluated when group has >= this many invoices
+  removal_ratio_band: [0.8, 1.25]    # retained share / raw share by country (cleaning impact)
+
+publish:
+  # PROPOSED execution schedule (not executed in this project). The source itself never refreshes.
+  proposed_schedule_cron: "0 2 * * *"
+  proposed_schedule_note: "Daily 02:00 UTC if a live transaction feed replaces the static snapshot; otherwise on-demand"
+  proposed_retention_days: 730       # PROPOSED policy, to be agreed with the DPO

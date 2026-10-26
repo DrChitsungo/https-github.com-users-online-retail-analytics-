@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "kwargs": {
+        "max_value": 100,
+        "min_value": 10
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "kwargs": {
+        "column": "within_tolerance",
+        "value_set": [
+          true
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_in_set"
+    },
+    {
+      "kwargs": {
+        "column": "abs_difference",
+        "max_value": 0.01,
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    }
+  ],
+  "id": null,
+  "meta": {
+    "great_expectations_version": "1.24.1"
+  },
+  "name": "reconciliation_suite",
+  "notes": null
+}

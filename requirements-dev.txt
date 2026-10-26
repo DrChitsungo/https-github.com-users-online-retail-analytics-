@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest==9.1.1
+# only needed to rebuild the presentation (scripts/build_deck.py)
+python-pptx==1.0.2
+matplotlib==3.11.2

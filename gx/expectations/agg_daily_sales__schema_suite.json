@@ -1,0 +1,30 @@
+{
+  "expectations": [
+    {
+      "kwargs": {
+        "column_list": [
+          "invoice_date",
+          "country",
+          "sales_invoices",
+          "sale_lines",
+          "units_sold",
+          "gross_sales_revenue",
+          "cancellation_invoices",
+          "cancellation_lines",
+          "units_cancelled",
+          "cancellation_revenue",
+          "net_revenue"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    }
+  ],
+  "id": null,
+  "meta": {
+    "great_expectations_version": "1.24.1"
+  },
+  "name": "agg_daily_sales__schema_suite",
+  "notes": null
+}

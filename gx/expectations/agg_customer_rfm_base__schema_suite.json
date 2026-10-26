@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "kwargs": {
+        "column_list": [
+          "customer_key",
+          "first_purchase_date",
+          "last_purchase_date",
+          "frequency_invoices",
+          "monetary_gross",
+          "monetary_net",
+          "n_cancellation_invoices",
+          "recency_days",
+          "snapshot_date"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    }
+  ],
+  "id": null,
+  "meta": {
+    "great_expectations_version": "1.24.1"
+  },
+  "name": "agg_customer_rfm_base__schema_suite",
+  "notes": null
+}
