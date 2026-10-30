@@ -18,3 +18,12 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker build -t retail-pipeline .
       - run: docker run --rm --entrypoint python -e PREFECT_HOME=/tmp/.prefect retail-pipeline -m pytest
+  churn-model:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - run: pip install -r requirements-ml.txt
+      - run: MLFLOW_DISABLE_AGENT_HINT=1 PYTHONPATH=src python -m pytest tests/test_churn_model.py -q
+
