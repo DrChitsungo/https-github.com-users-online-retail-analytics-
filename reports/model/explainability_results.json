@@ -1,0 +1,425 @@
+{
+  "global_shap": {
+    "explainer": "shap.LinearExplainer (independent masker)",
+    "output_scale": "log-odds of churn (model margin)",
+    "background_rows": 500,
+    "background_source": "random train rows (seed fixed)",
+    "explained_rows": 2000,
+    "explained_source": "random test rows (seed fixed)",
+    "expected_value": -0.042748366680064584,
+    "mean_abs_shap": {
+      "Invoices (all history)": 0.8181,
+      "Days since first purchase": 0.3998,
+      "Revenue (all history)": 0.3652,
+      "Invoices, last 90d": 0.308,
+      "Distinct products, 180d": 0.2882,
+      "Distinct products (all)": 0.2348,
+      "Revenue, last 90d": 0.1727,
+      "Days since last purchase": 0.1228,
+      "Invoices, 91-180d ago": 0.1197,
+      "Recency / mean gap": 0.1175,
+      "Mean days between purchases": 0.1078,
+      "Std of days between purchases": 0.0867,
+      "Invoices, last 30d": 0.0759,
+      "Only one purchase so far": 0.0698,
+      "Revenue, last 180d": 0.0532,
+      "Cancellation share": 0.0316,
+      "Cancellation invoices": 0.0227,
+      "Avg units per invoice": 0.0049
+    },
+    "group_importance": {
+      "Purchase frequency": 1.0372,
+      "Tenure": 0.3998,
+      "Spend": 0.3278,
+      "Product breadth": 0.191,
+      "Recency": 0.1174,
+      "Purchase regularity": 0.0777,
+      "Cancellations": 0.0534
+    },
+    "direction_spearman": {
+      "Days since last purchase": -1.0,
+      "Days since first purchase": 1.0,
+      "Invoices (all history)": -1.0,
+      "Invoices, last 30d": 1.0,
+      "Invoices, last 90d": -1.0,
+      "Invoices, 91-180d ago": -1.0,
+      "Only one purchase so far": 1.0,
+      "Revenue (all history)": -1.0,
+      "Revenue, last 90d": 1.0,
+      "Revenue, last 180d": 1.0,
+      "Distinct products (all)": 1.0,
+      "Distinct products, 180d": -1.0,
+      "Avg units per invoice": 1.0,
+      "Mean days between purchases": -1.0,
+      "Std of days between purchases": 1.0,
+      "Recency / mean gap": 1.0,
+      "Cancellation invoices": -1.0,
+      "Cancellation share": -1.0
+    }
+  },
+  "shap_model_agreement": {
+    "spearman_rank_logreg_vs_lightgbm": 0.5810113519091847,
+    "top5_overlap": 3,
+    "logreg_top5": [
+      "Invoices (all history)",
+      "Days since first purchase",
+      "Revenue (all history)",
+      "Invoices, last 90d",
+      "Distinct products, 180d"
+    ],
+    "lightgbm_top5": [
+      "Invoices (all history)",
+      "Std of days between purchases",
+      "Revenue (all history)",
+      "Revenue, last 180d",
+      "Days since first purchase"
+    ]
+  },
+  "case_selection_rule": "Documented selection rule (deterministic): A typical flagged churner (TP nearest median p of TPs); B typical retained (TN nearest median p of TNs);\nC most confident false positive; D least confident false negative; E nearest to the decision threshold.",
+  "local": {
+    "A_typical_true_positive": {
+      "row": 374,
+      "snapshot": "2011-08-01",
+      "p_churn": 0.5886574345958282,
+      "actual_churn": 1,
+      "flagged": 1,
+      "top_drivers": [
+        {
+          "feature": "Invoices, last 90d",
+          "value": 0.0,
+          "shap_log_odds": 0.534469750414069
+        },
+        {
+          "feature": "Days since first purchase",
+          "value": 426.0,
+          "shap_log_odds": 0.43113600386960765
+        },
+        {
+          "feature": "Revenue, last 90d",
+          "value": 0.0,
+          "shap_log_odds": -0.33377275113912336
+        },
+        {
+          "feature": "Mean days between purchases",
+          "value": 260.0,
+          "shap_log_odds": -0.28850699582310346
+        }
+      ]
+    },
+    "B_typical_true_negative": {
+      "row": 572,
+      "snapshot": "2011-08-01",
+      "p_churn": 0.15634307898866773,
+      "actual_churn": 0,
+      "flagged": 0,
+      "top_drivers": [
+        {
+          "feature": "Invoices (all history)",
+          "value": 11.0,
+          "shap_log_odds": -1.2821352036800413
+        },
+        {
+          "feature": "Revenue (all history)",
+          "value": 3814.23,
+          "shap_log_odds": -0.5076093996484248
+        },
+        {
+          "feature": "Days since first purchase",
+          "value": 500.0,
+          "shap_log_odds": 0.485659220744323
+        },
+        {
+          "feature": "Distinct products, 180d",
+          "value": 87.0,
+          "shap_log_odds": -0.4017383309175954
+        }
+      ]
+    },
+    "C_confident_false_positive": {
+      "row": 3721,
+      "snapshot": "2011-09-01",
+      "p_churn": 0.8411019510012115,
+      "actual_churn": 0,
+      "flagged": 1,
+      "top_drivers": [
+        {
+          "feature": "Recency / mean gap",
+          "value": 40.25,
+          "shap_log_odds": 1.222240178637686
+        },
+        {
+          "feature": "Invoices, last 90d",
+          "value": 0.0,
+          "shap_log_odds": 0.534469750414069
+        },
+        {
+          "feature": "Mean days between purchases",
+          "value": 4.0,
+          "shap_log_odds": 0.3375428246313737
+        },
+        {
+          "feature": "Revenue, last 90d",
+          "value": 0.0,
+          "shap_log_odds": -0.33377275113912336
+        }
+      ]
+    },
+    "D_missed_churner_false_negative": {
+      "row": 1091,
+      "snapshot": "2011-08-01",
+      "p_churn": 0.03640610569856847,
+      "actual_churn": 1,
+      "flagged": 0,
+      "top_drivers": [
+        {
+          "feature": "Invoices (all history)",
+          "value": 31.0,
+          "shap_log_odds": -2.340868491909936
+        },
+        {
+          "feature": "Revenue (all history)",
+          "value": 22968.7,
+          "shap_log_odds": -1.0444853759191408
+        },
+        {
+          "feature": "Distinct products, 180d",
+          "value": 150.0,
+          "shap_log_odds": -0.5930467303570264
+        },
+        {
+          "feature": "Days since first purchase",
+          "value": 606.0,
+          "shap_log_odds": 0.5511335402769169
+        }
+      ]
+    },
+    "E_borderline": {
+      "row": 3340,
+      "snapshot": "2011-09-01",
+      "p_churn": 0.3137839557097385,
+      "actual_churn": 0,
+      "flagged": 0,
+      "top_drivers": [
+        {
+          "feature": "Invoices (all history)",
+          "value": 13.0,
+          "shap_log_odds": -1.4485295639983664
+        },
+        {
+          "feature": "Revenue (all history)",
+          "value": 5017.25,
+          "shap_log_odds": -0.589577529152428
+        },
+        {
+          "feature": "Days since first purchase",
+          "value": 636.0,
+          "shap_log_odds": 0.5675908845234374
+        },
+        {
+          "feature": "Invoices, last 90d",
+          "value": 0.0,
+          "shap_log_odds": 0.534469750414069
+        }
+      ]
+    }
+  },
+  "counterfactuals": {
+    "cases": {
+      "A_typical_true_positive": {
+        "extra_invoices": 3,
+        "latest_purchase_days_before_T": 90,
+        "p0": 0.5886574345958282,
+        "p1": 0.24486796575253433,
+        "needed": true,
+        "found": true,
+        "changes": {
+          "n_inv_90": [
+            0.0,
+            3.0
+          ],
+          "n_inv_all": [
+            2.0,
+            5.0
+          ],
+          "rev_90": [
+            0.0,
+            487.80000000000007
+          ],
+          "rev_180": [
+            173.05,
+            660.8500000000001
+          ],
+          "rev_all": [
+            325.20000000000005,
+            813.0000000000001
+          ],
+          "recency_days": [
+            166.0,
+            90.0
+          ],
+          "recency_over_gap": [
+            0.6384615384615384,
+            0.34615384615384615
+          ]
+        }
+      },
+      "B_typical_true_negative": {
+        "p0": 0.15634307898866776,
+        "needed": false
+      },
+      "C_confident_false_positive": {
+        "extra_invoices": 5,
+        "latest_purchase_days_before_T": 1,
+        "p0": 0.8411019510012115,
+        "p1": 0.2932803593052986,
+        "needed": true,
+        "found": true,
+        "changes": {
+          "n_inv_30": [
+            0.0,
+            5.0
+          ],
+          "n_inv_90": [
+            0.0,
+            5.0
+          ],
+          "n_inv_all": [
+            2.0,
+            7.0
+          ],
+          "rev_90": [
+            0.0,
+            892.025
+          ],
+          "rev_180": [
+            356.81,
+            1248.835
+          ],
+          "rev_all": [
+            356.81,
+            1248.835
+          ],
+          "recency_days": [
+            161.0,
+            1.0
+          ],
+          "recency_over_gap": [
+            40.25,
+            0.25
+          ]
+        }
+      },
+      "D_missed_churner_false_negative": {
+        "p0": 0.03640610569856847,
+        "needed": false
+      },
+      "E_borderline": {
+        "p0": 0.31378395570973844,
+        "needed": false
+      }
+    },
+    "batch": {
+      "n_flagged_sampled": 300,
+      "feasible_share": 0.9933333333333333,
+      "median_extra_invoices": 3.0,
+      "share_needing_1_invoice": 0.1610738255033557,
+      "search_limit": "up to 6 extra invoices"
+    },
+    "verified_reported_case_counterfactuals": "2/2",
+    "immutable": "tenure, product breadth, gap statistics, cancellations, country/group are held fixed"
+  },
+  "sensitivity": [
+    {
+      "perturbation": "cancellation history unavailable",
+      "auc": 0.7663,
+      "delta_auc": 0.0008,
+      "delta_auc_min": 0.0008,
+      "mean_abs_dp": 0.0096,
+      "flag_flip_rate": 0.0192,
+      "reps": 1
+    },
+    {
+      "perturbation": "monetary noise (lognormal sigma=0.1)",
+      "auc": 0.7655,
+      "delta_auc": 0.0,
+      "delta_auc_min": -0.0003,
+      "mean_abs_dp": 0.003,
+      "flag_flip_rate": 0.0041,
+      "reps": 10
+    },
+    {
+      "perturbation": "monetary noise (lognormal sigma=0.2)",
+      "auc": 0.7652,
+      "delta_auc": -0.0003,
+      "delta_auc_min": -0.0008,
+      "mean_abs_dp": 0.006,
+      "flag_flip_rate": 0.008,
+      "reps": 10
+    },
+    {
+      "perturbation": "random missingness 10% in 5 features",
+      "auc": 0.7628,
+      "delta_auc": -0.0027,
+      "delta_auc_min": -0.0044,
+      "mean_abs_dp": 0.0109,
+      "flag_flip_rate": 0.0141,
+      "reps": 10
+    },
+    {
+      "perturbation": "random missingness 20% in 5 features",
+      "auc": 0.7599,
+      "delta_auc": -0.0056,
+      "delta_auc_min": -0.0074,
+      "mean_abs_dp": 0.0199,
+      "flag_flip_rate": 0.0268,
+      "reps": 10
+    },
+    {
+      "perturbation": "random missingness 5% in 5 features",
+      "auc": 0.764,
+      "delta_auc": -0.0015,
+      "delta_auc_min": -0.0021,
+      "mean_abs_dp": 0.0055,
+      "flag_flip_rate": 0.0071,
+      "reps": 10
+    },
+    {
+      "perturbation": "recency shift +3 days",
+      "auc": 0.7657,
+      "delta_auc": 0.0002,
+      "delta_auc_min": 0.0002,
+      "mean_abs_dp": 0.0016,
+      "flag_flip_rate": 0.0023,
+      "reps": 1
+    },
+    {
+      "perturbation": "recency shift +7 days",
+      "auc": 0.7658,
+      "delta_auc": 0.0003,
+      "delta_auc_min": 0.0003,
+      "mean_abs_dp": 0.0032,
+      "flag_flip_rate": 0.0043,
+      "reps": 1
+    },
+    {
+      "perturbation": "recency shift -3 days",
+      "auc": 0.7652,
+      "delta_auc": -0.0003,
+      "delta_auc_min": -0.0003,
+      "mean_abs_dp": 0.0019,
+      "flag_flip_rate": 0.0023,
+      "reps": 1
+    },
+    {
+      "perturbation": "recency shift -7 days",
+      "auc": 0.7645,
+      "delta_auc": -0.001,
+      "delta_auc_min": -0.001,
+      "mean_abs_dp": 0.0047,
+      "flag_flip_rate": 0.0067,
+      "reps": 1
+    }
+  ],
+  "baseline_test_auc": 0.7654931902489304,
+  "threshold": 0.313903
+}

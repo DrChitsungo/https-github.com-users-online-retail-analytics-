@@ -1,0 +1,5 @@
+Fresh virtualenv (python3 -m venv), pip install -r requirements-ml.txt: exit 0
+pytest tests/test_churn_model.py in that venv:
+...........................                                              [100%]
+TEST_EXIT=0
+(run 2026-10-26T19:12:27Z)

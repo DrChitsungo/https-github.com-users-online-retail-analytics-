@@ -1,0 +1,72 @@
+{
+  "final_model": "logreg",
+  "ranking_after_rule": [
+    "logreg",
+    "lightgbm",
+    "random_forest"
+  ],
+  "selection_rule": [
+    "Model selection on VALIDATION dates only, applying the pre-declared rule and the fairness gate, then writes reports/model/selection.json.",
+    "Rule: rank candidates by validation ROC-AUC; any candidate within 0.005 AUC of the best is ordered by interpretability (logreg < lightgbm < random forest).",
+    "Gate: UK vs Non-UK validation check: disparate impact ratio in [0.80, 1.25] and TPR/FPR within +/-10% of overall. First ranked candidate that passes is selected."
+  ],
+  "validation_roc_auc": {
+    "logreg": 0.7752497443088471,
+    "lightgbm": 0.7737702065429167,
+    "random_forest": 0.774467583915291
+  },
+  "validation_cv_auc": {
+    "logreg": [
+      0.737932223670958,
+      0.021277199270254076
+    ],
+    "lightgbm": [
+      0.7383601805473449,
+      0.020057041653871503
+    ],
+    "random_forest": [
+      0.7373140131820821,
+      0.01980437310554066
+    ]
+  },
+  "fairness_gate_validation": {
+    "logreg": {
+      "passes": true,
+      "checks": {
+        "disparate_impact_in_0.8_1.25": true,
+        "tpr_within_10pct_of_overall": true,
+        "fpr_within_10pct_of_overall": true
+      },
+      "disparate_impact_ratio": 1.0068176328502416,
+      "tpr_vs_overall": 1.030926315954922,
+      "fpr_vs_overall": 1.0024122402759854
+    },
+    "lightgbm": {
+      "passes": true,
+      "checks": {
+        "disparate_impact_in_0.8_1.25": true,
+        "tpr_within_10pct_of_overall": true,
+        "fpr_within_10pct_of_overall": true
+      },
+      "disparate_impact_ratio": 0.979120891315445,
+      "tpr_vs_overall": 1.0219513335177055,
+      "fpr_vs_overall": 0.9420429239290875
+    },
+    "random_forest": {
+      "passes": true,
+      "checks": {
+        "disparate_impact_in_0.8_1.25": true,
+        "tpr_within_10pct_of_overall": true,
+        "fpr_within_10pct_of_overall": true
+      },
+      "disparate_impact_ratio": 0.9820639818624363,
+      "tpr_vs_overall": 1.0357308682622093,
+      "fpr_vs_overall": 0.9226666145639982
+    }
+  },
+  "mitigation_triggered_on_validation": false,
+  "written_before_test_evaluation": true,
+  "dataset_hash": "794106a862ace0f8",
+  "code_hash_at_selection": "258a93f8e40c9463",
+  "iteration": "2"
+}

@@ -1,0 +1,15 @@
+{
+  "final_model": "logreg",
+  "selection_rule": "highest validation ROC-AUC; if a more interpretable candidate is within 0.005 AUC, choose it. Fairness gate applied separately.",
+  "validation_roc_auc": {
+    "baseline_prevalence": 0.5,
+    "baseline_recency_rule": 0.6900400775635063,
+    "logreg": 0.7784546535789818,
+    "lightgbm": 0.7734512983557091,
+    "random_forest": 0.774263216108774
+  },
+  "fairness_gate": "Validation-date check (UK vs Non-UK): disparate impact ratio in [0.80,1.25]; TPR and FPR within +/-10% of overall. Selected model passed (see validation fairness output); no mitigation triggered.",
+  "written_before_test_evaluation": true,
+  "dataset_hash": "3d22111d25d8130c",
+  "code_hash_at_selection": "2d7e0e27a6b18437"
+}

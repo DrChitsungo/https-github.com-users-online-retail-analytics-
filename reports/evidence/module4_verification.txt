@@ -1,0 +1,24 @@
+PASS selection final model is logreg
+PASS metadata test AUC == final_test_results
+PASS metadata val AUC == stage1 results
+PASS threshold identical (metadata, test results)
+PASS dataset hash identical (metadata, selection, stage1)
+PASS code hash identical (metadata, selection, stage1)
+PASS selection written before test evaluation
+PASS MLflow validation_run_id exists and FINISHED  [candidate-logreg-20261026T185228Z]
+PASS MLflow test_run_id exists and FINISHED  [test-eval-logreg-20261026T185712Z]
+PASS MLflow test AUC == metadata
+PASS MLflow dataset_hash param == metadata
+PASS API version/threshold/features == metadata
+PASS report quotes test AUC 0.765 and CI
+PASS report names version 1.0.0 / threshold
+PASS model card quotes test AUC 0.765 and CI
+PASS model card names version 1.0.0 / threshold
+PASS report quotes DI 1.039 and FPR ratio 1.127
+PASS fairness report quotes DI 1.039 and FPR ratio 1.127
+PASS model card quotes DI 1.039 and FPR ratio 1.127
+PASS model card mentions both MLflow run ids
+PASS no secrets or raw ids in reports
+PASS AI disclosure marked pending in report, card checklist
+
+RESULT: ALL CHECKS PASSED
