@@ -21,8 +21,8 @@ Full architecture, governance and lineage: see `docs/`.
 | Two identical runs produce identical table content hashes | **Executed** - `reports/evidence/reproducibility_check.json` |
 | Unit + integration tests | **Executed** - `reports/evidence/pytest_results.txt` |
 | Pinned dependencies install cleanly in a fresh virtualenv and tests pass there | **Executed** - `reports/evidence/fresh_venv_check.txt` |
-| Docker image build/run | **NOT verified** - Dockerfile provided; no Docker daemon was available where this was built |
-| GitHub push / CI workflow | **Pending** - `.github/workflows/ci.yml` (tests + Docker build and in-image tests) counts as evidence only once a green run appears in the repository Actions tab |
+| Docker image build, and the test suite run inside the image | **Executed in CI** - GitHub Actions run #4, commit `dfb67ea`, job `docker` green (see `reports/evidence/ci_run_4.md`). **Not done:** a full-dataset pipeline run inside the container |
+| GitHub push / CI workflow | **Executed** - pushed to the repository; `.github/workflows/ci.yml` run #4 passed both jobs (`test`, `docker`): https://github.com/DrChitsungo/https-github.com-users-online-retail-analytics-/actions/runs/40368853759 |
 | Scheduling, Key Vault, RBAC, retention automation | **Proposed** only (see `docs/governance.md`) |
 
 ## Repository layout
@@ -88,7 +88,7 @@ python scripts/build_docs.py                                            # regene
 python scripts/export_gx_suites.py                                      # regenerate gx/expectations/*.json
 ```
 
-## 5. Docker (provided, not verified here)
+## 5. Docker (image build and in-image tests verified in CI; full-data run in a container not yet done)
 
 ```bash
 docker build -t retail-pipeline .
@@ -141,3 +141,86 @@ Every raw row is accounted for: **raw = retained + quarantined + excluded** (cri
 * Cancellations cannot be linked to their original sales (cancellation invoice numbers do not match any sale number).
 * Overlap evidence is derived from record comparison; the CSV does not record worksheet names, so `source_block` is inferred.
 * Retention, access roles, lawful basis, DPIA and incident handling are proposals/organisational tasks (see `docs/governance.md`).
+
+
+---
+
+## Module 4: 90-day churn model (predictive modelling)
+
+Predicts which identified customers are likely to place **no sales invoice in the next 90 days** (window PROPOSED, pending Marketing). Decision support only; see `docs/MODEL_CARD.md`.
+
+### Verified status (Module 4)
+
+| Item | Status |
+|---|---|
+| Snapshot dataset, leakage controls, time-ordered splits | **Executed**, covered by `tests/test_churn_model.py` |
+| MLflow tracking (experiment `retail-churn-90d`, 32 real runs incl. superseded iteration 1 and one failed run) | **Executed**; export in `reports/mlflow_evidence/`; UI screenshots there |
+| Baselines + 3 tuned candidates, selection rule, one-time test evaluation | **Executed**; `reports/model/*.json` |
+| SHAP / counterfactuals / sensitivity notebook | **Executed** end to end with assertions: `notebooks/shap_analysis.ipynb` |
+| Fairness analysis (UK vs non-UK, supplementary) | **Executed**; protected-attribute requirement **unmet** (no such data) |
+| FastAPI `/predict` | **Executed** via TestClient and a live server smoke test (see below) |
+| Pinned `requirements-ml.txt` installs in a fresh virtualenv and the 27 churn tests pass there | **Executed** - `reports/evidence/fresh_venv_check_module4.txt` |
+| Cross-artefact consistency (model metadata, MLflow, API, reports) | **Executed** - `scripts/verify_module4.py`, `reports/evidence/module4_verification.txt` |
+| AI Disclosure Form | **Pending** (form not supplied) |
+| Push to GitHub of the Module 4 files | **Not done by the assistant**; the user must upload (see delivery notes) |
+
+### Setup
+
+```bash
+python -m venv .venv-ml && source .venv-ml/bin/activate
+pip install -r requirements-ml.txt
+export PYTHONPATH=src MLFLOW_DISABLE_AGENT_HINT=1
+```
+
+### Reproduce (needs the Module 3 published fact table at `data/published/run-002/`)
+
+```bash
+python -m churn_model.train          # baselines + candidates, validation only; builds data/modeling/churn_snapshots.parquet
+python -m churn_model.ablation
+python -m churn_model.select         # applies the pre-declared rule + validation fairness gate
+python -m churn_model.final_eval     # SCORES THE TEST SET (do this once; re-running is a further look and must be disclosed)
+python -m churn_model.mitigation     # exploratory; also touches test
+python -m churn_model.explain
+python -m churn_model.package_model  # writes models/churn_logreg_v1.0.0.*
+python -m pytest -q tests/test_churn_model.py
+```
+
+Note: the exact numbers in the reports come from the recorded runs; retraining from scratch re-creates runs with new ids.
+
+### MLflow UI
+
+```bash
+mlflow ui --backend-store-uri sqlite:///mlruns_store/mlflow.db --default-artifact-root mlruns_store/artifacts --port 5000
+```
+
+### Serve the model
+
+```bash
+PYTHONPATH=src uvicorn churn_model.api:app --port 8000
+# optional: CHURN_MODEL_PATH=/path/to/churn_logreg_v1.0.0.joblib
+```
+
+Sample request (`is_single_invoice` is derived by the service; gap fields may be null for single-invoice customers):
+
+```bash
+curl -s localhost:8000/predict -H 'content-type: application/json' -d '{
+ "recency_days":40,"tenure_days":400,"n_inv_all":6,"n_inv_30":0,"n_inv_90":1,"n_inv_prev90":2,
+ "rev_all":1800.5,"rev_90":300,"rev_180":900,"n_products_all":60,"n_products_180":35,
+ "avg_units_per_inv":120,"mean_gap_days":55,"std_gap_days":20,"recency_over_gap":0.73,
+ "n_cancel_all":0,"cancel_ratio":0}'
+```
+
+Verified response shape (values from the recorded smoke test): `{"request_id": "...", "model_version": "1.0.0", "churn_probability": 0.317697, "flagged_high_churn_risk": true, "decision_threshold": 0.313903, "imputed_fields": [], "notes": [...]}`.
+Invalid input (for example `n_inv_30` larger than `n_inv_90`) returns HTTP 422 naming the field and rule **without echoing the submitted value**. Request bodies are never logged.
+
+### Module 4 layout
+
+```
+configs/churn.yaml                 task, splits, seeds, thresholds (hashed into MLflow runs)
+src/churn_model/                   dataset, train, select, final_eval, fairness, mitigation, explain, package_model, api
+notebooks/shap_analysis.ipynb      global/local SHAP, counterfactuals, sensitivity (executed)
+reports/Model_Validation_Report.*  validation report; reports/Fairness_Metrics_Report.md
+reports/model/                     result JSON + figures; reports/mlflow_evidence/ run export + UI screenshots
+docs/MODEL_CARD.md, docs/model_feature_spec.md, docs/requirements_evidence_checklist.md, docs/instructor_clarification_request_DRAFT.md (NOT SENT)
+models/churn_logreg_v1.0.0.*       the packaged model and its metadata
+```

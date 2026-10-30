@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "kwargs": {
+        "column_list": [
+          "customer_key",
+          "country_primary",
+          "n_countries",
+          "first_purchase_date",
+          "last_purchase_date",
+          "n_sales_invoices",
+          "n_cancellation_invoices"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    }
+  ],
+  "id": null,
+  "meta": {
+    "great_expectations_version": "1.24.1"
+  },
+  "name": "dim_customer__schema_suite",
+  "notes": null
+}

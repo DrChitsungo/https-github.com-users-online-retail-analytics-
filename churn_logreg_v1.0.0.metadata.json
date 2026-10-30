@@ -1,0 +1,109 @@
+{
+  "model_name": "churn_logreg",
+  "model_version": "1.0.0",
+  "iteration": "2",
+  "task": "customer_churn_90d",
+  "positive_class": "churn: no sales invoice in the 90 days after the prediction date",
+  "threshold": 0.313903,
+  "threshold_source": "maximises F1 on validation dates (2011-03, 2011-04); not tuned on test",
+  "feature_order": [
+    "recency_days",
+    "tenure_days",
+    "n_inv_all",
+    "n_inv_30",
+    "n_inv_90",
+    "n_inv_prev90",
+    "is_single_invoice",
+    "rev_all",
+    "rev_90",
+    "rev_180",
+    "n_products_all",
+    "n_products_180",
+    "avg_units_per_inv",
+    "mean_gap_days",
+    "std_gap_days",
+    "recency_over_gap",
+    "n_cancel_all",
+    "cancel_ratio"
+  ],
+  "features_allowed_missing": [
+    "mean_gap_days",
+    "std_gap_days",
+    "recency_over_gap"
+  ],
+  "imputation": "median from training rows (inside pipeline)",
+  "dataset_hash": "794106a862ace0f8",
+  "fact_table_sha256": "00c6544c340275d2e0a38df2ab4d001bfb2856714a0e0e146bb70bf2e8cadcb5",
+  "code_hash": "258a93f8e40c9463",
+  "config_hash": "af26659fdee2cf73",
+  "versions": {
+    "python": "3.13.17",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "shap": "0.54.1",
+    "mlflow": "3.17.2",
+    "fairlearn": "0.15.0"
+  },
+  "validation": {
+    "roc_auc": 0.7752497443088471,
+    "pr_auc": 0.7810575170742244,
+    "precision": 0.6955813479942985,
+    "recall": 0.9049006622516557,
+    "f1": 0.7865530739120423,
+    "accuracy": 0.7206569233087238,
+    "n": 6637
+  },
+  "test": {
+    "roc_auc": 0.7654931902489304,
+    "pr_auc": 0.6702117351511657,
+    "precision": 0.5453329767317464,
+    "recall": 0.8811581676750216,
+    "f1": 0.6737155129687759,
+    "accuracy": 0.6431152873147814,
+    "n": 5534
+  },
+  "test_ci95": {
+    "roc_auc": [
+      0.7502699138212862,
+      0.7805055588849914
+    ],
+    "pr_auc": [
+      0.6457688071246346,
+      0.6977283945848043
+    ],
+    "precision": [
+      0.525431778289792,
+      0.5649976964315631
+    ],
+    "recall": [
+      0.8663250837915548,
+      0.8963419434597327
+    ],
+    "f1": [
+      0.6562332719298952,
+      0.6904193515731365
+    ],
+    "accuracy": [
+      0.6254794141704975,
+      0.6594882995643234
+    ]
+  },
+  "mlflow": {
+    "experiment": "retail-churn-90d",
+    "validation_run_id": "58bcfae5b9ad4569ad79747717d42cb2",
+    "test_run_id": "8e8e21abe6bd4867b0b2e2a67056b591"
+  },
+  "hyperparameters": {
+    "best_clf__C": 0.37631071395183324,
+    "best_clf__class_weight": "balanced"
+  },
+  "intended_use": "rank currently active, identified customers by 90-day churn risk to support human-reviewed retention planning",
+  "not_for": [
+    "automated decisions about individuals (credit terms, exclusions)",
+    "unidentified customers",
+    "customers inactive for more than 180 days",
+    "inference of personal characteristics"
+  ]
+}

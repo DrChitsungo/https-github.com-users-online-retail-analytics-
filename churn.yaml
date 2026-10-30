@@ -1,0 +1,26 @@
+# Churn model configuration (Module 4). Every value here is hashed into each MLflow run.
+# PROPOSED business definitions are marked: Module 2 left the churn window "to be agreed with Marketing (Sprint 3)".
+task:
+  name: customer_churn_90d
+  horizon_days: 90            # PROPOSED: churn = no sales invoice in the 90 days after the prediction date
+  lookback_days: 180          # PROPOSED: eligible = identified customer with >=1 sales invoice in the 180 days before the prediction date
+snapshots:
+  first: "2010-06-01"         # first date with a full 180-day lookback inside the data (data starts 2009-12-01)
+  last: "2011-09-01"          # last date whose 90-day outcome window is complete (data ends 2011-12-09)
+  frequency: monthly
+split:                         # prediction dates; gaps equal the 90-day horizon so outcome windows never overlap the next split
+  train: ["2010-06-01", "2010-12-01"]
+  validation: ["2011-03-01", "2011-04-01"]
+  test: ["2011-08-01", "2011-09-01"]
+seeds: {global: 20261026}
+cv: {n_iter: 25, scoring: roc_auc, purge_months: 3}
+threshold_policy: "maximise F1 on validation (alternatives reported)"
+fairness:
+  grouping: country_uk_vs_other   # operational grouping, NOT a protected attribute
+  min_group_n: 100
+  relative_band: [0.90, 1.10]     # Module 1: subgroup recall and error rates within 10% of overall
+  disparate_impact_band: [0.80, 1.25]   # Module 2
+mlflow:
+  tracking_uri: "sqlite:///mlruns_store/mlflow.db"
+  artifact_root: "mlruns_store/artifacts"
+  experiment: "retail-churn-90d"
