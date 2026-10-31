@@ -10,7 +10,7 @@ The model is decision *support*. It ranks identified customers for human-reviewe
 
 ## 2. Task definition and data
 
-The dataset is the Module 3 published fact table (build `41afeb4d5b118509`), which holds pseudonymised customer keys. Pseudonymised data is pseudonymous, not anonymous, and is treated as personal data throughout.
+The dataset is the Module 3 published fact table (build `41afeb4d5b118509`), derived from the Online Retail II transactions (Chen, 2019), which holds pseudonymised customer keys. Pseudonymised data is pseudonymous, not anonymous, and is treated as personal data throughout.
 
 **Task (all windows PROPOSED).** The Module 2 plan left the churn window "to be agreed with Marketing". I propose the following until that agreement exists, and every result below depends on it. At a monthly prediction date *T*, an identified customer is eligible if they placed at least one sales invoice in the 180 days before *T*. The label is churn = 1 when the customer places **no sales invoice in the 90 days from T**. Features use only data before *T*.
 
@@ -28,7 +28,7 @@ The dataset is the Module 3 published fact table (build `41afeb4d5b118509`), whi
 
 *Table 1. Time-ordered splits. Gaps equal the 90-day horizon so an outcome window never overlaps the next split.*
 
-Time-ordered splits stop the model from learning from the future. Hyperparameters were searched with randomised search (25 draws, ROC-AUC) over four expanding-window folds inside the training period, with a three-month purge between fold train and fold validation. Imputation, scaling, class weighting and tuning are fitted inside each training fold only. Automated tests perturb every invoice dated on or after *T* and confirm that features do not change, and confirm that the label flips when a future purchase is added.
+Time-ordered splits stop the model from learning from the future. Models were built with scikit-learn (Pedregosa et al., 2011). Hyperparameters were searched with randomised search (25 draws, ROC-AUC) over four expanding-window folds inside the training period, with a three-month purge between fold train and fold validation. Imputation, scaling, class weighting and tuning are fitted inside each training fold only. Automated tests perturb every invoice dated on or after *T* and confirm that features do not change, and confirm that the label flips when a future purchase is added.
 
 The selection rule was fixed in advance: take the highest validation AUC; if a more interpretable candidate is within 0.005 AUC, prefer it (logistic regression, then LightGBM, then random forest); then apply a fairness gate on validation. The threshold maximises F1 on validation. The test period was scored once per iteration, never used for tuning, and is disclosed in Section 7.
 
@@ -50,9 +50,9 @@ The three candidates differ by less than 0.002 AUC on validation and their test 
 
 ![Figure 1. Test ROC and precision–recall curves for the selected model against both baselines.](model/figures/final_test_roc_pr.png)
 
-I report ROC-AUC because it measures ranking quality independently of any threshold, which is what a prioritised list needs. PR-AUC, precision, recall and F1 show the cost of acting on a particular cut-off, and the Brier score checks that the probabilities are usable as probabilities. Calibration is good on average, but I did not recalibrate the model, so the probabilities should be read as relative risk rather than guaranteed frequencies when the churn rate moves.
+I report ROC-AUC because it measures ranking quality independently of any threshold, which a prioritised list needs. PR-AUC, precision, recall and F1 show the cost of a particular cut-off, and the Brier score checks the probabilities. Calibration is good on average, but I did not recalibrate, so probabilities are relative risk, not guaranteed frequencies, when the churn rate moves.
 
-Cross-validation AUC inside the training period was lower (0.738, standard deviation 0.021) than on validation (0.775). That is expected rather than worrying: the earliest folds train on only one or two months of history, whereas the final model sees seven. The gap does mean the cross-validation figure should not be quoted as the expected performance.
+Cross-validation AUC inside the training period was lower (0.738, standard deviation 0.021) than on validation (0.775). This is expected: the earliest folds train on only one or two months of history, whereas the final model sees seven, so the cross-validation figure should not be quoted as expected performance.
 
 The validation churn rate (0.569) is much higher than test (0.418). The F1-optimal threshold chosen on validation therefore flags more customers than needed on test. This is a documented limitation. Marketing should set the flag rate from campaign capacity, and Table 3 gives descriptive operating points (not tuned on test).
 
@@ -68,7 +68,7 @@ Performance is weaker for customers not seen in training (AUC 0.688, n = 963) th
 
 ## 5. Interpretability
 
-SHAP values for the logistic regression were computed on the log-odds scale for 2,000 random test rows, with a 500-row training background.
+SHAP values (Lundberg & Lee, 2017) for the logistic regression were computed on the log-odds scale for 2,000 random test rows, with a 500-row training background.
 
 ![Figure 2. Mean absolute SHAP value per feature (log-odds scale).](model/figures/shap_global_bar.png)
 
@@ -84,7 +84,7 @@ Local explanations use five cases selected by a deterministic rule, not by hand.
 
 ## 6. Fairness assessment
 
-**What the data can and cannot support.** The dataset contains no protected attributes (no age, sex, ethnicity, disability or similar), and I have not inferred any. Country is an operational field, not a protected attribute. The Module 1 charter nonetheless asks that country variables be examined for proxy effects and that subgroup recall and error rates stay within 10% of overall. I therefore use **UK versus non-UK** customers as a *supplementary, operational* grouping. This does **not** satisfy a protected-attribute fairness requirement, which remains **unmet and pending instructor clarification** (Appendix B). Positive prediction means "flagged for a retention offer".
+**What the data can and cannot support.** The dataset contains no protected attributes (no age, sex, ethnicity, disability or similar), and I have not inferred any. Country is an operational field, not a protected attribute. The Module 1 charter, in line with ICO (2020) guidance on fairness in AI, asks that country variables be examined for proxy effects and that subgroup recall and error rates stay within 10% of overall. I therefore use **UK versus non-UK** customers as a *supplementary, operational* grouping. This does **not** satisfy a protected-attribute fairness requirement, which remains **unmet and pending instructor clarification** (Appendix B). Positive prediction means "flagged for a retention offer".
 
 An ablation shows the model does not need country: adding a UK flag changes validation AUC by 0.0002, so it is excluded.
 
@@ -105,9 +105,9 @@ The Module 1 band of 10% around overall subgroup performance, and the 0.80–1.2
 
 On validation the model passed the gate (disparate impact 1.007; TPR and FPR within 3% of overall), so no mitigation was triggered under the pre-declared rule. On test, selection rates and recall are comparable (disparate impact 1.039 sits inside the 0.80–1.25 band), but the non-UK false positive rate is 7.5 points higher and its interval just excludes zero. Non-UK customers are more often flagged without churning. Because a flag leads to an offer, the effect is unnecessary offers rather than denied benefits, but Marketing should confirm that reading. The non-UK group is small (532 rows), and per-country rates are unreliable: besides the UK, only Germany passes the minimum-sample rule, and the Fairness Metrics Report flags every other country as insufficient rather than interpreting it.
 
-**Mitigation.** I tried threshold optimisation for equalised odds and Kamiran–Calders reweighing. Both were fitted on training and validation only. On test neither removed the gap (FPR ratios 1.199 and 1.142 against 1.127 unmitigated), and equalised-odds thresholds lowered recall to 0.755. They were reported as exploratory and **not adopted**. I do not claim the disparity is eliminated or that the model is fair. The residual finding is disclosed and monitored.
+**Mitigation.** I tried threshold optimisation for equalised odds (Hardt et al., 2016) using Fairlearn (Weerts et al., 2023), and Kamiran and Calders (2012) reweighing. Both were fitted on training and validation only. On test neither removed the gap (FPR ratios 1.199 and 1.142 against 1.127 unmitigated), and equalised-odds thresholds lowered recall to 0.755. They were reported as exploratory and **not adopted**. I do not claim the disparity is eliminated or that the model is fair. The residual finding is disclosed and monitored.
 
-The practical meaning depends on how Marketing uses the flag. If a flag triggers a discount, non-UK customers receive slightly more unnecessary discounts. If a flag triggers a personal call from a limited team, the same pattern could crowd out other customers. This is why the recommendation below keeps a human in the loop and why the use decision belongs to Marketing and the AI Ethics Committee, not to the model.
+The practical meaning depends on how Marketing uses the flag. If it triggers a discount, non-UK customers receive slightly more unnecessary discounts; if it triggers a call from a limited team, the same pattern could crowd out others. The use decision therefore belongs to Marketing and the AI Ethics Committee, with a human in the loop.
 
 ## 7. Limitations and recommendation
 
@@ -117,9 +117,9 @@ The practical meaning depends on how Marketing uses the flag. If a flag triggers
 4. One test window, weaker performance on new customers, and a small non-UK group.
 5. The protected-attribute requirement cannot be assessed with this data.
 
-**Recommendation.** Approve v1.0.0 for a supervised pilot only: ranked lists reviewed by a person, thresholds set by campaign capacity, no automated decisions. Before wider use, agree the churn window with Marketing, resolve the fairness-requirement question, and run the monitoring plan in the Model Card: weekly input drift and missingness, monthly AUC and calibration once outcomes mature, and quarterly UK/non-UK reviews by the AI Ethics Committee, which owns the model-bias risk (a principal concern in Module 1; owner per the Module 2 RAID log).
+**Recommendation.** Approve v1.0.0 for a supervised pilot only: ranked lists reviewed by a person, thresholds set by campaign capacity, no automated decisions. Before wider use, agree the churn window with Marketing, resolve the fairness-requirement question, and run the monitoring plan in the Model Card (Mitchell et al., 2019), which follows the govern-and-measure approach of the NIST AI Risk Management Framework (Tabassi, 2023): weekly input drift and missingness, monthly AUC and calibration once outcomes mature, and quarterly UK/non-UK reviews by the AI Ethics Committee, which owns the model-bias risk (a principal concern in Module 1; owner per the Module 2 RAID log).
 
-Outcomes take 90 days to mature, so performance monitoring necessarily lags. Input drift, the share of flagged customers and the proportion of missing gap features are therefore the early-warning signals. Review triggers (PROPOSED, to be agreed: for example, AUC below 0.70 on a matured month, a flag rate more than ten points from its pilot value, or any fairness metric outside its band for two consecutive reviews) send the model back for review and, if needed, retraining. Because the API logs no request bodies, these statistics must be computed by the calling system from its own scored batches; the API does not collect them.
+Outcomes take 90 days to mature, so performance monitoring lags; input drift, the flag rate and missing gap features are the early-warning signals. Review triggers (PROPOSED, to be agreed: for example, AUC below 0.70 on a matured month, a flag rate more than ten points from its pilot value, or any fairness metric outside its band for two consecutive reviews) send the model back for review and, if needed, retraining. Because the API logs no request bodies, these statistics must be computed by the calling system from its own scored batches; the API does not collect them.
 
 ---
 
@@ -133,9 +133,20 @@ Which attributes the assignment treats as protected; whether UK versus non-UK is
 
 ## References
 
-- Information Commissioner's Office (2020) *Guidance on AI and data protection*. Wilmslow: ICO.
-- Lundberg, S.M. and Lee, S.-I. (2017) 'A unified approach to interpreting model predictions', *Advances in Neural Information Processing Systems*, 30.
-- Mitchell, M. et al. (2019) 'Model cards for model reporting', *Proceedings of FAT\* '19*, pp. 220–229.
-- Tabassi, E. (2023) *Artificial Intelligence Risk Management Framework (AI RMF 1.0)*. NIST AI 100-1. Gaithersburg, MD: NIST.
-- Kamiran, F. and Calders, T. (2012) 'Data preprocessing techniques for classification without discrimination', *Knowledge and Information Systems*, 33(1), pp. 1–33.
-- Hardt, M., Price, E. and Srebro, N. (2016) 'Equality of opportunity in supervised learning', *Advances in Neural Information Processing Systems*, 29.
+Chen, D. (2019). *Online Retail II* [Data set]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D
+
+Hardt, M., Price, E., & Srebro, N. (2016). Equality of opportunity in supervised learning. *Advances in Neural Information Processing Systems, 29*, 3315–3323.
+
+Information Commissioner's Office. (2020). *Guidance on AI and data protection*. https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/
+
+Kamiran, F., & Calders, T. (2012). Data preprocessing techniques for classification without discrimination. *Knowledge and Information Systems, 33*(1), 1–33. https://doi.org/10.1007/s10115-011-0463-8
+
+Lundberg, S. M., & Lee, S.-I. (2017). A unified approach to interpreting model predictions. *Advances in Neural Information Processing Systems, 30*, 4765–4774.
+
+Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., & Gebru, T. (2019). Model cards for model reporting. *Proceedings of the Conference on Fairness, Accountability, and Transparency*, 220–229. https://doi.org/10.1145/3287560.3287596
+
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research, 12*, 2825–2830.
+
+Tabassi, E. (2023). *Artificial Intelligence Risk Management Framework (AI RMF 1.0)* (NIST AI 100-1). National Institute of Standards and Technology. https://doi.org/10.6028/NIST.AI.100-1
+
+Weerts, H., Dudík, M., Edgar, R., Jalali, A., Lutz, R., & Madaio, M. (2023). Fairlearn: Assessing and improving fairness of AI systems. *Journal of Machine Learning Research, 24*(257), 1–8.
