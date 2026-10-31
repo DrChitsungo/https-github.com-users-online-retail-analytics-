@@ -257,8 +257,8 @@ const chartBase = (title) => ({
     ["Retries and failure", "ingest retries 2x; gates never retry; failed run writes FAILED status and publishes nothing", TEAL, "Executed"],
     ["Deterministic", D.repro.n + " of " + D.repro.n + " tables identical across two runs; build id " + D.build_id.slice(0, 8), TEAL, "Executed"],
     ["Pinned environment", "Lock file; fresh venv install + full test run; run in " + Math.round(D.runtime) + " s", TEAL, "Executed"],
-    ["Docker image", "Dockerfile with unprivileged user and lock-file install", AMBER, "Not verified"],
-    ["Collaboration", "Config-as-code, tests, CI template, generated docs", AMBER, "CI not run"],
+    ["Docker image", "Builds on a clean runner; test suite passes inside the image (CI run #4). Not run on the full dataset", TEAL, "Verified in CI"],
+    ["Collaboration", "Config-as-code, tests, generated docs; CI jobs test and docker both green", TEAL, "CI passed"],
   ];
   cards.forEach((c, i) => {
     const x = 0.5 + (i % 3) * 3.05, y = 1.35 + Math.floor(i / 3) * 1.55;
@@ -272,7 +272,7 @@ const chartBase = (title) => ({
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.5, y: 4.5, w: 9, h: 0.6, fill: { color: NAVY }, line: { color: NAVY }, rectRadius: 0.08, objectName: "Command bar" });
   s.addText("python -m retail_pipeline.flow --run-id run-001", { x: 0.7, y: 4.5, w: 8.6, h: 0.6, fontFace: "Courier New", fontSize: 14, color: WHITE, margin: 0, valign: "middle", isTextBox: true });
   footer(s, "Source: reports/evidence/reproducibility_check.json, fresh_venv_check.txt; src/retail_pipeline/flow.py");
-  s.addNotes("Two full runs with the same input, configuration, code and key produced identical content hashes for all seven published tables, and the same build id. The build id changes if the code or rules change, which was observed during development. Failure handling is demonstrated: a critical bronze failure in the integration test stops the run at the cleaning step, writes run_status.json as FAILED and publishes nothing. The pinned dependency set was installed in a fresh virtual environment and the full test suite ran there. Docker: the Dockerfile and commands are provided, but no Docker daemon was available where this was built, so the image has not been built or run. The CI workflow is a template that has not been executed.");
+  s.addNotes("Two full runs with the same input, configuration, code and key produced identical content hashes for all seven published tables, and the same build id. The build id changes if the code or rules change, which was observed during development. Failure handling is demonstrated: a critical bronze failure in the integration test stops the run at the cleaning step, writes run_status.json as FAILED and publishes nothing. The pinned dependency set was installed in a fresh virtual environment and the full test suite ran there. Docker and CI: the repository workflow ran on GitHub Actions (run #4, commit dfb67ea, Mon 26 Oct 2026). The test job passed in 1m 7s and the docker job passed in 2m 1s: the Dockerfile built on a clean runner and the test suite passed inside the image. What has not been done is a full-dataset pipeline run inside the container; the full-data runs were executed in a Python virtual environment. Evidence: reports/evidence/ci_run_4.md.");
 }
 
 // ---------------------------------------------------------------------------------------------------------- 9 Validation
@@ -373,7 +373,7 @@ const chartBase = (title) => ({
     ["Tests", D.tests + " passed in a fresh pinned venv", GREEN],
     ["Failing fixture", "7 critical failures; publication blocked", GREEN],
     ["Reproducibility", D.repro.n + "/" + D.repro.n + " tables identical", GREEN],
-    ["Docker build, CI, GitHub push", "Not verified / not done", CORAL],
+    ["Docker + CI on GitHub", "Run #4 (commit dfb67ea): test and docker jobs passed", GREEN],
   ];
   ev.forEach((e, i) => {
     const y = 1.3 + i * 0.6;
@@ -385,16 +385,17 @@ const chartBase = (title) => ({
   });
   card(s, 5.8, 1.3, 3.7, 1.25, NAVY, "Repository card");
   s.addText("GitHub repository", { x: 5.95, y: 1.36, w: 3.4, h: 0.3, fontFace: HF, fontSize: 13, bold: true, color: AMBER, margin: 0, isTextBox: true });
-  s.addText([{ text: "Open repository on GitHub (DrChitsungo)", options: { hyperlink: { url: "https://github.com/DrChitsungo/https-github.com-users-online-retail-analytics-", tooltip: "Open the project repository on GitHub" }, color: "8FD6D6", underline: { style: "sng", color: "8FD6D6" }, breakLine: true } }, { text: "Link supplied by the author. This build did not push to it; contents not verified here.", options: { color: WHITE, fontSize: 10 } }], { x: 5.95, y: 1.7, w: 3.4, h: 0.8, fontFace: BF, fontSize: 11, margin: 0, valign: "top", isTextBox: true, objectName: "Repository link" });
+  s.addText([{ text: "Open repository on GitHub (DrChitsungo)", options: { hyperlink: { url: "https://github.com/DrChitsungo/https-github.com-users-online-retail-analytics-", tooltip: "Open the project repository on GitHub" }, color: "8FD6D6", underline: { style: "sng", color: "8FD6D6" }, breakLine: true } }, { text: "Package pushed; CI run #4 green (test + docker jobs).", options: { color: WHITE, fontSize: 10 } }], { x: 5.95, y: 1.7, w: 3.4, h: 0.8, fontFace: BF, fontSize: 11, margin: 0, valign: "top", isTextBox: true, objectName: "Repository link" });
   s.addText("Remaining limitations", { x: 5.8, y: 2.7, w: 3.7, h: 0.3, fontFace: HF, fontSize: 13, bold: true, color: NAVY, margin: 0, isTextBox: true });
   s.addText([
     { text: "One static source; no cost or ERP/CRM data", options: { bullet: true, breakLine: true } },
     { text: "Bias is internal; no benchmark or demographics", options: { bullet: true, breakLine: true } },
     { text: "Roles, retention, DPIA: proposals", options: { bullet: true, breakLine: true } },
-    { text: "Source block boundary is inferred", options: { bullet: true } },
+    { text: "Source block boundary is inferred", options: { bullet: true, breakLine: true } },
+    { text: "No full-dataset run inside Docker yet", options: { bullet: true } },
   ], { x: 5.8, y: 3.05, w: 3.7, h: 1.6, fontFace: BF, fontSize: 12, color: TEXT, margin: 0, valign: "top", paraSpaceAfter: 4, isTextBox: true });
-  footer(s, "Evidence: reports/evidence/ (pytest_results.txt, gate_failure_demo.json, reproducibility_check.json, fresh_venv_check.txt)");
-  s.addNotes("Everything marked as passed was executed and its output is stored in the repository's reports folder. Two things were not possible in this environment: the Docker image could not be built because no Docker daemon was available, and nothing was committed or pushed to GitHub. The repository link on this slide is the one you supplied and is clickable. This session did not push to it, so confirm it contains the package (including Dockerfile and reports) before submission. The CI workflow file is a template that has not run. Remaining limitations are summarised on the slide; see README section 9.");
+  footer(s, "Evidence: reports/evidence/ (pytest_results.txt, gate_failure_demo.json, reproducibility_check.json, fresh_venv_check.txt, ci_run_4.md)");
+  s.addNotes("Everything marked as passed was executed and its output is stored in the repository's reports folder. Docker and CI were verified on GitHub Actions: run #4 on commit dfb67ea passed both the test job and the docker job (the image builds and the test suite passes inside it). The repository link on this slide is clickable and the pipeline package is pushed to it. Not done: running the full 1,067,371-row pipeline inside the container; the full-data runs used a Python virtual environment. Remaining limitations are summarised on the slide; see README section 9.");
 }
 
 (async () => {
