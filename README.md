@@ -161,7 +161,7 @@ Predicts which identified customers are likely to place **no sales invoice in th
 | FastAPI `/predict` | **Executed** via TestClient and a live server smoke test (see below) |
 | Pinned `requirements-ml.txt` installs in a fresh virtualenv and the 27 churn tests pass there | **Executed** - `reports/evidence/fresh_venv_check_module4.txt` |
 | Cross-artefact consistency (model metadata, MLflow, API, reports) | **Executed** - `scripts/verify_module4.py`, `reports/evidence/module4_verification.txt` |
-| AI Disclosure Form | **Pending** (form not supplied) |
+| AI Disclosure Form | **Drafted**, awaiting the learner's review and sign-off (delivered separately, not in the repo) |
 | Push to GitHub of the Module 4 files | **Not done by the assistant**; the user must upload (see delivery notes) |
 
 ### Setup
