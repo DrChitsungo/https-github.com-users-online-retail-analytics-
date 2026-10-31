@@ -1,0 +1,30 @@
+PASS 15 slides in total (12 main + 3 appendix)
+PASS no recommendation or executive-summary slide
+PASS every slide has speaker notes of at least 300 characters
+PASS deck states ROC-AUC = 0.765
+PASS deck states baseline AUC = 0.663
+PASS deck states recall = 88.1%
+PASS deck states precision = 54.5%
+PASS deck states flag rate = 67.6%
+PASS deck states AUC CI low = 0.750
+PASS deck states AUC CI high = 0.781
+PASS deck states threshold = 0.314
+PASS deck states false alarms = 1,700
+PASS deck states misses = 275
+PASS deck states fairness DI = 1.039
+PASS deck states fairness FPR diff = 0.075
+PASS deck states fairness FPR diff CI = 0.009
+PASS deck states fairness TPR diff = -0.012
+PASS mitigation gaps in appendix match mitigation_results.json (0.086, 0.080, 0.075)
+PASS group-threshold recall 0.755 matches mitigation_results.json
+PASS prevalence shift 57% to 42% matches validation/test prevalence
+PASS unseen-customer AUC 0.688 matches recorded subset
+PASS case narratives match profiles (A: 2 invoices/426 days/none in 90; C: gap 4 d, 161 d silent; D: 31 invoices, 28 days)
+PASS what-if: case A falls below threshold at 3 extra invoices, case C at 6 (not 5)
+PASS what-if data came from the same model version as the evidence
+PASS dashboard URL on slide 12 is a hyperlink
+PASS QR image present on slide 12
+PASS no customer identifiers in deck text
+PASS deck makes no fairness or compliance certification claim
+
+RESULT: ALL CHECKS PASSED

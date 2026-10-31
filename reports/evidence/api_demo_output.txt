@@ -1,0 +1,48 @@
+API demonstration against http://127.0.0.1:8000
+
+1. GET /health
+{"status": "ok", "model_version": "1.0.0"}
+  [PASS] status 200 and model_version present
+
+2. GET /model (selected fields)
+{
+ "model_version": "1.0.0",
+ "task": "customer_churn_90d",
+ "threshold": 0.313903,
+ "test_roc_auc": 0.765,
+ "intended_use": "rank currently active, identified customers by 90-day churn risk to support human-reviewed retention planning"
+}
+  [PASS] model info matches health version
+
+3. POST /predict with a valid request
+request:  {"recency_days": 40, "tenure_days": 400, "n_inv_all": 6, "n_inv_30": 0, "n_inv_90": 1, "n_inv_prev90": 2, "rev_all": 1800.5, "rev_90": 300, "rev_180": 900, "n_products_all": 60, "n_products_180": 35, "avg_units_per_inv": 120, "mean_gap_days": 55, "std_gap_days": 20, "recency_over_gap": 0.73, "n_cancel_all": 0, "cancel_ratio": 0}
+response: {
+ "request_id": "6a2ea0bd-28ff-4b95-a893-d5e32aa585db",
+ "model_version": "1.0.0",
+ "churn_probability": 0.317697,
+ "flagged_high_churn_risk": true,
+ "decision_threshold": 0.313903,
+ "imputed_fields": [],
+ "notes": [
+  "Advisory score for human-reviewed retention planning; not for automated decisions about individuals."
+ ]
+}
+  [PASS] 200, probability in (0,1), flag consistent with threshold
+
+4. Scenario: the same customer with three more invoices (recomputed consistently), latest purchase 30 days before the prediction date
+risk score 0.3177 -> 0.179924  (a model-sensitivity illustration, not a causal effect)
+  [PASS] scenario accepted
+
+5. POST /predict with an invalid request (tenure shorter than recency)
+HTTP 422: {"detail": "invalid input", "errors": [{"field": "body", "problem": "Value error, tenure_days must be >= recency_days", "type": "value_error"}]}
+  [PASS] 422 and submitted values are not echoed
+
+6. POST /predict with an unknown field (e.g. an identifier)
+HTTP 422: {"detail": "invalid input", "errors": [{"field": "customer_id", "problem": "Extra inputs are not permitted", "type": "extra_forbidden"}]}
+  [PASS] 422: identifiers are refused
+
+7. Parity of the API with the serialised model loaded directly
+direct 0.317697 vs API 0.317697
+  [PASS] equal to 6 decimals
+
+RESULT: ALL EXPECTATIONS MET

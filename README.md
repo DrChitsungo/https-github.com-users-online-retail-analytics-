@@ -226,3 +226,32 @@ reports/model/                     result JSON + figures; reports/mlflow_evidenc
 docs/MODEL_CARD.md, docs/model_feature_spec.md, docs/requirements_evidence_checklist.md, docs/instructor_clarification_request_DRAFT.md (NOT SENT)
 models/churn_logreg_v1.0.0.*       the packaged model and its metadata
 ```
+
+## Module 5: stakeholder presentation and live dashboard
+
+Communicates the Module 4 churn model (v1.0.0, unchanged and not retrained) to Marketing and CRM managers. No new predictive task.
+
+### Verified status (Module 5)
+
+| Item | Status |
+|---|---|
+| Presentation `deck/Module5_Churn_Insights.pptx`: 12 main slides + 3 appendix slides, speaker notes on every slide, no recommendation or executive-summary slide | **Built and rendered**; 28 checks in `scripts/verify_module5.py` pass |
+| Dashboard source `dashboard/` (Streamlit, 5 views), pinned `dashboard/requirements.txt` | **Built**; 18 tests in `tests/test_dashboard.py`; run end to end locally and in a fresh pinned virtualenv through `start.sh` |
+| Live API calls from the dashboard (`/predict`) | **Verified on the hosted Space on 2026-10-31**: live score 0.589 -> 0.245 for the Case A what-if, and HTTP 422 returned for an invalid request |
+| API demonstration `scripts/api_demo.py` | **Executed**: 6 expectations plus parity with the serialised model; output in `reports/evidence/api_demo_output.txt` |
+| Hugging Face deployment (Docker Space) | **Deployed and checked on 2026-10-31** by opening the public URL: all five views load, figures match the Module 4 evidence, live prediction and invalid-input handling work. Not checked: load, sustained uptime, free-tier sleep behaviour |
+| Evidence register `docs/module5_evidence_register.md`; technical Q&A `docs/module5_technical_QA.md` | Done |
+| Fairness | Operational UK vs non-UK view only; **no protected attributes exist in the data**; the FPR gap (+0.075) is outside the Module 1 band; no fairness or compliance claim is made |
+
+Live dashboard (verified 2026-10-31): https://huggingface.co/spaces/Bezzel/retail-churn-dashboard
+
+### Run
+```bash
+pip install -r requirements-ml.txt -r dashboard/requirements.txt
+PYTHONPATH=src uvicorn churn_model.api:app --port 8000 &
+streamlit run dashboard/app.py                 # CHURN_API_URL defaults to http://127.0.0.1:8000
+python scripts/api_demo.py --check-parity      # API demonstration
+python scripts/build_hf_space.py               # assembles build/hf_space (+ zip) for the Hugging Face Space
+PYTHONPATH=src python -m pytest tests/test_dashboard.py -q
+```
+Rebuild the deck: `python scripts/make_qr.py <url>` then `DASHBOARD_URL=<url> DASHBOARD_VERIFIED=<date> node deck/build_module5_deck.js` and `python scripts/verify_module5.py`. Settings are in `.env.example` (no secrets needed). See `dashboard/README.md` for deployment.

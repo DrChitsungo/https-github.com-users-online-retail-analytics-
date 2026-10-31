@@ -1,0 +1,14 @@
+# Hugging Face Space / dashboard runtime. Exact versions used in the executed Module 4 runs and the Module 5 tests (Python 3.13).
+# scikit-learn, numpy, pandas and joblib MUST match the versions that produced models/churn_logreg_v1.0.0.joblib.
+streamlit==1.66.1
+plotly==7.1.0
+requests==2.34.2
+pandas==3.0.5
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+fastapi==0.150.0
+starlette==1.7.0
+pydantic==2.13.5
+uvicorn==0.54.0
