@@ -9,7 +9,7 @@ Status key: **Done** = built and checked; **Partial** = built with a stated gap;
 | 3 | Clarification request drafted, **not sent** | Done | `docs/instructor_clarification_request_DRAFT.md` | Student decides whether to send |
 | 4 | Dataset audit, leakage controls, fit-on-train-only pipelines | Done | `src/churn_model/dataset.py`, `common.py`; leakage and imputer tests | |
 | 5 | Evaluation protocol: baseline, untouched test, no tuning on test | Partial | Validation Report §3, §7; `selection.json` written before test | Test scored twice (iteration 1 and 2) plus exploratory mitigation looks: **disclosed** |
-| 6 | MLflow set up before first experiment; real runs only | Done | `reports/mlflow_evidence/` (CSV exports, 2 UI screenshots) | One failed run and iteration-1 runs retained and tagged; no public MLflow link (local store) |
+| 6 | MLflow set up before first experiment; real runs only | Done | `reports/mlflow_evidence/` (CSV exports, 2 UI screenshots) | One failed run and iteration-1 runs retained and tagged; no public MLflow link (local store); 3 UI screenshots incl. the model registry |
 | 7 | Baseline + 2–3 candidates; CV search; imbalance handling in folds | Done | `train.py`; Validation Report §4 | |
 | 8 | Metrics and labelled/captioned figures | Done | Report Tables 1–4, Figures 1–3; `reports/model/figures/` | |
 | 9 | SHAP global and local | Done | `notebooks/shap_analysis.ipynb` (executed) | Rankings differ from LightGBM; flagged in report |
@@ -20,10 +20,27 @@ Status key: **Done** = built and checked; **Partial** = built with a stated gap;
 | 14 | Model Card with monitoring plan tied to Module 1 risk | Partial | `docs/MODEL_CARD.md` | Supplied Module 1 text has no numbered risk IDs; ties are to named risks (model bias, user resistance). Triggers PROPOSED |
 | 15 | Serialised final model | Done | `models/churn_logreg_v1.0.0.joblib` + metadata | |
 | 16 | FastAPI `POST /predict` (validation, identical preprocessing, version, invalid-input handling, no sensitive logging) | Done | `src/churn_model/api.py`; 18 API tests (of 27 churn tests; 91 tests in the full suite) incl. parity with stored test predictions | |
-| 17 | Model Validation Report 1,800–2,200 words, captioned figures/tables | Partial | `reports/Model_Validation_Report.md/.docx` | Main text 1,987 words; 2,032 with headings; 2,162 with headings and captions (5 figures, 4 tables); about 2,440 if table cells are also counted. Appendices and references excluded. Submission brief says 1,800–2,200 but not how to count |
+| 17 | Model Validation Report 1,800–2,200 words, captioned figures/tables | Partial | `reports/Model_Validation_Report.md/.docx` | Main text about 2,010 words; 2,055 with headings; 2,185 with headings and captions (5 figures, 4 tables); about 2,460 if table cells are also counted (earlier count plus the net 23 words added for the registry and counterfactual edits). Appendices and references excluded. Submission brief says 1,800–2,200 but not how to count |
 | 18 | SHAP notebook | Done | `notebooks/shap_analysis.ipynb` | |
 | 19 | Repo-ready code, pinned deps, README, commands, verification | Partial | `requirements-ml.txt`, README Module 4 section, tests | Not pushed to GitHub; not a git checkout in the working environment |
 | 20 | AI Disclosure Form | Drafted, awaiting learner sign-off | `Nexford_AI_Disclosure_Form_MSDA_BChitsungo_Mod4_COMPLETED.docx` (filled from the learner's own form; delivered separately) | Learner must confirm every statement is accurate (other AI tools used? Q6 edits?) before submitting; Report Appendix A points to it |
-| 21 | Versions and results consistent across report, notebook, card, MLflow, artefact, API | Done | `scripts/verify_module4.py` (22 cross-artefact checks; log in `reports/evidence/module4_verification.txt`) | |
+| 21 | Versions and results consistent across report, notebook, card, MLflow, artefact, API | Done | `scripts/verify_module4.py` (23 cross-artefact checks; log in `reports/evidence/module4_verification.txt`) | |
 | 22 | Rubric and course details | Partial | Submission list received (report 1,800–2,200 words; Validation Report, SHAP notebook, Fairness Report, Model Card, MLflow link/screenshots, model file, FastAPI /predict, APA references) | Full grading rubric still not supplied |
 | 23 | References in APA format | Done (verify) | Validation Report References section, with in-text citations | Checked against the publisher/UCI pages: Chen (2019) dataset DOI and creator; Kamiran & Calders (2012) title, authors, journal, volume, pages, DOI. NOT checked: Mitchell et al. DOI, Hardt et al. and Lundberg & Lee page numbers, Weerts et al., Pedregosa et al., Tabassi DOI, ICO URL. UCI's own citation year for Online Retail II differs (page lists a 2019 donation); confirm the year your style guide wants |
+| 24 | MLflow Model Registry: register best model with version and stage | Done | `src/churn_model/register_model.py`; `reports/mlflow_evidence/model_registry.json`; `mlflow_ui_model_registry.png`; 2 registry tests | Version 1 of `retail-churn-logreg`, alias `champion` (MLflow 3 aliases replace the old Staging/Production stages). The alias is not production approval. The registry lives in the local, git-ignored SQLite store; the committed export and screenshot are the evidence |
+
+## Module 4 requirements table (as supplied) and where each row is met
+
+| Requirement | Tool named | Where it is met | Note |
+|---|---|---|---|
+| Experiment tracking | MLflow / W&B | MLflow, 32 runs; `reports/mlflow_evidence/` | |
+| Model registry | MLflow Model Registry | `register_model.py`, `model_registry.json` | Added after a gap check |
+| Model serialisation | joblib / ONNX | `models/churn_logreg_v1.0.0.joblib` + metadata | |
+| API development | FastAPI / Flask | `src/churn_model/api.py`, `/predict` | |
+| XAI, global | SHAP | Report Section 5, Figures 3 and 4; notebook | |
+| XAI, local | LIME / SHAP | SHAP, five deterministic cases | LIME not used; the table accepts SHAP |
+| XAI, counterfactual | Alibi / DiCE | `explain.py` grid search over 36 scenarios on two mutable behaviours, re-scored through the pipeline | DiCE and Alibi not used; stated in the report |
+| Fairness metrics | Fairlearn / Aequitas | Fairness Metrics Report; Table 4 | UK vs non-UK only; no protected attributes in the data |
+| Bias mitigation | Fairlearn / AI Fairness 360 | `mitigation.py` (ThresholdOptimizer, reweighing) | Applied, did not close the FPR gap, not adopted |
+| Model documentation | Model Cards | `docs/MODEL_CARD.md` | |
+| Sensitivity analysis | Custom scripts | Notebook and Report Section 5 | |

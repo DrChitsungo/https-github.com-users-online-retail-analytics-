@@ -105,5 +105,11 @@
     "unidentified customers",
     "customers inactive for more than 180 days",
     "inference of personal characteristics"
-  ]
+  ],
+  "registry": {
+    "registered_model": "retail-churn-logreg",
+    "version": 1,
+    "alias": "champion",
+    "run_id": "58bcfae5b9ad4569ad79747717d42cb2"
+  }
 }

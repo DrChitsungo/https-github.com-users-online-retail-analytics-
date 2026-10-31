@@ -1,5 +1,5 @@
 """Cross-artefact consistency check for Module 4. Exits non-zero on any mismatch. Run: PYTHONPATH=src python scripts/verify_module4.py"""
-import json, re, sys
+import hashlib, json, re, sys
 from pathlib import Path
 import joblib, mlflow, pandas as pd
 ROOT = Path(__file__).resolve().parents[1]; bad = []
@@ -34,5 +34,7 @@ for label, s in (("report", rep), ("fairness report", fr), ("model card", card))
     chk(f"{label} quotes DI {c['disparate_impact_ratio']:.3f} and FPR ratio {c['fpr_vs_overall']:.3f}", f"{c['disparate_impact_ratio']:.3f}" in s and f"{c['fpr_vs_overall']:.3f}" in s)
 chk("model card mentions both MLflow run ids", meta["mlflow"]["validation_run_id"] in card and meta["mlflow"]["test_run_id"] in card)
 chk("no secrets or raw ids in reports", not re.search(r"(?i)customer_key\s*[:=]\s*[0-9a-f]{16}|CUSTOMER_KEY_SECRET\s*=\s*\w{16}", rep + card + fr))
-chk("AI disclosure marked pending in report, card checklist", "pending" in rep.lower() and "Pending" in (ROOT/"docs/requirements_evidence_checklist.md").read_text())
+chk("report does not claim disclosure compliance beyond a separate form", "completed separately" in rep and "compliant" not in rep.lower())
+reg = json.loads((ROOT/"reports/mlflow_evidence/model_registry.json").read_text())
+chk("model registry record matches serialised model, metadata and report", reg["sha256"] == hashlib.sha256((ROOT/"models/churn_logreg_v1.0.0.joblib").read_bytes()).hexdigest() and reg["alias"] == "champion" and meta["registry"]["run_id"] == meta["mlflow"]["validation_run_id"] and reg["registered_model"] in rep and reg["registered_model"] in card)
 print("\nRESULT:", "ALL CHECKS PASSED" if not bad else f"{len(bad)} FAILED: {bad}"); sys.exit(1 if bad else 0)

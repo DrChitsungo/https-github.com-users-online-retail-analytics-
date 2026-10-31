@@ -1,0 +1,19 @@
+{
+  "registered_model": "retail-churn-logreg",
+  "version": 1,
+  "alias": "champion",
+  "source": "runs:/58bcfae5b9ad4569ad79747717d42cb2/model/logreg.joblib",
+  "run_id": "58bcfae5b9ad4569ad79747717d42cb2",
+  "sha256": "497ff8f437aa02fcfcbfa4a57364665783f44134cfa6aba4acb19a4ed1e51e6a",
+  "tags": {
+    "model_version": "1.0.0",
+    "sha256": "497ff8f437aa02fcfcbfa4a57364665783f44134cfa6aba4acb19a4ed1e51e6a",
+    "iteration": "2",
+    "threshold": "0.313903",
+    "test_roc_auc": "0.765",
+    "test_run_id": "8e8e21abe6bd4867b0b2e2a67056b591",
+    "dataset_hash": "794106a862ace0f8",
+    "status_note": "validated on time-based test; not production-approved (PROPOSED churn window; UK vs non-UK FPR gap unresolved)"
+  },
+  "tracking_store": "sqlite:///mlruns_store/mlflow.db (local, not committed)"
+}

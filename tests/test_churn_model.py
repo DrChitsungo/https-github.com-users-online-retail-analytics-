@@ -79,6 +79,22 @@ def test_serialised_model_loads_and_matches_metadata():
     assert meta["feature_order"] == D.FEATURES and 0 < meta["threshold"] < 1 and list(pipe[:-1].get_feature_names_out())
     pr = pipe.predict_proba(pd.DataFrame([VALID | {"is_single_invoice": 0}])[D.FEATURES].astype(float))[0, 1]; assert 0 < pr < 1
 
+# ---------------------------------------------------------------- model registry
+def test_registry_record_matches_serialised_model():
+    """Committed files only: the registry export must describe exactly the serialised model (same bytes, same version, same threshold)."""
+    import hashlib
+    p = next(ROOT.glob("models/churn_*_v*.joblib")); meta = json.loads(p.with_suffix(".metadata.json").read_text()); rec = json.loads((ROOT / "reports" / "mlflow_evidence" / "model_registry.json").read_text())
+    assert rec["sha256"] == hashlib.sha256(p.read_bytes()).hexdigest() and rec["alias"] == "champion" and int(rec["version"]) >= 1
+    assert rec["tags"]["model_version"] == meta["model_version"] and float(rec["tags"]["threshold"]) == pytest.approx(meta["threshold"], abs=1e-6)
+    assert rec["run_id"] == meta["mlflow"]["validation_run_id"] == meta["registry"]["run_id"] and meta["registry"]["alias"] == "champion"
+
+@pytest.mark.skipif(not (ROOT / "mlruns_store" / "mlflow.db").exists(), reason="local MLflow store is git-ignored; present only after running the pipeline")
+def test_registry_alias_resolves_in_live_mlflow_store():
+    from mlflow.tracking import MlflowClient
+    tracking.setup(); mv = MlflowClient().get_model_version_by_alias("retail-churn-logreg", "champion")
+    rec = json.loads((ROOT / "reports" / "mlflow_evidence" / "model_registry.json").read_text())
+    assert str(mv.version) == str(rec["version"]) and mv.tags["sha256"] == rec["sha256"]
+
 client = TestClient(app)
 def test_api_valid_request_returns_probability_flag_threshold_and_version():
     r = client.post("/predict", json=VALID); b = r.json(); assert r.status_code == 200

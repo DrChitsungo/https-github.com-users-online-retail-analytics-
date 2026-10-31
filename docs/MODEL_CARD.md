@@ -11,6 +11,7 @@ Format follows Mitchell et al. (2019). Every figure comes from `models/churn_log
 | Date | 26 Oct 2026 |
 | Training data | Module 3 published fact table, prediction dates Jun–Dec 2010 (20,584 customer-snapshot rows, 4,225 customers) |
 | Dataset hash / code hash / config hash | `794106a862ace0f8` / `258a93f8e40c9463` / `af26659fdee2cf73` |
+| Registry | MLflow Model Registry `retail-churn-logreg`, version 1, alias `champion` (record: `reports/mlflow_evidence/model_registry.json`). The alias marks the version the API serves; it is not production approval |
 | Tracking | MLflow experiment `retail-churn-90d`; validation run `58bcfae5b9ad4569ad79747717d42cb2`; test run `8e8e21abe6bd4867b0b2e2a67056b591` |
 | Versions | Python 3.13.17, scikit-learn 1.9.1, pandas 3.0.5, numpy 2.5.3 |
 | Licence / contact | Coursework prototype; no licence granted. Contact: the author via the course submission |

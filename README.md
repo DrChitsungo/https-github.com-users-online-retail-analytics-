@@ -155,11 +155,12 @@ Predicts which identified customers are likely to place **no sales invoice in th
 |---|---|
 | Snapshot dataset, leakage controls, time-ordered splits | **Executed**, covered by `tests/test_churn_model.py` |
 | MLflow tracking (experiment `retail-churn-90d`, 32 real runs incl. superseded iteration 1 and one failed run) | **Executed**; export in `reports/mlflow_evidence/`; UI screenshots there |
+| MLflow Model Registry (`retail-churn-logreg`, version 1, alias `champion`) | **Executed**; `reports/mlflow_evidence/model_registry.json` and `mlflow_ui_model_registry.png`; the alias is not production approval |
 | Baselines + 3 tuned candidates, selection rule, one-time test evaluation | **Executed**; `reports/model/*.json` |
 | SHAP / counterfactuals / sensitivity notebook | **Executed** end to end with assertions: `notebooks/shap_analysis.ipynb` |
 | Fairness analysis (UK vs non-UK, supplementary) | **Executed**; protected-attribute requirement **unmet** (no such data) |
 | FastAPI `/predict` | **Executed** via TestClient and a live server smoke test (see below) |
-| Pinned `requirements-ml.txt` installs in a fresh virtualenv and the 27 churn tests pass there | **Executed** - `reports/evidence/fresh_venv_check_module4.txt` |
+| Pinned `requirements-ml.txt` installs in a fresh virtualenv and the 27 churn tests pass there (29 now, after the registry tests were added; the fresh-venv log predates them) | **Executed** - `reports/evidence/fresh_venv_check_module4.txt` |
 | Cross-artefact consistency (model metadata, MLflow, API, reports) | **Executed** - `scripts/verify_module4.py`, `reports/evidence/module4_verification.txt` |
 | AI Disclosure Form | **Drafted**, awaiting the learner's review and sign-off (delivered separately, not in the repo) |
 | Push to GitHub of the Module 4 files | **Not done by the assistant**; the user must upload (see delivery notes) |
@@ -182,6 +183,7 @@ python -m churn_model.final_eval     # SCORES THE TEST SET (do this once; re-run
 python -m churn_model.mitigation     # exploratory; also touches test
 python -m churn_model.explain
 python -m churn_model.package_model  # writes models/churn_logreg_v1.0.0.*
+python -m churn_model.register_model # registers it in the MLflow Model Registry (version 1, alias champion); idempotent
 python -m pytest -q tests/test_churn_model.py
 ```
 
@@ -217,7 +219,7 @@ Invalid input (for example `n_inv_30` larger than `n_inv_90`) returns HTTP 422 n
 
 ```
 configs/churn.yaml                 task, splits, seeds, thresholds (hashed into MLflow runs)
-src/churn_model/                   dataset, train, select, final_eval, fairness, mitigation, explain, package_model, api
+src/churn_model/                   dataset, train, select, final_eval, fairness, mitigation, explain, package_model, register_model, api
 notebooks/shap_analysis.ipynb      global/local SHAP, counterfactuals, sensitivity (executed)
 reports/Model_Validation_Report.*  validation report; reports/Fairness_Metrics_Report.md
 reports/model/                     result JSON + figures; reports/mlflow_evidence/ run export + UI screenshots
