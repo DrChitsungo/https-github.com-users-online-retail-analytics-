@@ -19,6 +19,7 @@ jobs:
       - run: docker build -t retail-pipeline .
       - run: docker run --rm --entrypoint python -e PREFECT_HOME=/tmp/.prefect retail-pipeline -m pytest
   churn-model:
+    # Module 4: installs the pinned ML dependencies and runs the churn tests (tests needing the git-ignored modelling data skip themselves).
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,4 +27,5 @@ jobs:
         with: { python-version: "3.13" }
       - run: pip install -r requirements-ml.txt
       - run: MLFLOW_DISABLE_AGENT_HINT=1 PYTHONPATH=src python -m pytest tests/test_churn_model.py -q
-
+      - run: pip install -r dashboard/requirements.txt
+      - run: MLFLOW_DISABLE_AGENT_HINT=1 PYTHONPATH=src python -m pytest tests/test_dashboard.py -q
