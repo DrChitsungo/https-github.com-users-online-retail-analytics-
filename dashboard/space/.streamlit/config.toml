@@ -1,0 +1,12 @@
+[server]
+headless = true
+enableXsrfProtection = false   # the Space is served inside a Hugging Face iframe; the app has no state-changing form posts beyond API calls it makes itself
+enableCORS = false
+[browser]
+gatherUsageStats = false
+[theme]
+primaryColor = "#1C7C7D"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F2F5F7"
+textColor = "#1F2933"
+
