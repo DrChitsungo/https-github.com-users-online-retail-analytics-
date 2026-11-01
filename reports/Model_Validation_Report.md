@@ -24,6 +24,8 @@ The dataset is the Module 3 published fact table (build `41afeb4d5b118509`), der
 
 **Features.** There are 18 behavioural features: recency, tenure, invoice counts over several windows, revenue over several windows, product breadth, purchase-gap statistics, and cancellation history. Country, the customer key and the snapshot date are excluded from the predictors and kept only for evaluation. Three gap features are missing for customers with a single invoice (26% to 43% of rows) and are imputed with training medians inside the pipeline.
 
+**Churn definition (PROPOSED).** Definition proposed in the absence of a confirmed Marketing stakeholder (Module 2): churn = no sales invoice (purchase) in the 90 days following the observation date, with the customer eligible only if they had at least one sales invoice in the prior 180 days. Both windows are PROPOSED, pending Marketing sign-off.
+
 ## 3. Evaluation protocol and leakage controls
 
 | Split | Prediction dates | Rows | Customers | Churn rate |
@@ -98,6 +100,10 @@ Five local cases were chosen by a deterministic rule, not by hand. Case C is the
 
 **What the data can and cannot support.** The dataset contains no protected attributes (no age, sex, ethnicity, disability or similar), and I have not inferred any. Country is an operational field, not a protected attribute. The Module 1 charter, in line with ICO (2020) guidance on fairness in AI, asks that country variables be examined for proxy effects and that subgroup recall and error rates stay within 10% of overall. I therefore use **UK versus non-UK** customers as a *supplementary, operational* grouping. This does **not** satisfy a protected-attribute fairness requirement, which remains **unmet and pending instructor clarification** (Appendix B). Positive prediction means "flagged for a retention offer".
 
+**Statement.** Protected attributes as defined by the Equality Act 2010 and the assignment brief are not present in Online Retail II and were not inferred. Therefore a formal protected-attribute fairness analysis is not possible on this dataset. Requirement recorded as unmet due to data limitation.
+
+Groupings used below are labelled as follows. `geographic_grouping_for_robustness_check`: UK vs non-UK, an operational grouping and **not** a protected characteristic. `customer-segment audit`: tenure, spend and purchase-frequency tiers, which are **behavioural, not demographic**. No synthetic protected attribute was created and no other dataset was used.
+
 An ablation shows the model does not need country: adding a UK flag changes validation AUC by 0.0002, so it is excluded.
 
 The Module 1 ±10% band and the Module 2 disparate-impact band (0.80–1.25) are governance thresholds, not statistical or legal tests. I therefore report each metric with an interval and read a breach as a prompt for review, not proof of unfair treatment.
@@ -121,6 +127,24 @@ On validation the model passed the gate (disparate impact 1.007; TPR and FPR wit
 
 The practical meaning depends on how Marketing uses the flag. If it triggers a discount, non-UK customers receive slightly more unnecessary discounts; if it triggers a call from a limited team, the same pattern could crowd out others. The use decision therefore belongs to Marketing and the AI Ethics Committee, with a human in the loop.
 
+**Customer-segment audit (behavioural, exploratory).** Tiers are tertiles of tenure (days since first purchase), spend (revenue, all history) and purchase frequency (invoices, all history), with cut-offs fixed on the **training** snapshots only (tenure 114 / 206 days; spend GBP 403 / 1202; frequency 2 / 3 invoices). This is an exploratory, descriptive audit of the recorded test predictions: the model, threshold and decision rule were not changed, and it is a further look at the test period that is counted in the test-use disclosure. Intervals are Wilson 95% intervals. Source: `scripts/segment_audit.py`, output `reports/model/segment_audit.json`.
+
+| Segment variable | Tier | n | Lapse rate | Flag rate | Lapsers caught (TPR) [95% CI] | False-alarm rate (FPR) [95% CI] |
+|---|---|---|---|---|---|---|
+| Tenure | Low | 785 | 0.525 | 0.954 | 0.981 [0.962, 0.990] | 0.925 [0.894, 0.948] |
+| Tenure | Mid | 722 | 0.600 | 0.870 | 0.965 [0.944, 0.979] | 0.727 [0.673, 0.775] |
+| Tenure | High | 4,027 | 0.365 | 0.587 | 0.828 [0.808, 0.847] | 0.448 [0.428, 0.467] |
+| Spend | Low | 998 | 0.683 | 0.998 | 0.997 [0.989, 0.999] | 1.000 [0.988, 1.000] |
+| Spend | Mid | 1,500 | 0.559 | 0.963 | 0.975 [0.962, 0.984] | 0.949 [0.929, 0.963] |
+| Spend | High | 3,036 | 0.261 | 0.428 | 0.682 [0.649, 0.714] | 0.337 [0.318, 0.357] |
+| Purchase frequency | Low | 1,564 | 0.645 | 1.000 | 1.000 [0.996, 1.000] | 1.000 [0.993, 1.000] |
+| Purchase frequency | Mid | 589 | 0.537 | 0.981 | 0.987 [0.968, 0.995] | 0.974 [0.948, 0.988] |
+| Purchase frequency | High | 3,381 | 0.293 | 0.472 | 0.726 [0.697, 0.753] | 0.367 [0.348, 0.387] |
+
+**What it shows.** Segments differ sharply, and that is expected because the model scores behaviour. In the lowest-frequency tier (two or fewer invoices) and the lowest-spend tier the fixed threshold flags essentially everyone (flag rate 1.000 and 0.998; false-alarm rate 1.000 and 1.000), so inside those tiers the flag does not separate lapsers from customers who stayed. In the highest-frequency and highest-spend tiers the model flags fewer customers (flag rate 0.472 and 0.428) and catches fewer lapsers (TPR 0.726 and 0.682), which matters because those are the customers a retailer would most want to keep. The Module 1 bands were set for group comparisons and are not applied to these tiers. No claim of fairness or unfairness is made; the point is that a single threshold behaves very differently across customer types and Marketing should review it by segment.
+
+**Disclosure statement.** The non-UK false-alarm gap (FPR +0.075, 95% CI 0.009 to 0.145; ratio to overall 1.127) is outside the ±10% band set in Module 1. Two mitigation attempts, group-specific equalised-odds thresholds and Kamiran-Calders reweighing, did not close the gap on the test period (non-UK minus UK FPR gap 0.080 and 0.086 versus 0.075 unmitigated). The group thresholds also lowered recall from 0.881 to 0.755; reweighing kept recall (0.891) but did not narrow the gap. Neither was adopted. The limitation is disclosed and the gap is referred for Marketing review.
+
 ## 7. Limitations and recommendation
 
 1. The 90-day and 180-day windows are PROPOSED, not agreed.
@@ -141,7 +165,7 @@ The analysis, code, tests and drafts were produced with assistance from Claude (
 
 ## Appendix B. Items awaiting instructor or stakeholder input
 
-Which attributes the assignment treats as protected; whether UK versus non-UK is acceptable as a supplementary grouping; which fairness metrics the rubric expects for a churn classifier; Marketing's agreed churn window. A draft clarification request is in `docs/instructor_clarification_request_DRAFT.md` and has **not** been sent.
+Which attributes the assignment treats as protected; whether UK versus non-UK is acceptable as a supplementary grouping; which fairness metrics the rubric expects for a churn classifier; Marketing's agreed churn window. A draft clarification request is in `docs/instructor_clarification_request_DRAFT.md` and has **not** been sent. On 1 November 2026 the author adopted the approach set out in Section 6 (protected-attribute requirement recorded as unmet; UK vs non-UK and behavioural tiers as clearly labelled supplementary groupings; equalised odds as the primary metric with demographic parity and disparate impact as secondary, all with 95% intervals); this approach has **not** been confirmed by the instructor.
 
 ## References
 

@@ -43,3 +43,8 @@ Every figure comes from `dashboard/data/dashboard_evidence.json` (built from the
 **20. What data is public?** Aggregate evaluation results, five rounded example profiles without identifiers or dates, and the 3 KB model file. No customer-level records.
 
 **21. What is not yet known?** Any operational or financial effect of using the scores; the cost of a false alarm; whether the non-UK gap persists on newer data; whether a 90-day window suits the retailer; behaviour after deployment (no drift evidence).
+
+**22. Did you test fairness on anything other than UK vs non-UK?** Yes, as a clearly labelled supplementary customer-segment audit: tertiles of tenure, spend and purchase frequency, with cut-offs fixed on the training snapshots. These are behavioural segments, not demographic and not protected. The fixed threshold flags 100% of customers with two or fewer invoices, so inside that tier the flag does not separate lapsers from stayers, while in the highest-frequency tier the model catches 72.6% of lapsers. It is exploratory and descriptive (a further look at the test period), the Module 1 bands are not applied to it, and it supports a recommendation that Marketing review the threshold by segment rather than any claim of fairness.
+
+**23. What exactly do you say about protected attributes?** Protected attributes as defined by the Equality Act 2010 and the assignment brief are not present in Online Retail II and were not inferred. Therefore a formal protected-attribute fairness analysis is not possible on this dataset. The requirement is recorded as unmet due to a data limitation. No synthetic protected attribute was created and no other dataset was used.
+

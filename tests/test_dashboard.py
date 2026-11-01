@@ -65,6 +65,7 @@ def test_static_views_render_without_exception(view):
 def test_fairness_view_states_missing_protected_attributes_and_no_compliance_claim():
     at = run("Fairness and ethics"); txt = " ".join(e.value for e in at.error) + " ".join(m.value for m in at.markdown)
     plain = txt.replace("*", ""); assert "No protected attributes" in plain and "not a regulatory" in plain
+    assert any("Customer-segment audit" in h.value for h in at.subheader)
     assert "certified" not in txt.lower() and "legally compliant" not in txt.lower()
 
 def test_prediction_view_shows_error_and_no_score_when_api_down(monkeypatch):

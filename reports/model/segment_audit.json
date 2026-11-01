@@ -1,0 +1,346 @@
+{
+ "label": "customer-segment audit: BEHAVIOURAL segments, not demographic and not protected characteristics",
+ "model_version": "1.0.0",
+ "threshold": 0.313903,
+ "status": "exploratory descriptive audit on the recorded test predictions; no retraining, no threshold change",
+ "cutoffs_from": "training snapshots only (33.3rd and 66.7th percentiles)",
+ "reference_tier": "Mid",
+ "dimensions": {
+  "tenure_tier": {
+   "variable": "tenure_days",
+   "description": "Days since first purchase",
+   "cutoffs": [
+    114.0,
+    206.0
+   ],
+   "overall": {
+    "selection_rate": 0.6756414889772316,
+    "tpr": 0.8811581676750216,
+    "fpr": 0.5279503105590062
+   },
+   "tiers": {
+    "Low": {
+     "n": 785,
+     "prevalence": 0.5248407643312102,
+     "flag_rate": 0.954140127388535,
+     "flag_rate_ci": [
+      0.9371642378633827,
+      0.9666927595363489
+     ],
+     "tpr": 0.9805825242718447,
+     "tpr_ci": [
+      0.9621568139192287,
+      0.990128864088936
+     ],
+     "fpr": 0.9249329758713136,
+     "fpr_ci": [
+      0.8936461870233138,
+      0.9475560581640541
+     ],
+     "precision": 0.5393858477970628,
+     "sufficient_n": true,
+     "vs_mid": {
+      "demographic_parity_difference": 0.08433403320570954,
+      "tpr_difference": 0.015224556604408135,
+      "fpr_difference": 0.19828937725539664,
+      "ci_demographic_parity_difference": [
+       0.05175960270659402,
+       0.11834328997272572
+      ],
+      "ci_tpr_difference": [
+       -0.007175372087613349,
+       0.03873289056303194
+      ],
+      "ci_fpr_difference": [
+       0.1274440892434265,
+       0.2697804421288633
+      ]
+     }
+    },
+    "Mid": {
+     "n": 722,
+     "prevalence": 0.5997229916897507,
+     "flag_rate": 0.8698060941828255,
+     "flag_rate_ci": [
+      0.8432890327824792,
+      0.8924086731632809
+     ],
+     "tpr": 0.9653579676674365,
+     "tpr_ci": [
+      0.9436350156729238,
+      0.9788961718330281
+     ],
+     "fpr": 0.726643598615917,
+     "fpr_ci": [
+      0.6725375039853186,
+      0.7748033109808612
+     ],
+     "precision": 0.6656050955414012,
+     "sufficient_n": true
+    },
+    "High": {
+     "n": 4027,
+     "prevalence": 0.364787683138813,
+     "flag_rate": 0.5865408492674448,
+     "flag_rate_ci": [
+      0.5712553455772742,
+      0.6016613971694514
+     ],
+     "tpr": 0.8284547311095983,
+     "tpr_ci": [
+      0.8083258236596762,
+      0.8468702272938003
+     ],
+     "fpr": 0.44761532447224395,
+     "fpr_ci": [
+      0.4284382876098053,
+      0.4669494678236298
+     ],
+     "precision": 0.5152413209144793,
+     "sufficient_n": true,
+     "vs_mid": {
+      "demographic_parity_difference": -0.28326524491538074,
+      "tpr_difference": -0.1369032365578382,
+      "fpr_difference": -0.27902827414367304,
+      "ci_demographic_parity_difference": [
+       -0.31825817508243176,
+       -0.2508594222457218
+      ],
+      "ci_tpr_difference": [
+       -0.16867727238406266,
+       -0.1077808855213741
+      ],
+      "ci_fpr_difference": [
+       -0.34936634889542395,
+       -0.21539894706333224
+      ]
+     }
+    }
+   }
+  },
+  "spend_tier": {
+   "variable": "rev_all",
+   "description": "Revenue, all history",
+   "cutoffs": [
+    403.39000000000016,
+    1201.52
+   ],
+   "overall": {
+    "selection_rate": 0.6756414889772316,
+    "tpr": 0.8811581676750216,
+    "fpr": 0.5279503105590062
+   },
+   "tiers": {
+    "Low": {
+     "n": 998,
+     "prevalence": 0.6833667334669339,
+     "flag_rate": 0.9979959919839679,
+     "flag_rate_ci": [
+      0.9927225464548126,
+      0.999450268089922
+     ],
+     "tpr": 0.9970674486803519,
+     "tpr_ci": [
+      0.9893710193861113,
+      0.9991954367751948
+     ],
+     "fpr": 1.0,
+     "fpr_ci": [
+      0.9879890545820182,
+      1.0
+     ],
+     "precision": 0.6827309236947792,
+     "sufficient_n": true,
+     "vs_mid": {
+      "demographic_parity_difference": 0.03466265865063456,
+      "tpr_difference": 0.02209724605818264,
+      "fpr_difference": 0.05143721633888043,
+      "ci_demographic_parity_difference": [
+       0.02340427387902092,
+       0.04742009237786467
+      ],
+      "ci_tpr_difference": [
+       0.00937939816711456,
+       0.03809517550777205
+      ],
+      "ci_fpr_difference": [
+       0.03288490284005974,
+       0.07099497473068699
+      ]
+     }
+    },
+    "Mid": {
+     "n": 1500,
+     "prevalence": 0.5593333333333333,
+     "flag_rate": 0.9633333333333334,
+     "flag_rate_ci": [
+      0.9525772568421874,
+      0.9717222172513608
+     ],
+     "tpr": 0.9749702026221693,
+     "tpr_ci": [
+      0.9620389524589761,
+      0.9835717055816333
+     ],
+     "fpr": 0.9485627836611196,
+     "fpr_ci": [
+      0.9289813210738849,
+      0.9629604587425408
+     ],
+     "precision": 0.5660899653979239,
+     "sufficient_n": true
+    },
+    "High": {
+     "n": 3036,
+     "prevalence": 0.2611989459815547,
+     "flag_rate": 0.427536231884058,
+     "flag_rate_ci": [
+      0.41004059807198584,
+      0.4452150178785294
+     ],
+     "tpr": 0.682219419924338,
+     "tpr_ci": [
+      0.6489997388637053,
+      0.7136821291512176
+     ],
+     "fpr": 0.3374944271065537,
+     "fpr_ci": [
+      0.318217998660739,
+      0.35732655241041794
+     ],
+     "precision": 0.4167950693374422,
+     "sufficient_n": true,
+     "vs_mid": {
+      "demographic_parity_difference": -0.5357971014492754,
+      "tpr_difference": -0.2927507826978313,
+      "fpr_difference": -0.6110683565545658,
+      "ci_demographic_parity_difference": [
+       -0.5630079499454581,
+       -0.5130052994565065
+      ],
+      "ci_tpr_difference": [
+       -0.3377284688743767,
+       -0.2555734988806637
+      ],
+      "ci_fpr_difference": [
+       -0.6442792448968908,
+       -0.579112389353458
+      ]
+     }
+    }
+   }
+  },
+  "frequency_tier": {
+   "variable": "n_inv_all",
+   "description": "Invoices, all history",
+   "cutoffs": [
+    2.0,
+    3.0
+   ],
+   "overall": {
+    "selection_rate": 0.6756414889772316,
+    "tpr": 0.8811581676750216,
+    "fpr": 0.5279503105590062
+   },
+   "tiers": {
+    "Low": {
+     "n": 1564,
+     "prevalence": 0.6451406649616368,
+     "flag_rate": 1.0,
+     "flag_rate_ci": [
+      0.9975497524749949,
+      1.0
+     ],
+     "tpr": 1.0,
+     "tpr_ci": [
+      0.9962071068170977,
+      1.0
+     ],
+     "fpr": 1.0,
+     "fpr_ci": [
+      0.9931257801852976,
+      1.0000000000000002
+     ],
+     "precision": 0.6451406649616368,
+     "sufficient_n": true,
+     "vs_mid": {
+      "demographic_parity_difference": 0.018675721561969394,
+      "tpr_difference": 0.012658227848101222,
+      "fpr_difference": 0.02564102564102566,
+      "ci_demographic_parity_difference": [
+       0.007029876977152849,
+       0.033300060284648346
+      ],
+      "ci_tpr_difference": [
+       0.0,
+       0.03475343085507465
+      ],
+      "ci_fpr_difference": [
+       0.007296148773762107,
+       0.04501838235294109
+      ]
+     }
+    },
+    "Mid": {
+     "n": 589,
+     "prevalence": 0.5365025466893039,
+     "flag_rate": 0.9813242784380306,
+     "flag_rate_ci": [
+      0.9668701362747181,
+      0.9895404799843299
+     ],
+     "tpr": 0.9873417721518988,
+     "tpr_ci": [
+      0.9679098438990593,
+      0.9950668295543004
+     ],
+     "fpr": 0.9743589743589743,
+     "fpr_ci": [
+      0.9480277517023924,
+      0.9875252865693126
+     ],
+     "precision": 0.5397923875432526,
+     "sufficient_n": true
+    },
+    "High": {
+     "n": 3381,
+     "prevalence": 0.2925170068027211,
+     "flag_rate": 0.4723454599230997,
+     "flag_rate_ci": [
+      0.45555814851739934,
+      0.48919554394490083
+     ],
+     "tpr": 0.7259858442871587,
+     "tpr_ci": [
+      0.6973538157853516,
+      0.7528690596461372
+     ],
+     "fpr": 0.36747491638795987,
+     "fpr_ci": [
+      0.3483808017169783,
+      0.38699402439840425
+     ],
+     "precision": 0.4495929868503444,
+     "sufficient_n": true,
+     "vs_mid": {
+      "demographic_parity_difference": -0.5089788185149309,
+      "tpr_difference": -0.26135592786474005,
+      "fpr_difference": -0.6068840579710144,
+      "ci_demographic_parity_difference": [
+       -0.5360425650348165,
+       -0.4850863660687802
+      ],
+      "ci_tpr_difference": [
+       -0.30255670966009185,
+       -0.2256169605067443
+      ],
+      "ci_fpr_difference": [
+       -0.6412390548613329,
+       -0.5761728315524274
+      ]
+     }
+    }
+   }
+  }
+ }
+}

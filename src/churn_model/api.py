@@ -61,7 +61,7 @@ class Prediction(BaseModel):
     imputed_fields: list[str]; notes: list[str]
 
 
-app = FastAPI(title="Retail churn model API", version=VERSION, description="Predicts 90-day churn risk for currently active, identified customers. Advisory only; human review required.")
+app = FastAPI(title="Retail churn model API", version=VERSION, description="Predicts 90-day churn risk for currently active, identified customers. Advisory only; human review required. Churn definition (PROPOSED, pending Marketing sign-off): no sales invoice in the 90 days following the observation date; a customer is eligible only if they had at least one sales invoice in the prior 180 days.")
 
 
 @app.middleware("http")

@@ -228,6 +228,17 @@ The thresholds are governance bands set in Modules 1 and 2, not legal tests, so 
     st.subheader("Sample sizes by country (minimum 100 for a reliable comparison)")
     pc = pd.DataFrame(F["per_country"]).sort_values("n", ascending=False)
     fig = go.Figure(go.Bar(x=pc.group, y=pc.n, marker_color=[TEAL if s else GREY for s in pc.sufficient_n], text=pc.n, textposition="outside")); fig.add_hline(y=F["min_group_n"], line_dash="dash", annotation_text="minimum 100"); fig.update_layout(yaxis_type="log", title="Customer-snapshots per country (log scale; grey = too few)"); chart(fig, 320)
+    st.subheader("Customer-segment audit (behavioural, not protected)")
+    SA = E["segment_audit"]
+    st.caption("Tenure, spend and purchase-frequency tiers are behavioural segments, not demographic groups and not protected characteristics. Exploratory, descriptive, test period; the model and threshold were not changed. Tier cut-offs come from the training snapshots only.")
+    srows = []
+    for key, lab in (("tenure_tier", "Tenure"), ("spend_tier", "Spend"), ("frequency_tier", "Purchase frequency")):
+        for g, r in SA["dimensions"][key]["tiers"].items():
+            srows.append({"Segment": lab, "Tier": g, "Customer-snapshots": r["n"], "Lapse rate": r["prevalence"], "Flag rate": r["flag_rate"], "Lapsers caught (TPR)": r["tpr"], "False-alarm rate (FPR)": r["fpr"]})
+    sdf = pd.DataFrame(srows)
+    st.dataframe(sdf.style.format({c: "{:.3f}" for c in sdf.columns if c not in ("Segment", "Tier", "Customer-snapshots")}), hide_index=True, use_container_width=True)
+    lowf, highf = SA["dimensions"]["frequency_tier"]["tiers"]["Low"], SA["dimensions"]["frequency_tier"]["tiers"]["High"]
+    st.markdown(f"At the fixed threshold the model flags almost every customer in the lowest purchase-frequency tier (flag rate {lowf['flag_rate']:.3f}), so inside that tier the flag does not separate lapsers from stayers. In the highest-frequency tier it catches {highf['tpr']:.3f} of lapsers. A single threshold behaves very differently by customer type, so Marketing should review it by segment. No claim of fairness is made.")
     with st.expander("Plain-language definitions"):
         st.markdown("""- **Demographic parity difference:** the gap between two groups' flag rates. Zero means both groups are flagged equally often.
 - **Disparate impact ratio:** one group's flag rate divided by the other's. The project accepts 0.80 to 1.25.

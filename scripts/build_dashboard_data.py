@@ -79,6 +79,7 @@ out = {
     "cases": cases, "case_rule": exp["case_selection_rule"], "counterfactuals": {"batch": exp["counterfactuals"]["batch"], "cases": {k: {kk: v.get(kk) for kk in ("extra_invoices", "latest_purchase_days_before_T", "p0", "p1", "found")} for k, v in exp["counterfactuals"]["cases"].items()},
                                                                                   "immutable": exp["counterfactuals"]["immutable"]},
     "sensitivity": exp["sensitivity"],
+    "segment_audit": J("reports/model/segment_audit.json"),
     "fairness": {"grouping": "UK vs non-UK customers (operational grouping, NOT a protected attribute)", "overall": fa["overall"], "table": fa["table"], "comparisons": fa["comparisons"], "brier_by_group": fa["brier_by_group"],
                  "per_country": fa["per_country"], "min_group_n": cfg["fairness"]["min_group_n"], "relative_band": cfg["fairness"]["relative_band"], "di_band": cfg["fairness"]["disparate_impact_band"],
                  "mitigation": {k: {"validation": v["validation"], "test_exploratory": v["test_exploratory"], "note": v.get("note")} for k, v in mit.items() if isinstance(v, dict) and "validation" in v},

@@ -18,12 +18,14 @@ Format follows Mitchell et al. (2019). Every figure comes from `models/churn_log
 
 ## 2. Intended use
 * **Task:** rank identified customers who bought in the last 180 days by probability of **no sales invoice in the next 90 days** (both windows **PROPOSED**, pending Marketing agreement).
+* **Churn definition (PROPOSED):** Definition proposed in the absence of a confirmed Marketing stakeholder (Module 2): churn = no sales invoice (purchase) in the 90 days following the observation date, with the customer eligible only if they had at least one sales invoice in the prior 180 days. Both windows are PROPOSED, pending Marketing sign-off.
 * **Users:** Marketing and CRM analysts preparing human-reviewed retention campaigns.
 * **Out of scope:** automated decisions about individuals (credit terms, exclusions, pricing); guest/unidentified customers; customers inactive for more than 180 days; inferring any personal characteristic; use outside this retailer's data.
 
 ## 3. Factors and data
 * 18 behavioural features (recency, tenure, invoice counts and revenue over windows, product breadth, purchase-gap statistics, cancellations). Country, customer key and snapshot date are not predictors.
-* **No protected attributes exist in the data and none were inferred.** UK vs non-UK is an operational grouping used for supplementary analysis only.
+* **Protected attributes as defined by the Equality Act 2010 and the assignment brief are not present in Online Retail II and were not inferred. Therefore a formal protected-attribute fairness analysis is not possible on this dataset. Requirement recorded as unmet due to data limitation.**
+* UK vs non-UK is recorded as `geographic_grouping_for_robustness_check` (an operational grouping, **not** a protected characteristic). Tenure, spend and purchase-frequency tiers are a `customer-segment audit` (behavioural, not demographic). No synthetic protected attribute was created.
 * Customers are pseudonymised (HMAC-SHA256). Pseudonymous is not anonymous; treat inputs as personal data.
 * Three gap features are missing for single-invoice customers (26–43% of rows) and are imputed with training medians.
 
@@ -52,6 +54,8 @@ Global SHAP (log-odds): purchase frequency (1.04), tenure (0.40), spend (0.33), 
 | FPR | 0.520 | 0.595 | **+0.075 (CI 0.009, 0.145); ratio to overall 1.127, outside ±10% band** |
 
 Validation gate passed; mitigations (equalised-odds thresholds, reweighing) did not close the gap on test and were not adopted. **The protected-attribute fairness requirement is unmet** (no such attributes) and awaits instructor clarification. This card does not claim the model is fair or unbiased.
+
+**Customer-segment audit (behavioural, not protected; exploratory).** On the test predictions, the fixed threshold flags almost every customer in the lowest purchase-frequency tier (flag rate 1.000, false-alarm rate 1.000) and lowest-spend tier (0.998), while in the highest-frequency tier it catches 0.726 of lapsers. A single threshold therefore behaves very differently by customer type; Marketing should review it by segment. Details: Fairness Metrics Report, Section 7. **Disclosure:** the non-UK false-alarm gap is outside the Module 1 band; two mitigations did not close it (group thresholds also cut recall from 0.881 to 0.755; reweighing kept recall at 0.891 but did not narrow the gap), so neither was adopted; the limitation is disclosed and referred for Marketing review.
 
 ## 7. Ethical considerations and risks
 Model bias (a principal concern in Module 1; owner AI Ethics Committee per the Module 2 RAID log; the register in the supplied Module 1 text has no numbered IDs, so IDs must be mapped by the author) and user resistance. A false-positive flag leads to an unnecessary offer; a false negative (missed churner, e.g. a high-value customer who left) is a lost-retention opportunity. Country may act as a proxy; the ablation shows the model does not need it. Predictions are probabilities for ranking, not statements about individuals.

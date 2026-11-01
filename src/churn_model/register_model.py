@@ -38,6 +38,8 @@ def main():
                      "status_note": "validated on time-based test; not production-approved (PROPOSED churn window; UK vs non-UK FPR gap unresolved)"}.items():
             client.set_model_version_tag(REGISTERED_NAME, mv.version, k, v)
         print("registered: version", mv.version)
+    client.set_model_version_tag(REGISTERED_NAME, mv.version, "churn_definition", "PROPOSED, pending Marketing sign-off: no sales invoice in the 90 days after the observation date; eligible only with at least one sales invoice in the prior 180 days")
+    client.update_registered_model(REGISTERED_NAME, description="90-day customer churn, logistic regression (Module 4). Churn definition PROPOSED: no sales invoice in the 90 days after the observation date; eligible only with at least one sales invoice in the prior 180 days. Pseudonymous customer-level data; for human-reviewed retention planning only.")
     client.set_registered_model_alias(REGISTERED_NAME, ALIAS, mv.version)
 
     got = client.get_model_version_by_alias(REGISTERED_NAME, ALIAS)

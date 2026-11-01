@@ -12,7 +12,7 @@ The Module 5 brief, rubric, screenshots and referencing guidance were **not supp
 | 6 | Verified evidence base | `docs/module5_evidence_register.md` (15 rows); `scripts/verify_module5.py` (28 checks) | Done | Numbers are generated from `dashboard_evidence.json` |
 | 7 | Score vs calibrated probability | Slides 3, 4, 10; dashboard Results | Done | Called a risk score; not recalibrated |
 | 8 | Global explanation, 2-3 held-out examples, what-if | Slides 6-8; dashboard Results and Prediction | Done | 3 cases on the slide, 5 in the dashboard; selection rule documented; what-if uses live API |
-| 9 | Fairness, privacy and ethics communication | Slides 9-10, 14; dashboard Fairness | Done, **requirement partly unmet** | No protected attributes in data; UK vs non-UK operational view only; FPR gap outside the Module 1 band; no fairness or compliance claim |
+| 9 | Fairness, privacy and ethics communication | Slides 9-10, 14; dashboard Fairness; Fairness Metrics Report Sections 5 and 7 | Done, **protected-attribute requirement unmet (data limitation)** | No protected attributes in data and none inferred; UK vs non-UK (`geographic_grouping_for_robustness_check`) and tenure, spend and frequency tiers (`customer-segment audit`) are supplementary and labelled not protected; FPR gap outside the Module 1 band; mitigations not adopted; no fairness or compliance claim |
 | 10 | Interactive dashboard (Streamlit or Dash) with five views | `dashboard/app.py` | Done | 18 tests; every view rendered in a browser |
 | 11 | Ethical compliance view with fairness metrics | Dashboard "Fairness and ethics" | Done | |
 | 12 | Live predictions call the actual Module 4 API; errors visible | `dashboard/dash_lib/core.py`; tests | Done locally | Never shows a stored score as a live one; verified in the assembled Space files in a fresh pinned virtualenv |
@@ -30,8 +30,8 @@ The Module 5 brief, rubric, screenshots and referencing guidance were **not supp
 
 1. Live dashboard checked once on 2026-10-31; uptime, load and free-tier sleep behaviour are untested. The deployed About page still shows the older short reference list until `app/app.py` is re-uploaded.
 2. Module 5 brief and rubric not seen (the author said to disregard the rubric); the 12 + 3 slide allocation is an interpretation. References are APA 7 as the author confirmed; four were not re-checked against publisher pages.
-3. Protected-attribute fairness cannot be assessed (no such data); the non-UK false-alarm gap (+0.075) is unresolved; the instructor clarification request is unsent.
+3. Protected-attribute fairness cannot be assessed (no such data); recorded as unmet due to data limitation. The non-UK false-alarm gap (+0.075) is unresolved. The approach adopted on 1 November 2026 (supplementary groupings, equalised odds primary) has not been confirmed by the instructor, and the clarification request is unsent.
 4. Business impact is unmeasured; every benefit statement is a hypothesis.
 5. The 90-day churn window and 180-day lookback are proposed, not agreed with Marketing.
-6. Test set scored twice plus exploratory runs (disclosed); one test window; no drift evidence.
+6. Test set scored twice plus exploratory runs, now including the segment audit (disclosed); one test window; no drift evidence. The fixed threshold flags nearly every low-frequency and low-spend customer, so it needs review by segment.
 7. The hosted API is internal to the Space, so the API demo script runs against a local copy of the same code; the hosted API was exercised only through the dashboard.
