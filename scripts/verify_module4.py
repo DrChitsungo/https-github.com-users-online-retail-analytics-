@@ -28,7 +28,7 @@ rep = (ROOT/"reports/Model_Validation_Report.md").read_text(); card = (ROOT/"doc
 t = test["models"]["logreg"]["test"]; ci = test["models"]["logreg"]["ci"]["roc_auc"]
 for label, s in (("report", rep), ("model card", card)):
     chk(f"{label} quotes test AUC {t['roc_auc']:.3f} and CI", f"{t['roc_auc']:.3f}" in s and f"{ci[0]:.3f}" in s and f"{ci[1]:.3f}" in s)
-    chk(f"{label} names version 1.0.0 / threshold", "1.0.0" in s and ("0.314" in s or "0.313903" in s))
+    chk(f"{label} names version 1.0.0 / threshold", "1.0.0" in s and ("0.345" in s or "0.345328" in s))
 c = test["fairness"]["comparisons"]["Non-UK"]
 for label, s in (("report", rep), ("fairness report", fr), ("model card", card)):
     chk(f"{label} quotes DI {c['disparate_impact_ratio']:.3f} and FPR ratio {c['fpr_vs_overall']:.3f}", f"{c['disparate_impact_ratio']:.3f}" in s and f"{c['fpr_vs_overall']:.3f}" in s)

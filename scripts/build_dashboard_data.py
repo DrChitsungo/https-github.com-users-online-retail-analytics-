@@ -49,7 +49,7 @@ def rnd(row):
     out = {}
     for f in D.FEATURES:
         v = row[f]; out[f] = None if pd.isna(v) else (int(v) if f.startswith("n_") and f != "n_products_all" or f in ("is_single_invoice",) else float(round(v, 2)))
-    for f in ("rev_all", "rev_90", "rev_180"): out[f] = float(round(row[f] / 5) * 5)       # nearest GBP 5
+    for f in ("rev_all", "rev_90", "rev_180"): out[f] = float(round(row[f] / 5) * 5) if row[f] >= 25 else float(round(row[f]))       # nearest GBP 5 (nearest GBP 1 below GBP 25)
     for f in ("recency_days", "tenure_days", "mean_gap_days", "std_gap_days"):
         if out[f] is not None: out[f] = float(round(out[f]))
     for f in ("n_products_all", "n_products_180"): out[f] = int(row[f])
@@ -65,7 +65,7 @@ out = {
     "meta": {"model_name": meta["model_name"], "model_version": meta["model_version"], "task": meta["task"], "threshold": thr, "dataset_hash": meta["dataset_hash"],
              "model_sha256_16": sha("models/churn_logreg_v1.0.0.joblib"), "test_window": "prediction dates 2011-08-01 and 2011-09-01 (90-day outcome windows complete)",
              "test_rows": fin["test_rows"], "test_customers": fin["test_customers"], "prevalence": fin["test_prevalence"], "mean_score": fin["mean_predicted_probability"],
-             "splits": cfg["split"], "horizon_days": cfg["task"]["horizon_days"], "lookback_days": cfg["task"]["lookback_days"], "features": D.FEATURES,
+             "splits": cfg["split"], "horizon_days": cfg["task"]["horizon_days"], "min_history_days": cfg["task"]["min_history_days"], "features": D.FEATURES,
              "intended_use": meta["intended_use"], "not_for": meta["not_for"], "mlflow": meta["mlflow"], "registry": meta.get("registry"),
              "sources": {p: sha(p) for p in ["reports/model/final_test_results.json", "reports/model/explainability_results.json", "reports/model/mitigation_results.json", "models/churn_logreg_v1.0.0.metadata.json"]}},
     "headline": {"logreg": fin["models"]["logreg"]["test"], "logreg_ci": fin["models"]["logreg"]["ci"], "baseline_recency_rule": fin["models"]["baseline_recency_rule"]["test"],
@@ -80,6 +80,7 @@ out = {
                                                                                   "immutable": exp["counterfactuals"]["immutable"]},
     "sensitivity": exp["sensitivity"],
     "segment_audit": J("reports/model/segment_audit.json"),
+    "active_subset": J("reports/model/active_subset.json"),
     "fairness": {"grouping": "UK vs non-UK customers (operational grouping, NOT a protected attribute)", "overall": fa["overall"], "table": fa["table"], "comparisons": fa["comparisons"], "brier_by_group": fa["brier_by_group"],
                  "per_country": fa["per_country"], "min_group_n": cfg["fairness"]["min_group_n"], "relative_band": cfg["fairness"]["relative_band"], "di_band": cfg["fairness"]["disparate_impact_band"],
                  "mitigation": {k: {"validation": v["validation"], "test_exploratory": v["test_exploratory"], "note": v.get("note")} for k, v in mit.items() if isinstance(v, dict) and "validation" in v},

@@ -30,8 +30,8 @@ The Module 5 brief, rubric, screenshots and referencing guidance were **not supp
 
 1. Live dashboard checked once on 2026-10-31; uptime, load and free-tier sleep behaviour are untested. The deployed About page still shows the older short reference list until `app/app.py` is re-uploaded.
 2. Module 5 brief and rubric not seen (the author said to disregard the rubric); the 12 + 3 slide allocation is an interpretation. References are APA 7 as the author confirmed; four were not re-checked against publisher pages.
-3. Protected-attribute fairness cannot be assessed (no such data); recorded as unmet due to data limitation. The non-UK false-alarm gap (+0.075) is unresolved. The approach adopted on 1 November 2026 (supplementary groupings, equalised odds primary) has not been confirmed by the instructor, and the clarification request is unsent.
+3. Protected-attribute fairness cannot be assessed (no such data); recorded as unmet due to data limitation. UK and non-UK error rates are close on test (false-alarm gap -0.024, intervals include zero) but the non-UK group is small (715) and the validation gate passed narrowly; an earlier +0.075 gap under the previous eligibility rule was not reproduced and is not claimed to be gone. The approach adopted on 1 November 2026 (supplementary groupings, equalised odds primary) has not been confirmed by the instructor, and the clarification request is unsent.
 4. Business impact is unmeasured; every benefit statement is a hypothesis.
-5. The 90-day churn window and 180-day lookback are proposed, not agreed with Marketing.
+5. The 90-day churn window and 180-day lookback were agreed with the Marketing Director on 1 November 2026 (confirmed by email from the Marketing Director).
 6. Test set scored twice plus exploratory runs, now including the segment audit (disclosed); one test window; no drift evidence. The fixed threshold flags nearly every low-frequency and low-spend customer, so it needs review by segment.
 7. The hosted API is internal to the Space, so the API demo script runs against a local copy of the same code; the hosted API was exercised only through the dashboard.

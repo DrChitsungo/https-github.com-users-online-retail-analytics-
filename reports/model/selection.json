@@ -2,8 +2,8 @@
   "final_model": "logreg",
   "ranking_after_rule": [
     "logreg",
-    "lightgbm",
-    "random_forest"
+    "random_forest",
+    "lightgbm"
   ],
   "selection_rule": [
     "Model selection on VALIDATION dates only, applying the pre-declared rule and the fairness gate, then writes reports/model/selection.json.",
@@ -11,22 +11,22 @@
     "Gate: UK vs Non-UK validation check: disparate impact ratio in [0.80, 1.25] and TPR/FPR within +/-10% of overall. First ranked candidate that passes is selected."
   ],
   "validation_roc_auc": {
-    "logreg": 0.7752497443088471,
-    "lightgbm": 0.7737702065429167,
-    "random_forest": 0.774467583915291
+    "logreg": 0.8050230941805034,
+    "lightgbm": 0.79142918493524,
+    "random_forest": 0.8083163277300836
   },
   "validation_cv_auc": {
     "logreg": [
-      0.737932223670958,
-      0.021277199270254076
+      0.7666942452058698,
+      0.023827168988267873
     ],
     "lightgbm": [
-      0.7383601805473449,
-      0.020057041653871503
+      0.7737295509917044,
+      0.017296072819978078
     ],
     "random_forest": [
-      0.7373140131820821,
-      0.01980437310554066
+      0.7763714040618688,
+      0.017379316837138534
     ]
   },
   "fairness_gate_validation": {
@@ -37,20 +37,9 @@
         "tpr_within_10pct_of_overall": true,
         "fpr_within_10pct_of_overall": true
       },
-      "disparate_impact_ratio": 1.0068176328502416,
-      "tpr_vs_overall": 1.030926315954922,
-      "fpr_vs_overall": 1.0024122402759854
-    },
-    "lightgbm": {
-      "passes": true,
-      "checks": {
-        "disparate_impact_in_0.8_1.25": true,
-        "tpr_within_10pct_of_overall": true,
-        "fpr_within_10pct_of_overall": true
-      },
-      "disparate_impact_ratio": 0.979120891315445,
-      "tpr_vs_overall": 1.0219513335177055,
-      "fpr_vs_overall": 0.9420429239290875
+      "disparate_impact_ratio": 0.9370119561422675,
+      "tpr_vs_overall": 0.9981173377742167,
+      "fpr_vs_overall": 0.9032226071309658
     },
     "random_forest": {
       "passes": true,
@@ -59,14 +48,25 @@
         "tpr_within_10pct_of_overall": true,
         "fpr_within_10pct_of_overall": true
       },
-      "disparate_impact_ratio": 0.9820639818624363,
-      "tpr_vs_overall": 1.0357308682622093,
-      "fpr_vs_overall": 0.9226666145639982
+      "disparate_impact_ratio": 0.9567470624098591,
+      "tpr_vs_overall": 1.018389606710309,
+      "fpr_vs_overall": 0.9103382394996076
+    },
+    "lightgbm": {
+      "passes": false,
+      "checks": {
+        "disparate_impact_in_0.8_1.25": true,
+        "tpr_within_10pct_of_overall": true,
+        "fpr_within_10pct_of_overall": false
+      },
+      "disparate_impact_ratio": 0.9446215155414969,
+      "tpr_vs_overall": 1.0099832681725311,
+      "fpr_vs_overall": 0.8865514815791787
     }
   },
   "mitigation_triggered_on_validation": false,
   "written_before_test_evaluation": true,
-  "dataset_hash": "794106a862ace0f8",
-  "code_hash_at_selection": "258a93f8e40c9463",
+  "dataset_hash": "4a1207e03b61b5ca",
+  "code_hash_at_selection": "b67892ac5408478a",
   "iteration": "2"
 }

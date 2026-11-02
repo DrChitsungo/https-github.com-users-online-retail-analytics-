@@ -1,6 +1,6 @@
 """Fairness mitigation experiments (UK vs Non-UK operational grouping). Everything is FITTED on train/validation dates only.
 M1 post-processing: fairlearn ThresholdOptimizer (equalized odds), fitted on validation predictions of the train-fitted model.
-M2 pre-processing: Kamiran-Calders reweighing of train rows over (group, label) cells, logistic regression refit with the same hyper-parameters; threshold re-chosen on validation.
+M2 pre-processing: Kamiran-Calders reweighing of train rows over (group, label) cells, the selected model refit with the same hyper-parameters; threshold re-chosen on validation.
 Before/after is reported on validation (same protocol) and on test. The test comparison is EXPLORATORY: the disparity was first observed on test,
 so the final model selection (made before test) is not changed by it. Run: PYTHONPATH=src python -m churn_model.mitigation"""
 import json
@@ -41,7 +41,7 @@ def main():
     # M2
     w = tr.assign(cell=tr.group_uk + "_" + tr.churn.astype(str)); pg = tr.group_uk.value_counts(normalize=True); py = tr.churn.value_counts(normalize=True); pc = w.cell.value_counts(normalize=True)
     sw = np.array([pg[g] * py[y_] / pc[f"{g}_{y_}"] for g, y_ in zip(tr.group_uk, tr.churn)])
-    est = make_pipeline("logreg", seed, **params); est.fit(tr[D.FEATURES], tr.churn, clf__sample_weight=sw)
+    est = make_pipeline(sel["final_model"], seed, **params); est.fit(tr[D.FEATURES], tr.churn, clf__sample_weight=sw)
     pv = est.predict_proba(va[D.FEATURES])[:, 1]; thr2 = best_f1_threshold(va.churn, pv)
     add("M2_reweighing_refit", (pv >= thr2).astype(int), (est.predict_proba(te[D.FEATURES])[:, 1] >= thr2).astype(int), {"threshold": thr2, "val_roc_auc": metrics_at(va.churn, pv, thr2)["roc_auc"],
         "test_roc_auc": metrics_at(te.churn, est.predict_proba(te[D.FEATURES])[:, 1], thr2)["roc_auc"]})

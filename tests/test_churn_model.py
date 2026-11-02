@@ -18,17 +18,19 @@ VALID = {"recency_days": 40, "tenure_days": 400, "n_inv_all": 6, "n_inv_30": 0, 
 def toy_events():
     d = lambda s: pd.Timestamp(s)
     inv = pd.DataFrame([("A", "i1", d("2010-01-10"), 100, 5, 3, "United Kingdom"), ("A", "i2", d("2010-05-20"), 50, 2, 2, "United Kingdom"), ("A", "i3", d("2010-07-15"), 70, 4, 3, "United Kingdom"),
-                        ("B", "i4", d("2010-01-05"), 30, 1, 1, "France"), ("C", "i5", d("2010-06-20"), 80, 3, 2, "France"), ("C", "i6", d("2010-09-10"), 60, 2, 2, "France")],
+                        ("B", "i4", d("2010-01-05"), 30, 1, 1, "France"), ("C", "i5", d("2010-06-20"), 80, 3, 2, "France"), ("C", "i6", d("2010-09-10"), 60, 2, 2, "France"),
+                        ("D", "i7", d("2010-01-20"), 40, 2, 1, "France"), ("D", "i8", d("2010-09-10"), 90, 3, 2, "France")],
                        columns=["customer_key", "invoice_no", "date", "revenue", "units", "n_products", "country"])
     canc = pd.DataFrame([("A", "c1", d("2010-06-01"))], columns=["customer_key", "invoice_no", "date"])
     prod = pd.DataFrame([(r.customer_key, r.date, f"s{k}") for r in inv.itertuples() for k in range(r.n_products)], columns=["customer_key", "invoice_date", "stock_code"])
     return inv, canc, prod
 
-def test_label_is_no_invoice_in_horizon_and_eligibility_is_lookback():
+def test_label_is_no_invoice_in_horizon_and_eligibility_is_180_days_of_history():
     inv, canc, prod = toy_events(); T = pd.Timestamp("2010-08-01"); s = D.build_snapshot(T, inv, canc, prod).set_index("customer_key")
-    assert set(s.index) == {"A", "C"}                       # B last bought 2010-01-05 (>180d); not eligible
+    assert set(s.index) == {"A", "B", "D"}                  # C first bought 2010-06-20 (<180 days before T): not eligible; B is eligible although inactive
     assert s.loc["A", "churn"] == 1                          # A has no invoice in [2010-08-01, 2010-10-30)
-    assert s.loc["C", "churn"] == 0                          # C buys on 2010-09-10 -> retained
+    assert s.loc["B", "churn"] == 1                          # B (first bought 2010-01-05) also has none
+    assert s.loc["D", "churn"] == 0                          # D buys on 2010-09-10 -> retained
 
 def test_features_do_not_use_data_on_or_after_prediction_date():
     inv, canc, prod = toy_events(); T = pd.Timestamp("2010-08-01"); base = D.build_snapshot(T, inv, canc, prod).set_index("customer_key")[D.FEATURES]
@@ -54,7 +56,7 @@ def test_split_geometry_purges_outcome_windows_and_respects_data_end():
     H = CFG["task"]["horizon_days"]; sp = {k: tuple(pd.Timestamp(x) for x in v) for k, v in CFG["split"].items()}
     assert sp["train"][1] + pd.Timedelta(days=H) <= sp["validation"][0] and sp["validation"][1] + pd.Timedelta(days=H) <= sp["test"][0]
     assert pd.Timestamp(CFG["snapshots"]["last"]) + pd.Timedelta(days=H) <= pd.Timestamp("2011-12-09")    # no incomplete follow-up labelled as churn
-    assert pd.Timestamp(CFG["snapshots"]["first"]) - pd.Timedelta(days=CFG["task"]["lookback_days"]) >= pd.Timestamp("2009-12-01")
+    assert pd.Timestamp(CFG["snapshots"]["first"]) - pd.Timedelta(days=CFG["task"]["min_history_days"]) >= pd.Timestamp("2009-12-01")
 
 def test_forward_chain_folds_purge_and_never_leak_forward():
     snaps = pd.date_range("2010-06-01", "2010-12-01", freq="MS"); df = pd.DataFrame({"snapshot": np.repeat(snaps, 5)}); mask = pd.Series(True, index=df.index)
@@ -109,8 +111,8 @@ def test_api_missing_gap_fields_are_imputed_and_reported():
     r = client.post("/predict", json=VALID | {"mean_gap_days": None, "std_gap_days": None, "recency_over_gap": None}).json()
     assert set(r["imputed_fields"]) == {"mean_gap_days", "std_gap_days", "recency_over_gap"}
 
-@pytest.mark.parametrize("patch", [{"recency_days": -1}, {"recency_days": 500}, {"n_inv_30": 9}, {"rev_90": 99999}, {"cancel_ratio": 1.5}, {"n_inv_all": 0}, {"tenure_days": 10},
-                                   {"is_single_invoice": 1}, {"customer_id": "abc"}, {"n_inv_all": "many"}, {"n_inv_90": 0, "n_inv_prev90": 0, "n_inv_30": 0}])
+@pytest.mark.parametrize("patch", [{"recency_days": -1}, {"recency_days": 6000}, {"n_inv_30": 9}, {"rev_90": 99999}, {"cancel_ratio": 1.5}, {"n_inv_all": 0}, {"tenure_days": 10}, {"tenure_days": 179},
+                                   {"is_single_invoice": 1}, {"customer_id": "abc"}, {"n_inv_all": "many"}, {"n_inv_90": 0, "n_inv_prev90": 5, "n_inv_30": 0, "n_inv_all": 4}])
 def test_api_rejects_invalid_inputs_without_echoing_values(patch):
     r = client.post("/predict", json=VALID | patch); assert r.status_code == 422
     assert "many" not in r.text and "abc" not in r.text

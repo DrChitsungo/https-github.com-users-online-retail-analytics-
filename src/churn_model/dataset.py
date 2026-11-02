@@ -1,7 +1,7 @@
 """Build the customer-snapshot modelling table from the Module 3 published fact table (read-only).
 
 Unit of analysis: one identified customer at one prediction date T (a monthly snapshot).
-Eligible: >=1 sales invoice in [T - lookback, T).
+Eligible: first sales invoice at least min_history_days before T (at least 180 days of prior history; Marketing eligibility rule, 1 November 2026).
 Features: only invoices dated strictly before T.
 Label churn=1: NO sales invoice dated in [T, T + horizon). Snapshots whose outcome window extends past the end of the
 data are never created, so incomplete follow-up is not labelled as churn.
@@ -57,9 +57,10 @@ def snapshot_dates(c=None):
 
 
 def build_snapshot(T: pd.Timestamp, inv: pd.DataFrame, canc: pd.DataFrame, prod: pd.DataFrame, c=None) -> pd.DataFrame:
-    c = c or cfg(); H = c["task"]["horizon_days"]; L = c["task"]["lookback_days"]
+    c = c or cfg(); H = c["task"]["horizon_days"]; L = c["task"]["min_history_days"]
     past = inv[inv.date < T]
-    active = past[past.date >= T - pd.Timedelta(days=L)].customer_key.unique()
+    first_inv = past.groupby("customer_key").date.min()
+    active = first_inv[first_inv <= T - pd.Timedelta(days=L)].index   # eligible: >= L days of prior history
     past = past[past.customer_key.isin(active)].sort_values(["customer_key", "date"])
     g = past.groupby("customer_key")
     d = pd.DataFrame({
@@ -77,6 +78,7 @@ def build_snapshot(T: pd.Timestamp, inv: pd.DataFrame, canc: pd.DataFrame, prod:
     pp = prod[(prod.invoice_date < T) & (prod.customer_key.isin(active))]
     d["n_products_all"] = pp.groupby("customer_key").stock_code.nunique()
     d["n_products_180"] = pp[pp.invoice_date >= T - pd.Timedelta(days=180)].groupby("customer_key").stock_code.nunique()
+    d["n_products_180"] = d["n_products_180"].fillna(0)   # eligible customers with no purchase in the last 180 days have zero products there (not missing)
     gaps = past.groupby("customer_key").date.diff().dt.days.dropna()
     gg = gaps.groupby(past.loc[gaps.index, "customer_key"])
     d["mean_gap_days"] = gg.mean(); d["std_gap_days"] = gg.std()

@@ -42,7 +42,7 @@ def main():
     say("\n4. Scenario: the same customer with three more invoices (recomputed consistently), latest purchase 30 days before the prediction date")
     sc = VALID | {"n_inv_all": 9, "n_inv_90": 4, "n_inv_30": 3, "recency_days": 30, "rev_all": 1800.5 + 3 * 1800.5 / 6, "rev_90": 300 + 3 * 1800.5 / 6, "rev_180": 900 + 3 * 1800.5 / 6, "recency_over_gap": 30 / 55}
     s, b = call(base, "POST", "/predict", sc); say(f"risk score {p0:.4f} -> {b.get('churn_probability')}  (a model-sensitivity illustration, not a causal effect)"); expect("scenario accepted", s == 200)
-    say("\n5. POST /predict with an invalid request (tenure shorter than recency)"); s, b = call(base, "POST", "/predict", VALID | {"tenure_days": 5, "recency_days": 100}); say(f"HTTP {s}: " + json.dumps(b))
+    say("\n5. POST /predict with an invalid request (tenure below the 180-day eligibility minimum)"); s, b = call(base, "POST", "/predict", VALID | {"tenure_days": 5, "recency_days": 100}); say(f"HTTP {s}: " + json.dumps(b))
     expect("422 and submitted values are not echoed", s == 422 and "100" not in json.dumps(b).replace("le=100000", "") and b["detail"] == "invalid input")
     say("\n6. POST /predict with an unknown field (e.g. an identifier)"); s, b = call(base, "POST", "/predict", VALID | {"customer_id": "C-123"}); say(f"HTTP {s}: " + json.dumps(b)); expect("422: identifiers are refused", s == 422 and "C-123" not in json.dumps(b))
     if a.check_parity:

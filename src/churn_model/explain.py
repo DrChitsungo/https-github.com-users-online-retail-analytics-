@@ -150,7 +150,7 @@ def sensitivity(pipe, thr, te, names, ex, base_sv_rank, n_rep=10):
             for col in ("rev_all", "rev_90", "rev_180"): X[col] = X[col] * f
             record(f"monetary noise (lognormal sigma={s})", X, rep)
     for sh in (-7, -3, 3, 7):
-        X = X0.copy(); X["recency_days"] = (X.recency_days + sh).clip(1, 180); X["recency_over_gap"] = X.recency_days / X.mean_gap_days.replace(0, np.nan); record(f"recency shift {sh:+d} days", X)
+        X = X0.copy(); X["recency_days"] = (X.recency_days + sh).clip(lower=1); X["recency_over_gap"] = X.recency_days / X.mean_gap_days.replace(0, np.nan); record(f"recency shift {sh:+d} days", X)
     for frac in (0.05, 0.10, 0.20):
         for rep in range(n_rep):
             X = X0.copy()

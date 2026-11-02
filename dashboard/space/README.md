@@ -16,7 +16,7 @@ It shows verified results, explanations, a what-if explorer that calls the model
 
 - **Audience:** Marketing and CRM managers planning human-reviewed retention campaigns.
 - **Data:** aggregate evaluation results only. No customer identifiers or customer-level records are stored here.
-- **Limits:** no protected attributes exist in the data; the UK vs non-UK view is an operational comparison, not a fairness or compliance certification. The 90-day churn window is proposed, not agreed.
+- **Limits:** no protected attributes exist in the data; the UK vs non-UK view is an operational comparison, not a fairness or compliance certification. The 90-day churn window and 180-day lookback were agreed with the Marketing Director on 1 November 2026.
 - **Source code and documents:** https://github.com/DrChitsungo/https-github.com-users-online-retail-analytics-
 
 The container runs two processes: the Module 4 FastAPI service (bound to the container's loopback interface only) and this Streamlit app, which calls it.

@@ -4,7 +4,7 @@ Status key: **Done** = built and checked; **Partial** = built with a stated gap;
 
 | # | Requirement | Status | Evidence | Gap / note |
 |---|---|---|---|---|
-| 1 | Business need and defensible predictive task; target constructible; incomplete follow-up not labelled negative | Done | Validation Report §1–2; `configs/churn.yaml`; `tests/test_churn_model.py` (label and split tests) | Windows (90/180 days) are **PROPOSED**; Marketing agreement pending |
+| 1 | Business need and defensible predictive task; target constructible; incomplete follow-up not labelled negative | Done | Validation Report §1–2; `configs/churn.yaml`; `tests/test_churn_model.py` (label and split tests) | 90-day window and 180-day-history eligibility rule agreed with the Marketing Director by email, 1 November 2026 |
 | 2 | Protected-attribute feasibility: state the gap, do not infer, do not present Country as protected | Done (gap stated) | Fairness Report preface; Validation Report §6 | Requirement itself **unmet** |
 | 3 | Clarification request drafted, **not sent** | Done | `docs/instructor_clarification_request_DRAFT.md` | Student decides whether to send |
 | 4 | Dataset audit, leakage controls, fit-on-train-only pipelines | Done | `src/churn_model/dataset.py`, `common.py`; leakage and imputer tests | |
@@ -41,6 +41,6 @@ Status key: **Done** = built and checked; **Partial** = built with a stated gap;
 | XAI, local | LIME / SHAP | SHAP, five deterministic cases | LIME not used; the table accepts SHAP |
 | XAI, counterfactual | Alibi / DiCE | `explain.py` grid search over 36 scenarios on two mutable behaviours, re-scored through the pipeline | DiCE and Alibi not used; stated in the report |
 | Fairness metrics | Fairlearn / Aequitas | Fairness Metrics Report; Table 4 | UK vs non-UK only; no protected attributes in the data |
-| Bias mitigation | Fairlearn / AI Fairness 360 | `mitigation.py` (ThresholdOptimizer, reweighing) | Applied, did not close the FPR gap, not adopted |
+| Bias mitigation | Fairlearn / AI Fairness 360 | `mitigation.py` (ThresholdOptimizer, reweighing) | Applied (exploratory); no band breached on test, so not needed or adopted |
 | Model documentation | Model Cards | `docs/MODEL_CARD.md` | |
 | Sensitivity analysis | Custom scripts | Notebook and Report Section 5 | |

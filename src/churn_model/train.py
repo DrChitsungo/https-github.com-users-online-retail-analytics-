@@ -41,7 +41,7 @@ def git_commit() -> str:
 
 
 def common_params(c, ds_hash, fact_sha, split_info):
-    return {"dataset_hash": ds_hash, "fact_table_sha256": fact_sha[:16], "horizon_days": c["task"]["horizon_days"], "lookback_days": c["task"]["lookback_days"],
+    return {"dataset_hash": ds_hash, "fact_table_sha256": fact_sha[:16], "horizon_days": c["task"]["horizon_days"], "min_history_days": c["task"]["min_history_days"],
             "n_features": len(D.FEATURES), "seed": c["seeds"]["global"], "split_hash": stable_hash(c["split"]), "code_hash": code_hash(),
             "git_commit": git_commit(), **{f"split_{k}": v for k, v in split_info.items()}}
 

@@ -1,9 +1,9 @@
 # Churn model configuration (Module 4). Every value here is hashed into each MLflow run.
-# PROPOSED business definitions are marked: Module 2 left the churn window "to be agreed with Marketing (Sprint 3)".
+# Module 2 left the churn window "to be agreed with Marketing (Sprint 3)"; both windows were agreed with the Marketing Director on 1 November 2026 (confirmed by email from the Marketing Director).
 task:
   name: customer_churn_90d
-  horizon_days: 90            # PROPOSED: churn = no sales invoice in the 90 days after the prediction date
-  lookback_days: 180          # PROPOSED: eligible = identified customer with >=1 sales invoice in the 180 days before the prediction date
+  horizon_days: 90            # agreed: churn = no sales invoice in the 90 days after the prediction date
+  min_history_days: 180       # agreed: eligible = identified customer whose first sales invoice is at least 180 days before the prediction date (Marketing Director, 1 Nov 2026)
 snapshots:
   first: "2010-06-01"         # first date with a full 180-day lookback inside the data (data starts 2009-12-01)
   last: "2011-09-01"          # last date whose 90-day outcome window is complete (data ends 2011-12-09)

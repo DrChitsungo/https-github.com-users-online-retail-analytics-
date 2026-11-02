@@ -3,7 +3,7 @@
 The registry version points at the artifact of the validation run that produced the model, so its lineage is
 run -> model version. It creates no new experiment run. MLflow 3 replaced the old Staging/Production stages with
 aliases, so the stage is recorded as the alias `champion` (the version currently approved for the API) plus tags.
-The alias is NOT production approval: the churn window is PROPOSED and the fairness gap is unresolved.
+The alias is NOT production approval: the churn window and eligibility rule were agreed with Marketing (1 November 2026) but monitoring controls are only proposed and the UK vs non-UK false-alarm rate remains a monitored risk.
 Run: PYTHONPATH=src python -m churn_model.register_model   (idempotent)"""
 import hashlib, json
 import mlflow
@@ -35,11 +35,11 @@ def main():
                                          description=f"churn_logreg v{meta['model_version']}; threshold {meta['threshold']:.6f} (max F1 on validation)")
         for k, v in {"model_version": meta["model_version"], "sha256": digest, "iteration": meta["iteration"], "threshold": f"{meta['threshold']:.6f}",
                      "test_roc_auc": f"{meta['test']['roc_auc']:.3f}", "test_run_id": str(meta["mlflow"]["test_run_id"]), "dataset_hash": meta["dataset_hash"],
-                     "status_note": "validated on time-based test; not production-approved (PROPOSED churn window; UK vs non-UK FPR gap unresolved)"}.items():
+                     "status_note": "validated on time-based test; not production-approved (monitoring controls proposed, not agreed)"}.items():
             client.set_model_version_tag(REGISTERED_NAME, mv.version, k, v)
         print("registered: version", mv.version)
-    client.set_model_version_tag(REGISTERED_NAME, mv.version, "churn_definition", "PROPOSED, pending Marketing sign-off: no sales invoice in the 90 days after the observation date; eligible only with at least one sales invoice in the prior 180 days")
-    client.update_registered_model(REGISTERED_NAME, description="90-day customer churn, logistic regression (Module 4). Churn definition PROPOSED: no sales invoice in the 90 days after the observation date; eligible only with at least one sales invoice in the prior 180 days. Pseudonymous customer-level data; for human-reviewed retention planning only.")
+    client.set_model_version_tag(REGISTERED_NAME, mv.version, "churn_definition", "Agreed with the Marketing Director on 1 November 2026: no sales invoice in the 90 days after the observation date; eligible only if the first sales invoice is at least 180 days before the observation date")
+    client.update_registered_model(REGISTERED_NAME, description="90-day customer churn, logistic regression (Module 4). Churn definition agreed with the Marketing Director on 1 November 2026: no sales invoice in the 90 days after the observation date; eligible only if the first sales invoice is at least 180 days before the observation date. Pseudonymous customer-level data; for human-reviewed retention planning only.")
     client.set_registered_model_alias(REGISTERED_NAME, ALIAS, mv.version)
 
     got = client.get_model_version_by_alias(REGISTERED_NAME, ALIAS)

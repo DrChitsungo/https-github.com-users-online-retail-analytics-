@@ -147,15 +147,15 @@ Every raw row is accounted for: **raw = retained + quarantined + excluded** (cri
 
 ## Module 4: 90-day churn model (predictive modelling)
 
-Predicts which identified customers are likely to place **no sales invoice in the next 90 days** (window PROPOSED, pending Marketing). Decision support only; see `docs/MODEL_CARD.md`.
+Predicts which identified customers are likely to place **no sales invoice in the next 90 days** (90-day window agreed with the Marketing Director on 1 November 2026). Decision support only; see `docs/MODEL_CARD.md`.
 
 ### Verified status (Module 4)
 
 | Item | Status |
 |---|---|
 | Snapshot dataset, leakage controls, time-ordered splits | **Executed**, covered by `tests/test_churn_model.py` |
-| MLflow tracking (experiment `retail-churn-90d`, 32 real runs incl. superseded iteration 1 and one failed run) | **Executed**; export in `reports/mlflow_evidence/`; UI screenshots there |
-| MLflow Model Registry (`retail-churn-logreg`, version 1, alias `champion`) | **Executed**; `reports/mlflow_evidence/model_registry.json` and `mlflow_ui_model_registry.png`; the alias is not production approval |
+| MLflow tracking (experiment `retail-churn-90d`, 64 real runs across four dataset versions: superseded iterations, one run set discarded after a data-preparation error was found, and one failed run; the final dataset hash is 4a1207e03b61b5ca) | **Executed**; export in `reports/mlflow_evidence/`; UI screenshots there |
+| MLflow Model Registry (`retail-churn-logreg`, version 3, alias `champion`) | **Executed**; `reports/mlflow_evidence/model_registry.json` and `mlflow_ui_model_registry.png`; the alias is not production approval |
 | Baselines + 3 tuned candidates, selection rule, one-time test evaluation | **Executed**; `reports/model/*.json` |
 | SHAP / counterfactuals / sensitivity notebook | **Executed** end to end with assertions: `notebooks/shap_analysis.ipynb` |
 | Fairness analysis (UK vs non-UK, supplementary) | **Executed**; protected-attribute requirement **unmet** (no such data) |
@@ -183,7 +183,7 @@ python -m churn_model.final_eval     # SCORES THE TEST SET (do this once; re-run
 python -m churn_model.mitigation     # exploratory; also touches test
 python -m churn_model.explain
 python -m churn_model.package_model  # writes models/churn_logreg_v1.0.0.*
-python -m churn_model.register_model # registers it in the MLflow Model Registry (version 1, alias champion); idempotent
+python -m churn_model.register_model # registers it in the MLflow Model Registry (alias champion); idempotent
 python -m pytest -q tests/test_churn_model.py
 ```
 
@@ -212,7 +212,7 @@ curl -s localhost:8000/predict -H 'content-type: application/json' -d '{
  "n_cancel_all":0,"cancel_ratio":0}'
 ```
 
-Verified response shape (values from the recorded smoke test): `{"request_id": "...", "model_version": "1.0.0", "churn_probability": 0.317697, "flagged_high_churn_risk": true, "decision_threshold": 0.313903, "imputed_fields": [], "notes": [...]}`.
+Verified response shape (values from the recorded smoke test): `{"request_id": "...", "model_version": "1.0.0", "churn_probability": 0.323964, "flagged_high_churn_risk": false, "decision_threshold": 0.345328, "imputed_fields": [], "notes": [...]}`.
 Invalid input (for example `n_inv_30` larger than `n_inv_90`) returns HTTP 422 naming the field and rule **without echoing the submitted value**. Request bodies are never logged.
 
 ### Module 4 layout
@@ -241,7 +241,7 @@ Communicates the Module 4 churn model (v1.0.0, unchanged and not retrained) to M
 | API demonstration `scripts/api_demo.py` | **Executed**: 6 expectations plus parity with the serialised model; output in `reports/evidence/api_demo_output.txt` |
 | Hugging Face deployment (Docker Space) | **Deployed and checked on 2026-10-31** by opening the public URL: all five views load, figures match the Module 4 evidence, live prediction and invalid-input handling work. Not checked: load, sustained uptime, free-tier sleep behaviour |
 | Evidence register `docs/module5_evidence_register.md`; technical Q&A `docs/module5_technical_QA.md` | Done |
-| Fairness | Operational UK vs non-UK view only; **no protected attributes exist in the data**; the FPR gap (+0.075) is outside the Module 1 band; no fairness or compliance claim is made |
+| Fairness | Operational UK vs non-UK view only; **no protected attributes exist in the data**; UK and non-UK false-alarm rates are close on test (gap -0.024, intervals include zero; non-UK n = 715) but this is not evidence of equal treatment; no fairness or compliance claim is made |
 
 Live dashboard (verified 2026-10-31): https://huggingface.co/spaces/Bezzel/retail-churn-dashboard
 

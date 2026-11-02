@@ -24,10 +24,10 @@ _pipe = joblib.load(MODEL_PATH); META = json.loads(META_PATH.read_text()); FEATU
 
 
 class CustomerFeatures(BaseModel):
-    """One currently active, identified customer at one prediction date. All counts/amounts use sales invoices dated before the prediction date."""
+    """One identified customer with at least 180 days of prior history at one prediction date. All counts/amounts use sales invoices dated before the prediction date."""
     model_config = ConfigDict(extra="forbid")
-    recency_days: float = Field(ge=0, le=180, description="Days since the last sales invoice (customer must have bought within the last 180 days)")
-    tenure_days: float = Field(ge=0, le=5000, description="Days since the first sales invoice")
+    recency_days: float = Field(ge=0, le=5000, description="Days since the last sales invoice")
+    tenure_days: float = Field(ge=180, le=5000, description="Days since the first sales invoice (eligibility rule: at least 180 days of prior history)")
     n_inv_all: int = Field(ge=1, le=100000, description="Sales invoices in all history")
     n_inv_30: int = Field(ge=0, le=100000, description="Sales invoices in the last 30 days")
     n_inv_90: int = Field(ge=0, le=100000, description="Sales invoices in the last 90 days")
@@ -49,7 +49,6 @@ class CustomerFeatures(BaseModel):
         if self.n_inv_90 + self.n_inv_prev90 > self.n_inv_all: raise ValueError("n_inv_90 + n_inv_prev90 must not exceed n_inv_all")
         if not (self.rev_90 <= self.rev_180 <= self.rev_all): raise ValueError("require rev_90 <= rev_180 <= rev_all")
         if self.n_products_180 > self.n_products_all: raise ValueError("n_products_180 must not exceed n_products_all")
-        if self.n_inv_90 + self.n_inv_prev90 < 1: raise ValueError("customer must have at least one invoice in the last 180 days (eligibility rule)")
         derived = int(self.n_inv_all == 1)
         if self.is_single_invoice is not None and self.is_single_invoice != derived: raise ValueError("is_single_invoice must equal (n_inv_all == 1)")
         self.is_single_invoice = derived
@@ -61,7 +60,7 @@ class Prediction(BaseModel):
     imputed_fields: list[str]; notes: list[str]
 
 
-app = FastAPI(title="Retail churn model API", version=VERSION, description="Predicts 90-day churn risk for currently active, identified customers. Advisory only; human review required. Churn definition (PROPOSED, pending Marketing sign-off): no sales invoice in the 90 days following the observation date; a customer is eligible only if they had at least one sales invoice in the prior 180 days.")
+app = FastAPI(title="Retail churn model API", version=VERSION, description="Predicts 90-day churn risk for identified customers with at least 180 days of prior history. Advisory only; human review required. Churn definition (agreed with the Marketing Director on 1 November 2026): no sales invoice in the 90 days following the observation date; a customer is eligible only if their first sales invoice is at least 180 days before the observation date.")
 
 
 @app.middleware("http")

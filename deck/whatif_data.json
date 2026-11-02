@@ -1,30 +1,30 @@
 {
  "model_version": "1.0.0",
- "threshold": 0.313903,
+ "threshold": 0.345328,
  "latest_purchase_days_before_T": 90,
  "cases": {
   "A_typical_true_positive": {
    "label": "Case A: typical flagged churner",
    "scores_by_extra_invoices": [
-    0.5891,
-    0.4614,
-    0.3317,
-    0.2451,
-    0.1865,
-    0.1458,
-    0.1167
+    0.734,
+    0.5743,
+    0.5137,
+    0.4693,
+    0.4344,
+    0.4059,
+    0.3819
    ]
   },
   "C_confident_false_positive": {
    "label": "Case C: most confident false alarm",
    "scores_by_extra_invoices": [
-    0.8414,
-    0.7306,
-    0.6096,
-    0.5043,
-    0.4176,
-    0.3478,
-    0.292
+    0.8622,
+    0.7716,
+    0.7229,
+    0.6836,
+    0.6506,
+    0.6221,
+    0.5971
    ]
   }
  }

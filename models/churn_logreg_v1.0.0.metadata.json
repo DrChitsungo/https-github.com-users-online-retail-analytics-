@@ -4,7 +4,7 @@
   "iteration": "2",
   "task": "customer_churn_90d",
   "positive_class": "churn: no sales invoice in the 90 days after the prediction date",
-  "threshold": 0.313903,
+  "threshold": 0.345328,
   "threshold_source": "maximises F1 on validation dates (2011-03, 2011-04); not tuned on test",
   "feature_order": [
     "recency_days",
@@ -32,10 +32,10 @@
     "recency_over_gap"
   ],
   "imputation": "median from training rows (inside pipeline)",
-  "dataset_hash": "794106a862ace0f8",
+  "dataset_hash": "4a1207e03b61b5ca",
   "fact_table_sha256": "00c6544c340275d2e0a38df2ab4d001bfb2856714a0e0e146bb70bf2e8cadcb5",
-  "code_hash": "258a93f8e40c9463",
-  "config_hash": "af26659fdee2cf73",
+  "code_hash": "b67892ac5408478a",
+  "config_hash": "c6f4eb455aeac10b",
   "versions": {
     "python": "3.13.17",
     "pandas": "3.0.5",
@@ -47,69 +47,69 @@
     "fairlearn": "0.15.0"
   },
   "validation": {
-    "roc_auc": 0.7752497443088471,
-    "pr_auc": 0.7810575170742244,
-    "precision": 0.6955813479942985,
-    "recall": 0.9049006622516557,
-    "f1": 0.7865530739120423,
-    "accuracy": 0.7206569233087238,
-    "n": 6637
+    "roc_auc": 0.8050230941805034,
+    "pr_auc": 0.8482002312082508,
+    "precision": 0.7547937245787333,
+    "recall": 0.9098762549614756,
+    "f1": 0.825111158162185,
+    "accuracy": 0.7600580973129992,
+    "n": 6885
   },
   "test": {
-    "roc_auc": 0.7654931902489304,
-    "pr_auc": 0.6702117351511657,
-    "precision": 0.5453329767317464,
-    "recall": 0.8811581676750216,
-    "f1": 0.6737155129687759,
-    "accuracy": 0.6431152873147814,
-    "n": 5534
+    "roc_auc": 0.8103190102976472,
+    "pr_auc": 0.8444773365999914,
+    "precision": 0.7096284017129437,
+    "recall": 0.9525310587798999,
+    "f1": 0.8133312222925903,
+    "accuracy": 0.736330090573633,
+    "n": 8943
   },
   "test_ci95": {
     "roc_auc": [
-      0.7502699138212862,
-      0.7805055588849914
+      0.797798144116744,
+      0.8207985297265693
     ],
     "pr_auc": [
-      0.6457688071246346,
-      0.6977283945848043
+      0.8270252526054105,
+      0.8573572744879682
     ],
     "precision": [
-      0.525431778289792,
-      0.5649976964315631
+      0.6948382668004556,
+      0.7224004726358758
     ],
     "recall": [
-      0.8663250837915548,
-      0.8963419434597327
+      0.9459357817067139,
+      0.9583588096389771
     ],
     "f1": [
-      0.6562332719298952,
-      0.6904193515731365
+      0.8028034844671009,
+      0.8224624403452826
     ],
     "accuracy": [
-      0.6254794141704975,
-      0.6594882995643234
+      0.7230388233855688,
+      0.7479348455641994
     ]
   },
   "mlflow": {
     "experiment": "retail-churn-90d",
-    "validation_run_id": "58bcfae5b9ad4569ad79747717d42cb2",
-    "test_run_id": "8e8e21abe6bd4867b0b2e2a67056b591"
+    "validation_run_id": "c9e4e15238904308afa33cb9d7622d9a",
+    "test_run_id": "fd728799ac5d4d8e8d4e24914d41fa77"
   },
   "hyperparameters": {
-    "best_clf__C": 0.37631071395183324,
-    "best_clf__class_weight": "balanced"
+    "best_clf__C": 0.0013763815852818652,
+    "best_clf__class_weight": null
   },
-  "intended_use": "rank currently active, identified customers by 90-day churn risk to support human-reviewed retention planning",
+  "intended_use": "rank identified customers with at least 180 days of purchase history by 90-day churn risk to support human-reviewed retention planning",
   "not_for": [
     "automated decisions about individuals (credit terms, exclusions)",
     "unidentified customers",
-    "customers inactive for more than 180 days",
+    "customers with fewer than 180 days of history (outside the agreed eligibility rule)",
     "inference of personal characteristics"
   ],
   "registry": {
     "registered_model": "retail-churn-logreg",
-    "version": 1,
+    "version": 3,
     "alias": "champion",
-    "run_id": "58bcfae5b9ad4569ad79747717d42cb2"
+    "run_id": "c9e4e15238904308afa33cb9d7622d9a"
   }
 }

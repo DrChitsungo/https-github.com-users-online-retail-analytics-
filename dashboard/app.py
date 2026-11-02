@@ -42,13 +42,13 @@ def chart(fig, h=340):
 
 # ------------------------------------------------------------------ 1. overview
 if view == "Business overview":
-    st.title("Which active customers may stop buying in the next 90 days?")
-    st.markdown(f"""**Purpose.** Support Marketing and CRM managers who plan retention campaigns. For each currently active, identified customer the model gives a **risk score** for placing **no sales invoice in the 90 days after the prediction date**.
+    st.title("Which established customers may stop buying in the next 90 days?")
+    st.markdown(f"""**Purpose.** Support Marketing and CRM managers who plan retention campaigns. For each identified customer with at least 180 days of purchase history the model gives a **risk score** for placing **no sales invoice in the 90 days after the prediction date**.
 It is advisory and needs human review. It does not make decisions about individuals.""")
     c1, c2, c3 = st.columns(3)
     c1.markdown(f"**Data coverage**  \nProject: Online Retail II (UK giftware retailer)  \nTest period: {M['test_window']}  \n{M['test_rows']:,} customer-snapshots, {M['test_customers']:,} customers")
     c2.markdown(f"**Model**  \nLogistic regression v{M['model_version']}  \n18 behavioural features  \nFlag threshold {THR:.3f} (chosen on validation data)")
-    c3.markdown("**Status**  \nPilot-stage prototype. The 90-day churn window is **proposed**, not yet agreed with Marketing.")
+    c3.markdown("**Status**  \nPilot-stage prototype. The 90-day churn window and the 180-day history rule were agreed with the Marketing Director on 1 November 2026.")
     banner("hist")
     st.subheader(f"Selected group: {month} / {group}  (filtered)")
     a, b, c, d, e = st.columns(5)
@@ -60,13 +60,14 @@ It is advisory and needs human review. It does not make decisions about individu
     if cell["tp"] + cell["fn"] == 0 or cell["tp"] + cell["fp"] == 0:
         st.warning("Recall or precision is undefined for this selection because a denominator is zero.")
     st.subheader("What the verified results say")
-    L = H["logreg"]; B = H["baseline_recency_rule"]; ci = H["logreg_ci"]
+    L = H["logreg"]; B = H["baseline_recency_rule"]; ci = H["logreg_ci"]; AS = E["active_subset"]
     st.markdown(f"""
 - **Ranking ability is better than a simple rule.** ROC-AUC (ability to rank lapsers above stayers; 0.5 is chance) is **{L['roc_auc']:.3f}** (95% interval {ci['roc_auc'][0]:.3f}-{ci['roc_auc'][1]:.3f}) against **{B['roc_auc']:.3f}** for a "longest-silent customers first" rule. *Static, all test rows.*
 - **The default threshold casts a wide net.** It flags **{fmt_pct(L['flag_rate'])}** of customers and catches **{fmt_pct(L['recall'])}** of lapsers, but only **{fmt_pct(L['precision'])}** of flags are correct (flagging everyone would be right {fmt_pct(L['prevalence'])} of the time). *Static.*
 - **Two kinds of error have different costs.** On the test period **{L['fp']:,}** customers were flagged but kept buying (possible wasted offers) and **{L['fn']:,}** lapsers were missed. *Static.*
 - **A shorter list is possible.** Flagging the top 20% by score gives {fmt_pct(E['operating_points'][0]['precision'])} precision and {fmt_pct(E['operating_points'][0]['recall'])} recall. See *Results and explanations*. *Static.*
-- **Scores are for ranking.** They are not recalibrated probabilities: the lapse rate moved from 57% (validation) to 42% (test).
+- **Much of the result comes from long-silent customers.** {fmt_pct(AS['no_purchase_in_prior_180_days']['n'] / AS['all_eligible']['n'])} of the test customer-snapshots had no purchase in the 180 days before the prediction date; {fmt_pct(AS['no_purchase_in_prior_180_days']['prevalence'])} of them lapsed and the model flags {fmt_pct(AS['no_purchase_in_prior_180_days']['flag_rate'])} of them. Among customers who also bought in the prior 180 days, ROC-AUC is {AS['also_bought_in_prior_180_days']['roc_auc']:.3f} and only {fmt_pct(AS['also_bought_in_prior_180_days']['precision'])} of flags are correct. *Static.*
+- **Scores are for ranking.** They are not recalibrated probabilities: the average score is {M['mean_score']:.2f} against an actual lapse rate of {M['prevalence']:.2f}.
 """)
     st.caption("Filtered figures are recomputed from stored confusion-matrix counts at the fixed threshold. Static figures are labelled as such.")
 
@@ -81,7 +82,7 @@ elif view == "Results and explanations":
         fig = go.Figure(go.Bar(x=vals, y=names, orientation="h", marker_color=[GREY, GREY, TEAL, AMBER, AMBER], text=[f"{v:.3f}" for v in vals], textposition="outside"))
         fig.update_layout(title="ROC-AUC on the test period (higher ranks lapsers better; 0.5 = chance)", xaxis=dict(range=[0, 1]))
         chart(fig, 300); banner("static")
-        st.markdown("The chosen model ranks customers clearly better than the rule. LightGBM and random forest scored about the same (statistically indistinguishable), so the simpler, more explainable model was chosen by a rule fixed in advance.")
+        st.markdown("The chosen model ranks customers clearly better than the rule. LightGBM and random forest scored about the same (statistically indistinguishable; the random forest was slightly higher), so the simpler, more explainable model was chosen by a rule fixed in advance.")
         st.subheader("Choosing how many customers to contact")
         op = pd.DataFrame(E["operating_points"]); op["flag_rate"] = (op.flag_rate * 100).round(0).astype(int).astype(str) + "%"
         fig = go.Figure()
@@ -90,14 +91,14 @@ elif view == "Results and explanations":
         fig.add_trace(go.Scatter(x=x, y=op.recall, name="Recall (lapsers caught)", line=dict(color=AMBER, width=3)))
         fig.update_layout(title="Trade-off by share of customers flagged", xaxis_title="Share of customers flagged (%)", yaxis=dict(tickformat=".0%", range=[0, 1]))
         chart(fig, 320); banner("static")
-        st.caption("Flagging fewer customers raises precision and lowers recall. The fixed threshold 0.314 flags 67.6%.")
+        st.caption(f"Flagging fewer customers raises precision and lowers recall. The fixed threshold {THR:.3f} flags {fmt_pct(H['logreg']['flag_rate'])}.")
         st.subheader("Are scores like probabilities?")
         cal = pd.DataFrame(E["calibration_deciles"])
         fig = go.Figure(); fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], mode="lines", line=dict(color=GREY, dash="dash"), name="Perfect calibration"))
         fig.add_trace(go.Scatter(x=cal.mean_score, y=cal.observed_churn, mode="lines+markers", marker=dict(size=9), line=dict(color=TEAL), name="Test deciles"))
         fig.update_layout(title="Average score vs actual lapse rate, by score decile", xaxis_title="Average score", yaxis_title="Actual lapse rate")
         chart(fig, 330); banner("static")
-        st.markdown(f"Across all customers the average score ({M['mean_score']:.3f}) is close to the actual lapse rate ({M['prevalence']:.3f}), but the model was **not recalibrated** and the lapse rate shifted between periods. Use scores to **rank** customers, not as guaranteed frequencies.")
+        st.markdown(f"Across all customers the average score ({M['mean_score']:.3f}) is a little below the actual lapse rate ({M['prevalence']:.3f}), and the model was **not recalibrated** (the lapse rate also differs between periods). Use scores to **rank** customers, not as guaranteed frequencies.")
     with t2:
         st.subheader(f"Confusion matrix, selected group: {month} / {group}  (filtered)")
         z = [[cell["tn"], cell["fp"]], [cell["fn"], cell["tp"]]]
@@ -140,11 +141,11 @@ SHAP measures how much each factor pushes one prediction up or down from the ave
         dr = pd.DataFrame(cs["top_drivers"]).iloc[::-1]
         fig = go.Figure(go.Bar(x=dr.shap_log_odds, y=dr.feature, orientation="h", marker_color=[RED if v > 0 else TEAL for v in dr.shap_log_odds], text=[f"value {v:g}" for v in dr.value], textposition="auto"))
         fig.update_layout(title="Main factors (right = raises risk score, left = lowers it)", xaxis_title="Push on the score (log-odds)"); chart(fig, 300)
-        notes = {"A_typical_true_positive": "A typical correct flag: only two invoices in 426 days and none in the last 90 days raised the score, and the customer did lapse.",
-                 "B_typical_true_negative": "A typical correct 'no flag': 11 invoices and a purchase 32 days earlier kept the score low, and the customer kept buying.",
-                 "C_confident_false_positive": "A confident false alarm. This customer bought twice, four days apart, then nothing for 161 days. Measured against that short gap, the silence looks like a strong warning, but they bought again. History alone cannot see a customer returning for seasonal or other reasons.",
+        notes = {"A_typical_true_positive": "A typical correct flag: only two invoices in 372 days, the latest 330 days before the prediction date, so no recent purchases raised the score, and the customer did lapse.",
+                 "B_typical_true_negative": "A typical correct 'no flag': nine invoices and a purchase four days earlier kept the score low, and the customer kept buying.",
+                 "C_confident_false_positive": "A confident false alarm. This customer made one small purchase 512 days before the prediction date and nothing since, which looks like a lapsed customer, but they bought again. History alone cannot see a customer returning for seasonal or other reasons.",
                  "D_missed_churner_false_negative": "A missed churner: a frequent, high-value customer (31 invoices) who last bought 28 days earlier. Nothing in the history signalled a lapse, yet they stopped. The model cannot see outside events.",
-                 "E_borderline": "A borderline case: 13 invoices lower the score but no purchase in 90 days raises it, leaving the score on the threshold (0.314). A small change in inputs would flip the flag."}
+                 "E_borderline": "A borderline case: 11 invoices over 632 days lower the score but no purchase in the last 90 days raises it, leaving the score close to the threshold. A small change in inputs would flip the flag."}
         st.info(notes[key]); st.caption("Example identifiers and dates are withheld. Explanations describe the model's prediction, not why the customer actually behaved as they did.")
 
 # ------------------------------------------------------------------ 3. prediction / what-if
@@ -187,7 +188,7 @@ elif view == "Prediction and what-if":
                 st.warning("The stored evaluation flag differs from the live flag for this example. Its score sits on the threshold, and rounding the profile for privacy moved it across. This shows how fragile a flag is near the boundary.")
     st.markdown("""**How to read this.** It shows how the **model's score** responds to a changed history. It is **not** a causal intervention: making a customer buy more would not necessarily change their score the same way, and a changed score does not guarantee a changed real-world outcome. Only behaviour that could realistically change was varied; no personal or protected characteristic was changed.""")
     with st.expander("Test how the API handles an invalid request"):
-        st.caption("This sends an impossible profile (tenure shorter than recency) to the same API.")
+        st.caption("This sends an ineligible profile (tenure below the 180-day eligibility minimum) to the same API.")
         if st.button("Send invalid request"):
             bad = to_payload(base) | {"tenure_days": 5.0, "recency_days": 100.0}
             x = api.predict(bad); st.write(f"HTTP {x.get('status')}"); st.json(x.get("body") or {"error": x.get("error")})
@@ -196,7 +197,7 @@ elif view == "Prediction and what-if":
 elif view == "Fairness and ethics":
     st.title("Fairness and ethical compliance view")
     st.error("**No protected attributes exist in this dataset**, and none were inferred. The figures below are an *operational* comparison of UK and non-UK customers. They do **not** show that the model is fair, and they are **not** a regulatory or legal compliance assessment.")
-    banner("hist"); st.caption("Static: all fairness figures use all 5,534 test customer-snapshots at the fixed threshold and are not affected by the sidebar filters.")
+    banner("hist"); st.caption(f"Static: all fairness figures use all {M['test_rows']:,} test customer-snapshots at the fixed threshold and are not affected by the sidebar filters.")
     cmp_ = F["comparisons"]["Non-UK"]; tab = pd.DataFrame(F["table"]).set_index("group")
     st.subheader("Who was compared")
     st.markdown(f"**Reference group:** UK (n = {int(tab.loc['UK','n']):,}). **Comparison group:** non-UK (n = {int(tab.loc['Non-UK','n']):,}; wider uncertainty). A *favourable* outcome here is ambiguous: being flagged triggers retention outreach, which can be a benefit (an offer) or a burden (unwanted contact), so both flag rates and error rates matter.")
@@ -216,7 +217,8 @@ elif view == "Fairness and ethics":
         ["False-alarm gap (FPR difference)", f"{cmp_['fpr_difference']:+.3f}  ({cmp_['ci_fpr_difference'][0]:+.3f} to {cmp_['ci_fpr_difference'][1]:+.3f})", "FPR within 10% of overall", "Within" if chk["fpr_within_10pct_of_overall"] else "Outside"],
     ], columns=["Measure", "Value (95% interval)", "Project threshold", "Status"])
     st.dataframe(out, hide_index=True, use_container_width=True)
-    st.markdown(f"""**What this means.** The flag rates are similar (ratio {cmp_['disparate_impact_ratio']:.2f}) and lapsers are caught at similar rates. But **non-UK customers who kept buying were flagged more often** than UK customers who kept buying (false-alarm rate {tab.loc['Non-UK','fpr']:.1%} vs {tab.loc['UK','fpr']:.1%}; ratio to overall {cmp_['fpr_vs_overall']:.2f}, outside the Module 1 band of 0.90 to 1.10). That means more potentially unnecessary offers or contact for non-UK customers. The interval is wide ({cmp_['ci_fpr_difference'][0]:.3f} to {cmp_['ci_fpr_difference'][1]:.3f}) because only {int(tab.loc['Non-UK','n'])} snapshots are non-UK.
+    ok_fpr = chk["fpr_within_10pct_of_overall"]
+    st.markdown(f"""**What this means.** The flag rates are similar (ratio {cmp_['disparate_impact_ratio']:.2f}) and lapsers are caught at similar rates. The false-alarm rate (customers who kept buying but were flagged) is {tab.loc['Non-UK','fpr']:.1%} for non-UK and {tab.loc['UK','fpr']:.1%} for UK customers; the ratio to overall is {cmp_['fpr_vs_overall']:.2f}, {'inside' if ok_fpr else 'outside'} the Module 1 band of 0.90 to 1.10. The interval for the gap ({cmp_['ci_fpr_difference'][0]:.3f} to {cmp_['ci_fpr_difference'][1]:.3f}) includes zero because only {int(tab.loc['Non-UK','n'])} snapshots are non-UK, so this is not evidence that the groups are treated the same. A higher non-UK false-alarm rate seen under the earlier eligibility rule was not reproduced under the rule agreed with Marketing, and it is not claimed to be eliminated.
 The thresholds are governance bands set in Modules 1 and 2, not legal tests, so a result is described as *within* or *outside the project's stated threshold*.""")
     st.subheader("Mitigation that was actually performed")
     mt = pd.DataFrame([{"Approach": {"M0_unmitigated_selected_model": "None (selected model)", "M1_threshold_optimizer_equalized_odds": "Group-specific thresholds (Fairlearn ThresholdOptimizer)", "M2_reweighing_refit": "Reweighing and refit (Kamiran-Calders)"}.get(k, k),
@@ -224,7 +226,7 @@ The thresholds are governance bands set in Modules 1 and 2, not legal tests, so 
                        "Test recall": v["test_exploratory"]["recall"], "Test flag rate": v["test_exploratory"]["flag_rate"]} for k, v in F["mitigation"].items()])
     st.dataframe(mt.style.format({c: "{:.3f}" for c in mt.columns if c != "Approach"}), hide_index=True, use_container_width=True)
     gap = lambda k: F["mitigation"][k]["test_exploratory"]["fpr_NonUK"] - F["mitigation"][k]["test_exploratory"]["fpr_UK"]
-    st.markdown(f"Neither mitigation closed the false-alarm gap on the test period (non-UK minus UK gap {gap('M1_threshold_optimizer_equalized_odds'):.3f} and {gap('M2_reweighing_refit'):.3f}, against {gap('M0_unmitigated_selected_model'):.3f} unmitigated). Group-specific thresholds also lowered recall to {F['mitigation']['M1_threshold_optimizer_equalized_odds']['test_exploratory']['recall']:.3f} (from {F['mitigation']['M0_unmitigated_selected_model']['test_exploratory']['recall']:.3f}), so **neither was adopted**. Test-period mitigation numbers are exploratory because the disparity was first seen on the test data. Removing the country flag from the model changed validation AUC by about 0.0002, so country is not used as a predictor.")
+    st.markdown(f"No governance band was breached on test, so neither mitigation was needed and **neither was adopted**. Group-specific thresholds lowered recall to {F['mitigation']['M1_threshold_optimizer_equalized_odds']['test_exploratory']['recall']:.3f} (from {F['mitigation']['M0_unmitigated_selected_model']['test_exploratory']['recall']:.3f}) and reweighing left the results essentially unchanged. Test-period mitigation numbers are exploratory. Removing the country flag from the model changed validation AUC by less than 0.0001, so country is not used as a predictor.")
     st.subheader("Sample sizes by country (minimum 100 for a reliable comparison)")
     pc = pd.DataFrame(F["per_country"]).sort_values("n", ascending=False)
     fig = go.Figure(go.Bar(x=pc.group, y=pc.n, marker_color=[TEAL if s else GREY for s in pc.sufficient_n], text=pc.n, textposition="outside")); fig.add_hline(y=F["min_group_n"], line_dash="dash", annotation_text="minimum 100"); fig.update_layout(yaxis_type="log", title="Customer-snapshots per country (log scale; grey = too few)"); chart(fig, 320)
@@ -249,7 +251,7 @@ The thresholds are governance bands set in Modules 1 and 2, not legal tests, so 
 - **Human oversight:** a person reviews every list before any campaign. The model's flags are advisory and should never trigger automatic offers, exclusions or pricing decisions.
 - **What not to infer:** a score is not a certainty, not a cause, and not a statement about any customer's character. The fairness figures do not establish that the model is fair.
 - **Privacy:** customers are pseudonymised, which is not anonymous. This dashboard stores no customer-level records and the API logs no request bodies.
-- **Unresolved:** the protected-attribute requirement cannot be assessed with this data; the non-UK false-alarm gap remains; the 90-day window is not agreed with Marketing.""")
+- **Unresolved:** the protected-attribute requirement cannot be assessed with this data; the non-UK group is small (715 snapshots), so its results are uncertain and monitored.""")
 
 # ------------------------------------------------------------------ 5. about
 else:
@@ -265,11 +267,11 @@ else:
     st.dataframe(sens.style.format({"Test AUC": "{:.4f}", "Change in AUC": "{:+.4f}", "Flags that flip": "{:.1%}"}), hide_index=True, use_container_width=True)
     st.caption("Noise and shifts of this size barely change ranking quality. This tests robustness to input noise; it does not test robustness to a change in customer behaviour.")
     st.subheader("Limitations")
-    st.markdown("""1. The 90-day churn and 180-day lookback windows are **proposed**, pending agreement with Marketing.
-2. The test set was scored in two iterations plus exploratory mitigation runs; this is disclosed in the Validation Report.
-3. The lapse rate shifted from 57% to 42% between validation and test, so scores are for ranking and thresholds need review.
-4. The model is weaker on customers unseen in training (AUC 0.688). One test window only; no external validation or drift evidence.
-5. No protected attributes in the data; the fairness view is an operational UK vs non-UK comparison with unresolved false-alarm gap.
+    st.markdown("""1. The 90-day churn window and the 180-day history rule were agreed with the Marketing Director on 1 November 2026 (confirmed by email from the Marketing Director). The rule includes customers who have not bought for a long time (54% of test snapshots).
+2. The test set was scored four times (two iterations under the earlier eligibility rule, one discarded run with a data error, and the final run) plus exploratory checks; this is disclosed in the Validation Report.
+3. The lapse rate differs by period (47% training, 62% validation, 60% test), so scores are for ranking and thresholds need review.
+4. The model is weaker on customers unseen in training (AUC 0.772 against 0.816). One test window only; no external validation or drift evidence.
+5. No protected attributes in the data; the fairness view is an operational UK vs non-UK comparison on a small non-UK group.
 6. No measured business or financial impact exists. Any effect on retention is a **hypothesis requiring evaluation**.""")
     st.subheader("Links")
     st.markdown(f"- Source code and documents: [{REPO}]({REPO}) (Model Card in `docs/MODEL_CARD.md`; Validation Report and Fairness Metrics Report in `reports/`)")

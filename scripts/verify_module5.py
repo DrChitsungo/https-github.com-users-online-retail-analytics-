@@ -23,14 +23,14 @@ for label, v in [("ROC-AUC", f"{L['roc_auc']:.3f}"), ("baseline AUC", f"{B['roc_
 c = E["fairness"]["comparisons"]["Non-UK"]; fpr = {k: v for k, v in E["fairness"]["mitigation"].items()}
 for label, v in [("DI", f"{c['disparate_impact_ratio']:.3f}"), ("FPR diff", f"{c['fpr_difference']:.3f}"), ("FPR diff CI", f"{c['ci_fpr_difference'][0]:.3f}"), ("TPR diff", f"{c['tpr_difference']:.3f}")]: chk(f"deck states fairness {label} = {v}", v in allt)
 gap = lambda k: fpr[k]["test_exploratory"]["fpr_NonUK"] - fpr[k]["test_exploratory"]["fpr_UK"]
-chk("mitigation gaps in appendix match mitigation_results.json (0.086, 0.080, 0.075)", [f"{gap(k):.3f}" for k in ("M2_reweighing_refit", "M1_threshold_optimizer_equalized_odds", "M0_unmitigated_selected_model")] == ["0.086", "0.080", "0.075"] and "0.086" in allt and "0.080" in allt)
-chk("group-threshold recall 0.755 matches mitigation_results.json", f"{fpr['M1_threshold_optimizer_equalized_odds']['test_exploratory']['recall']:.3f}" == "0.755" and "0.755" in allt)
-chk("prevalence shift 57% to 42% matches validation/test prevalence", round(100 * 0.5687810757872532) == 57 and round(100 * E["meta"]["prevalence"]) == 42 and "57%" in allt)
-chk("unseen-customer AUC 0.688 matches recorded subset", f"{E['subsets']['customers_unseen_in_training']['roc_auc']:.3f}" == "0.688")
+chk("mitigation figures in appendix match mitigation_results.json (-0.024 gap; recall 0.953 -> 0.880; EO diff 0.024 -> 0.047)", f"{fpr['M0_unmitigated_selected_model']['test_exploratory']['equalized_odds_difference']:.3f}" == "0.024" and f"{fpr['M1_threshold_optimizer_equalized_odds']['test_exploratory']['equalized_odds_difference']:.3f}" == "0.047" and "0.047" in allt and "0.024" in allt)
+chk("group-threshold recall 0.880 matches mitigation_results.json", f"{fpr['M1_threshold_optimizer_equalized_odds']['test_exploratory']['recall']:.3f}" == "0.880" and "0.880" in allt)
+chk("test prevalence 0.60 matches meta", round(E["meta"]["prevalence"], 2) == 0.60)
+chk("unseen-customer AUC 0.772 matches recorded subset", f"{E['subsets']['customers_unseen_in_training']['roc_auc']:.3f}" == "0.772" and "0.772" in allt)
 a = E["cases"]["A_typical_true_positive"]["profile"]; d = E["cases"]["D_missed_churner_false_negative"]["profile"]; cc = E["cases"]["C_confident_false_positive"]["profile"]
-chk("case narratives match profiles (A: 2 invoices/426 days/none in 90; C: gap 4 d, 161 d silent; D: 31 invoices, 28 days)", a["n_inv_all"] == 2 and a["tenure_days"] == 426 and a["n_inv_90"] == 0 and cc["mean_gap_days"] == 4 and cc["recency_days"] == 161 and d["n_inv_all"] == 31 and d["recency_days"] == 28)
+chk("case narratives match profiles (A: 2 invoices/372 days tenure/330 days silent; C: 1 invoice 512 days earlier; D: 31 invoices, 28 days)", a["n_inv_all"] == 2 and a["tenure_days"] == 372 and a["recency_days"] == 330 and cc["n_inv_all"] == 1 and cc["recency_days"] == 512 and d["n_inv_all"] == 31 and d["recency_days"] == 28)
 A = W["cases"]["A_typical_true_positive"]["scores_by_extra_invoices"]; Cc = W["cases"]["C_confident_false_positive"]["scores_by_extra_invoices"]; thr = E["meta"]["threshold"]
-chk("what-if: case A falls below threshold at 3 extra invoices, case C at 6 (not 5)", A[2] > thr > A[3] and Cc[5] > thr > Cc[6])
+chk("what-if: neither case A (0.382) nor case C (0.597) falls below the threshold within six extra invoices at a 90-day-old latest purchase", min(A) > thr and min(Cc) > thr)
 chk("what-if data came from the same model version as the evidence", W["model_version"] == E["meta"]["model_version"] and abs(W["threshold"] - thr) < 1e-9)
 chk("dashboard URL on slide 12 is a hyperlink", any(r.hyperlink.address for sh in slides[11].shapes if sh.has_text_frame for p in sh.text_frame.paragraphs for r in p.runs if r.hyperlink and r.hyperlink.address))
 chk("QR image present on slide 12", any(sh.shape_type == 13 for sh in slides[11].shapes))

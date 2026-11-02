@@ -18,7 +18,7 @@ df = pd.read_parquet(ROOT / "data/modeling/churn_snapshots.parquet"); masks = D.
 tr, te = df[masks["train"]], df[masks["test"]].reset_index(drop=True)
 tp = pd.read_parquet(ROOT / "data/modeling/test_predictions.parquet").reset_index(drop=True)
 assert len(te) == len(tp) and (te.customer_key.values == tp.customer_key.values).all() and (pd.to_datetime(te.snapshot).values == pd.to_datetime(tp.snapshot).values).all(), "row alignment"
-assert abs(tp.pred.mean() - 0.676) < 0.002
+assert abs(tp.pred.mean() - json.loads((ROOT / "reports/model/final_test_results.json").read_text())["subsets"]["all_test"]["flag_rate"]) < 1e-6
 
 DIMS = {"tenure_tier": ("tenure_days", "Days since first purchase"), "spend_tier": ("rev_all", "Revenue, all history"), "frequency_tier": ("n_inv_all", "Invoices, all history")}
 out = {"label": "customer-segment audit: BEHAVIOURAL segments, not demographic and not protected characteristics", "model_version": meta["model_version"], "threshold": meta["threshold"],

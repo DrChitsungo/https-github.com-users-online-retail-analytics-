@@ -1,7 +1,7 @@
 # Churn model: feature specification and caller responsibilities
 
 **Prediction date T.** All features use *sales* invoices (not cancellations) of an identified customer dated **strictly before T**. The caller must only
-send customers with at least one sales invoice in the 180 days before T. Cancellation invoices attributed to the customer before T feed the two cancellation features only.
+send customers whose first sales invoice is at least 180 days before T (agreed with the Marketing Director, 1 November 2026). Cancellation invoices attributed to the customer before T feed the two cancellation features only.
 `recency_days` etc. are whole days between T and the invoice date. Revenue is in GBP (the dataset currency).
 
 | Field | Definition |
