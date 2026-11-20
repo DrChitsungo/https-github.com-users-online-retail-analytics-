@@ -6,3 +6,6 @@ reports/runs/
 __pycache__/
 .pytest_cache/
 .venv/
+mlruns_store/
+build/
+reports/monitoring/local/
