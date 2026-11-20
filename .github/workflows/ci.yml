@@ -1,4 +1,5 @@
-# Provided as a repository-ready workflow; it has NOT been executed by the author until a run appears in the repo's Actions tab.
+# Jobs: test (pipeline tests), docker (pipeline image), churn-model (model tests + RELEASE GATES), compose (multi-service stack smoke test).
+# A failed release gate fails the churn-model job, and the compose job only runs after churn-model passes.
 # Tests use hand-written fixtures, so the real dataset is not needed.
 name: ci
 on: [push, pull_request]
@@ -29,3 +30,32 @@ jobs:
       - run: MLFLOW_DISABLE_AGENT_HINT=1 PYTHONPATH=src python -m pytest tests/test_churn_model.py -q
       - run: pip install -r dashboard/requirements.txt
       - run: MLFLOW_DISABLE_AGENT_HINT=1 PYTHONPATH=src python -m pytest tests/test_dashboard.py -q
+      - name: Release gates (data quality, integrity, performance, fairness; human approval stays manual)
+        run: PYTHONPATH=src python -m churn_model.release_gates --out reports/release_gates/ci.json
+      - run: PYTHONPATH=src python -m pytest tests/test_release_gates.py tests/test_monitoring.py -q
+  compose:
+    # Builds the API and dashboard images, starts them with docker compose, and checks health, a valid prediction,
+    # input validation (HTTP 422) and the dashboard; then runs the release gates inside the monitoring image.
+    needs: churn-model
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose config -q
+      - run: docker compose build api dashboard
+      - run: docker compose up -d --wait --wait-timeout 240
+      - run: curl -fsS http://127.0.0.1:8000/health
+      - name: Valid request returns a prediction
+        run: |
+          curl -fsS -X POST http://127.0.0.1:8000/predict -H 'content-type: application/json' -d @docker/sample_request.json | tee /tmp/pred.json
+          grep -q churn_probability /tmp/pred.json
+      - name: Invalid request is rejected with HTTP 422
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8000/predict -H 'content-type: application/json' -d '{"tenure_days": 10}')
+          echo "HTTP $code"; test "$code" = "422"
+      - name: Dashboard reaches the API over the compose network
+        run: |
+          curl -fsS http://127.0.0.1:8501/_stcore/health
+          docker compose exec -T dashboard python -c "import urllib.request; print(urllib.request.urlopen('http://api:8000/health').read().decode())"
+      - run: docker compose --profile gates run --rm release-gates
+      - if: always()
+        run: docker compose logs --no-color --tail 50 && docker compose down -v
