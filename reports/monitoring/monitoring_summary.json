@@ -1,0 +1,316 @@
+{
+  "generated_at": "2026-11-20T08:53:31Z",
+  "model_version": "1.0.0",
+  "threshold": 0.345328,
+  "evidently_version": "0.7.23",
+  "kind": "historical batch simulation; not scheduled in production",
+  "reference": {
+    "snapshots": [
+      "2011-03-01",
+      "2011-04-01"
+    ],
+    "n": 6885.0,
+    "prevalence": 0.6221,
+    "mean_score": 0.5193,
+    "flag_rate": 0.7499,
+    "recall": 0.9099,
+    "precision": 0.7548,
+    "roc_auc": 0.805
+  },
+  "thresholds": {
+    "max_mean_score_shift": 0.1,
+    "max_flag_rate_shift": 0.1,
+    "psi_alert": 0.2,
+    "max_drifted_feature_share": 0.5,
+    "max_recall_drop": 0.05,
+    "disparate_impact_band": [
+      0.8,
+      1.25
+    ],
+    "relative_band": [
+      0.9,
+      1.1
+    ],
+    "min_group_n": 100
+  },
+  "months": [
+    {
+      "month": "2011-05",
+      "used_for": "unused (purge gap)",
+      "n": 3939,
+      "prevalence": 0.6375,
+      "mean_score": 0.5449,
+      "flag_rate": 0.7832,
+      "recall": 0.9267,
+      "precision": 0.7543,
+      "roc_auc": 0.8163,
+      "score_psi": 0.0215,
+      "max_input_psi": 0.2619,
+      "max_input_psi_feature": "tenure_days",
+      "evidently_drifted_share": 0.2632,
+      "evidently_drifted_features": [
+        "n_inv_prev90",
+        "n_products_180",
+        "recency_days",
+        "tenure_days"
+      ],
+      "input_psi": {
+        "recency_days": 0.1904,
+        "tenure_days": 0.2619,
+        "n_inv_all": 0.0036,
+        "n_inv_30": 0.0017,
+        "n_inv_90": 0.0005,
+        "n_inv_prev90": 0.0549,
+        "is_single_invoice": 0.0026,
+        "rev_all": 0.0032,
+        "rev_90": 0.0016,
+        "rev_180": 0.033,
+        "n_products_all": 0.0011,
+        "n_products_180": 0.0295,
+        "avg_units_per_inv": 0.0006,
+        "mean_gap_days": 0.004,
+        "std_gap_days": 0.0056,
+        "recency_over_gap": 0.0148,
+        "n_cancel_all": 0.001,
+        "cancel_ratio": 0.0004
+      },
+      "fairness": {
+        "uk_n": 3631,
+        "non_uk_n": 308,
+        "disparate_impact": 0.9587,
+        "tpr_vs_overall": 0.9876,
+        "fpr_vs_overall": 1.0067,
+        "sufficient_n": true,
+        "breach": false
+      },
+      "alerts": [
+        "input PSI > 0.2 (tenure_days)"
+      ],
+      "status": "ALERT"
+    },
+    {
+      "month": "2011-06",
+      "used_for": "unused (purge gap)",
+      "n": 4264,
+      "prevalence": 0.6747,
+      "mean_score": 0.5667,
+      "flag_rate": 0.8107,
+      "recall": 0.9402,
+      "precision": 0.7825,
+      "roc_auc": 0.8245,
+      "score_psi": 0.0787,
+      "max_input_psi": 0.4955,
+      "max_input_psi_feature": "tenure_days",
+      "evidently_drifted_share": 0.3158,
+      "evidently_drifted_features": [
+        "n_inv_prev90",
+        "n_products_180",
+        "recency_days",
+        "std_gap_days",
+        "tenure_days"
+      ],
+      "input_psi": {
+        "recency_days": 0.27,
+        "tenure_days": 0.4955,
+        "n_inv_all": 0.0099,
+        "n_inv_30": 0.0014,
+        "n_inv_90": 0.0003,
+        "n_inv_prev90": 0.2481,
+        "is_single_invoice": 0.008,
+        "rev_all": 0.0082,
+        "rev_90": 0.0008,
+        "rev_180": 0.1174,
+        "n_products_all": 0.0022,
+        "n_products_180": 0.1123,
+        "avg_units_per_inv": 0.0017,
+        "mean_gap_days": 0.0126,
+        "std_gap_days": 0.0172,
+        "recency_over_gap": 0.0351,
+        "n_cancel_all": 0.0029,
+        "cancel_ratio": 0.0022
+      },
+      "fairness": {
+        "uk_n": 3935,
+        "non_uk_n": 329,
+        "disparate_impact": 0.9485,
+        "tpr_vs_overall": 0.9951,
+        "fpr_vs_overall": 0.944,
+        "sufficient_n": true,
+        "breach": false
+      },
+      "alerts": [
+        "input PSI > 0.2 (tenure_days)"
+      ],
+      "status": "ALERT"
+    },
+    {
+      "month": "2011-07",
+      "used_for": "unused (purge gap)",
+      "n": 4315,
+      "prevalence": 0.6628,
+      "mean_score": 0.5681,
+      "flag_rate": 0.8056,
+      "recall": 0.9437,
+      "precision": 0.7765,
+      "roc_auc": 0.8297,
+      "score_psi": 0.0799,
+      "max_input_psi": 0.7661,
+      "max_input_psi_feature": "tenure_days",
+      "evidently_drifted_share": 0.3684,
+      "evidently_drifted_features": [
+        "mean_gap_days",
+        "n_inv_prev90",
+        "n_products_180",
+        "recency_days",
+        "std_gap_days",
+        "tenure_days"
+      ],
+      "input_psi": {
+        "recency_days": 0.2975,
+        "tenure_days": 0.7661,
+        "n_inv_all": 0.0093,
+        "n_inv_30": 0.0001,
+        "n_inv_90": 0.0007,
+        "n_inv_prev90": 0.2529,
+        "is_single_invoice": 0.0071,
+        "rev_all": 0.0081,
+        "rev_90": 0.0017,
+        "rev_180": 0.1201,
+        "n_products_all": 0.002,
+        "n_products_180": 0.1164,
+        "avg_units_per_inv": 0.002,
+        "mean_gap_days": 0.0172,
+        "std_gap_days": 0.0246,
+        "recency_over_gap": 0.0345,
+        "n_cancel_all": 0.0016,
+        "cancel_ratio": 0.002
+      },
+      "fairness": {
+        "uk_n": 3977,
+        "non_uk_n": 338,
+        "disparate_impact": 0.9433,
+        "tpr_vs_overall": 0.9739,
+        "fpr_vs_overall": 0.9509,
+        "sufficient_n": true,
+        "breach": false
+      },
+      "alerts": [
+        "input PSI > 0.2 (tenure_days)"
+      ],
+      "status": "ALERT"
+    },
+    {
+      "month": "2011-08",
+      "used_for": "test",
+      "n": 4405,
+      "prevalence": 0.6295,
+      "mean_score": 0.5695,
+      "flag_rate": 0.8107,
+      "recall": 0.9513,
+      "precision": 0.7387,
+      "roc_auc": 0.8234,
+      "score_psi": 0.08,
+      "max_input_psi": 1.0583,
+      "max_input_psi_feature": "tenure_days",
+      "evidently_drifted_share": 0.3684,
+      "evidently_drifted_features": [
+        "mean_gap_days",
+        "n_inv_prev90",
+        "n_products_180",
+        "recency_days",
+        "std_gap_days",
+        "tenure_days"
+      ],
+      "input_psi": {
+        "recency_days": 0.262,
+        "tenure_days": 1.0583,
+        "n_inv_all": 0.0103,
+        "n_inv_30": 0.0032,
+        "n_inv_90": 0.0014,
+        "n_inv_prev90": 0.2498,
+        "is_single_invoice": 0.0065,
+        "rev_all": 0.0095,
+        "rev_90": 0.0011,
+        "rev_180": 0.1281,
+        "n_products_all": 0.0019,
+        "n_products_180": 0.1234,
+        "avg_units_per_inv": 0.0021,
+        "mean_gap_days": 0.0228,
+        "std_gap_days": 0.0345,
+        "recency_over_gap": 0.0401,
+        "n_cancel_all": 0.0011,
+        "cancel_ratio": 0.002
+      },
+      "fairness": {
+        "uk_n": 4057,
+        "non_uk_n": 348,
+        "disparate_impact": 0.9727,
+        "tpr_vs_overall": 0.9959,
+        "fpr_vs_overall": 0.969,
+        "sufficient_n": true,
+        "breach": false
+      },
+      "alerts": [
+        "input PSI > 0.2 (tenure_days)"
+      ],
+      "status": "ALERT"
+    },
+    {
+      "month": "2011-09",
+      "used_for": "test",
+      "n": 4538,
+      "prevalence": 0.5773,
+      "mean_score": 0.5727,
+      "flag_rate": 0.8083,
+      "recall": 0.9538,
+      "precision": 0.6813,
+      "roc_auc": 0.8007,
+      "score_psi": 0.0895,
+      "max_input_psi": 1.2391,
+      "max_input_psi_feature": "tenure_days",
+      "evidently_drifted_share": 0.3684,
+      "evidently_drifted_features": [
+        "mean_gap_days",
+        "n_inv_prev90",
+        "n_products_180",
+        "recency_days",
+        "std_gap_days",
+        "tenure_days"
+      ],
+      "input_psi": {
+        "recency_days": 0.259,
+        "tenure_days": 1.2391,
+        "n_inv_all": 0.0132,
+        "n_inv_30": 0.0044,
+        "n_inv_90": 0.0054,
+        "n_inv_prev90": 0.2045,
+        "is_single_invoice": 0.0071,
+        "rev_all": 0.0112,
+        "rev_90": 0.0052,
+        "rev_180": 0.1367,
+        "n_products_all": 0.0032,
+        "n_products_180": 0.1304,
+        "avg_units_per_inv": 0.002,
+        "mean_gap_days": 0.0265,
+        "std_gap_days": 0.0423,
+        "recency_over_gap": 0.0443,
+        "n_cancel_all": 0.0011,
+        "cancel_ratio": 0.0026
+      },
+      "fairness": {
+        "uk_n": 4171,
+        "non_uk_n": 367,
+        "disparate_impact": 0.9611,
+        "tpr_vs_overall": 0.9858,
+        "fpr_vs_overall": 0.9587,
+        "sufficient_n": true,
+        "breach": false
+      },
+      "alerts": [
+        "input PSI > 0.2 (tenure_days)"
+      ],
+      "status": "ALERT"
+    }
+  ],
+  "privacy": "aggregate statistics only; no customer keys or rows"
+}

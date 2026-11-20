@@ -1,0 +1,9 @@
+# Batch monitoring job (src/churn_model/monitoring.py). Same pins as requirements-ml.txt for the model stack, plus Evidently.
+pandas==3.0.5
+numpy==2.5.3
+pyarrow==25.0.1
+PyYAML==6.0.3
+scikit-learn==1.9.1
+joblib==1.6.0
+matplotlib==3.11.2
+evidently==0.7.23

@@ -1,0 +1,3 @@
+{"recency_days": 30, "tenure_days": 400, "n_inv_all": 6, "n_inv_30": 1, "n_inv_90": 2, "n_inv_prev90": 1,
+ "rev_all": 1200.0, "rev_90": 300.0, "rev_180": 450.0, "n_products_all": 40, "n_products_180": 15, "avg_units_per_inv": 100.0,
+ "mean_gap_days": 70.0, "std_gap_days": 20.0, "recency_over_gap": 0.43, "n_cancel_all": 0, "cancel_ratio": 0.0}

@@ -1,0 +1,11 @@
+# Model API image (docker/api.Dockerfile). Same pins as dashboard/requirements.txt: scikit-learn, numpy, pandas and joblib MUST match
+# the versions that produced models/churn_logreg_v1.0.0.joblib.
+pandas==3.0.5
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+fastapi==0.150.0
+starlette==1.7.0
+pydantic==2.13.5
+uvicorn==0.54.0

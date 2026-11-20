@@ -18,7 +18,7 @@ api = ApiClient()
 
 # ------------------------------------------------------------------ sidebar
 st.sidebar.title("Churn model dashboard")
-view = st.sidebar.radio("View", ["Business overview", "Results and explanations", "Prediction and what-if", "Fairness and ethics", "About and evidence"])
+view = st.sidebar.radio("View", ["Business overview", "Results and explanations", "Prediction and what-if", "Fairness and ethics", "Monitoring", "About and evidence"])
 st.sidebar.markdown("**Filters** (apply to the figures labelled *filtered*)")
 month = st.sidebar.selectbox("Prediction month (held-out test)", ["All", "2011-08", "2011-09"])
 group = st.sidebar.selectbox("Customer group", ["All", "UK", "Non-UK"], help="UK vs non-UK is an operational grouping, not a protected attribute.")
@@ -253,7 +253,48 @@ The thresholds are governance bands set in Modules 1 and 2, not legal tests, so 
 - **Privacy:** customers are pseudonymised, which is not anonymous. This dashboard stores no customer-level records and the API logs no request bodies.
 - **Unresolved:** the protected-attribute requirement cannot be assessed with this data; the non-UK group is small (715 snapshots), so its results are uncertain and monitored.""")
 
-# ------------------------------------------------------------------ 5. about
+# ------------------------------------------------------------------ 5. monitoring (batch check)
+elif view == "Monitoring":
+    import json as _json
+    st.title("Monitoring: monthly batch check")
+    _p = Path(__file__).resolve().parent / "data" / "monitoring_summary.json"
+    if not _p.exists():
+        st.warning("No monitoring summary found. Run `PYTHONPATH=src python -m churn_model.monitoring` and rebuild the dashboard.")
+    else:
+        S = _json.loads(_p.read_text()); R = S["reference"]; T = S["thresholds"]; MS = S["months"]
+        st.info(f"**Historical simulation.** The champion model v{S['model_version']} scores each later month as if it were in production, against the validation "
+                f"months ({', '.join(x[:7] for x in R['snapshots'])}) as reference. May to July 2011 were never used for training, selection or testing; "
+                "August and September are the test period. The job runs on demand (Evidently " + S["evidently_version"] + "); it is not scheduled in production.")
+        st.caption("Static: aggregates only, generated " + S["generated_at"][:10] + ". Sidebar filters do not change this view.")
+        tbl = pd.DataFrame([{"Month": m["month"], "Used for": m["used_for"], "Status": m["status"], "Flag rate": m["flag_rate"], "Recall": m["recall"],
+                             "Precision": m["precision"], "AUC": m["roc_auc"], "Score PSI": m["score_psi"],
+                             "Largest input PSI": f"{m['max_input_psi']:.2f} ({LABELS.get(m['max_input_psi_feature'], m['max_input_psi_feature'])})",
+                             "Inputs drifted (Evidently)": m["evidently_drifted_share"], "Non-UK DI": m["fairness"]["disparate_impact"],
+                             "Alerts": "; ".join(m["alerts"]) or "none"} for m in MS])
+        st.dataframe(tbl.style.format({"Flag rate": "{:.1%}", "Recall": "{:.1%}", "Precision": "{:.1%}", "AUC": "{:.3f}", "Score PSI": "{:.3f}",
+                                       "Inputs drifted (Evidently)": "{:.0%}", "Non-UK DI": "{:.3f}"}), hide_index=True, use_container_width=True)
+        x = [m["month"] for m in MS]
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            fig = go.Figure([go.Scatter(x=x, y=[m["max_input_psi"] for m in MS], name="largest input PSI", line=dict(color=TEAL)),
+                             go.Scatter(x=x, y=[m["score_psi"] for m in MS], name="score PSI", line=dict(color=AMBER))])
+            fig.add_hline(y=T["psi_alert"], line_dash="dash", line_color=RED, annotation_text="alert"); fig.update_layout(title="Drift against validation months"); chart(fig, 320)
+        with c2:
+            fig = go.Figure([go.Scatter(x=x, y=[m[k] for m in MS], name=n, line=dict(color=c)) for k, n, c in [("recall", "recall", SLATE), ("precision", "precision", AMBER), ("flag_rate", "flag rate", TEAL)]])
+            fig.add_hline(y=R["recall"] - T["max_recall_drop"], line_dash="dash", line_color=RED, annotation_text="recall floor")
+            fig.update_layout(title="Operating point on matured outcomes", yaxis=dict(range=[0.5, 1], tickformat=".0%")); chart(fig, 320)
+        with c3:
+            fig = go.Figure([go.Scatter(x=x, y=[m["fairness"][k] for m in MS], name=n, line=dict(color=c)) for k, n, c in
+                             [("tpr_vs_overall", "non-UK TPR / overall", TEAL), ("fpr_vs_overall", "non-UK FPR / overall", AMBER), ("disparate_impact", "disparate impact", SLATE)]])
+            fig.add_hrect(y0=T["relative_band"][0], y1=T["relative_band"][1], fillcolor=TEAL, opacity=0.08, line_width=0)
+            fig.update_layout(title="UK vs non-UK (operational grouping)", yaxis=dict(range=[0.7, 1.3])); chart(fig, 320)
+        st.subheader("What the check says")
+        st.markdown("""- **Input drift alerts fire every month**, driven by customer tenure: the data start in December 2009, so the eligible customer base gets older month by month. From June, days since last purchase and invoices 91 to 180 days back also pass the 0.2 alert line.
+- **The score, the operating point and the UK vs non-UK comparison stay inside their bands**: score PSI stays below 0.1, recall never falls below the floor, and disparate impact and error-rate ratios stay within 10%.
+- **Action under the runbook:** a drift review, not automatic retraining. Precision falls to 68% in September because fewer customers lapsed that month (58% against 62% in the reference), a reason to review list size with Marketing.""")
+        st.caption("Thresholds: configs/monitoring.yaml. Evidently HTML reports are kept locally because they are built from customer-level rows.")
+
+# ------------------------------------------------------------------ 6. about
 else:
     st.title("About and evidence")
     st.markdown(f"""**Project.** Retail Analytics Decision Support Platform (BAN 6800, Nexford University, MSc Data Analytics). Author: Bezzel Chitsungo. Task: 90-day customer churn (Module 4), communicated to Marketing and CRM managers (Module 5).""")
@@ -270,7 +311,7 @@ else:
     st.markdown("""1. The 90-day churn window and the 180-day history rule were agreed with the Marketing Director on 1 November 2026 (confirmed by email from the Marketing Director). The rule includes customers who have not bought for a long time (54% of test snapshots).
 2. The test set was scored four times (two iterations under the earlier eligibility rule, one discarded run with a data error, and the final run) plus exploratory checks; this is disclosed in the Validation Report.
 3. The lapse rate differs by period (47% training, 62% validation, 60% test), so scores are for ranking and thresholds need review.
-4. The model is weaker on customers unseen in training (AUC 0.772 against 0.816). One test window only; no external validation or drift evidence.
+4. The model is weaker on customers unseen in training (AUC 0.772 against 0.816). One test window only and no external validation; the Monitoring view adds a historical drift check, not live monitoring.
 5. No protected attributes in the data; the fairness view is an operational UK vs non-UK comparison on a small non-UK group.
 6. No measured business or financial impact exists. Any effect on retention is a **hypothesis requiring evaluation**.""")
     st.subheader("Links")

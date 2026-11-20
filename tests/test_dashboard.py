@@ -51,7 +51,7 @@ def test_evidence_file_has_no_identifiers_or_row_level_records():
 
 # ---------------------------------------------------------------- Streamlit smoke tests
 from streamlit.testing.v1 import AppTest
-VIEWS = ["Business overview", "Results and explanations", "Prediction and what-if", "Fairness and ethics", "About and evidence"]
+VIEWS = ["Business overview", "Results and explanations", "Prediction and what-if", "Fairness and ethics", "Monitoring", "About and evidence"]
 
 def run(view, monkeypatch=None, api_url=None):
     at = AppTest.from_file(str(ROOT / "dashboard/app.py"), default_timeout=60)

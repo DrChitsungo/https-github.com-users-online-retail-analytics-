@@ -1,0 +1,64 @@
+# Retail churn decision support: local multi-service stack (capstone report Section 11).
+#   docker compose up --build                       -> api + dashboard (http://127.0.0.1:8501)
+#   docker compose --profile monitoring run --rm monitoring      -> monthly batch drift/performance/fairness check (needs local data/modeling)
+#   docker compose --profile gates run --rm release-gates        -> release gates on the committed evidence (exit code 1 = blocked)
+#   docker compose --profile pipeline run --rm pipeline          -> Module 3 data pipeline (needs data/raw and a .env with CUSTOMER_KEY_SECRET)
+# Ports bind to 127.0.0.1 only. The API is reachable from the dashboard over the internal network "churn-net" and is not exposed publicly.
+# No secrets live in this file: the pipeline reads CUSTOMER_KEY_SECRET from .env (git-ignored).
+name: retail-churn
+
+services:
+  api:
+    build: { context: ., dockerfile: docker/api.Dockerfile }
+    image: retail-churn-api:1.0.0
+    ports: ["127.0.0.1:8000:8000"]
+    networks: [churn-net]
+    read_only: true
+    tmpfs: [/tmp]
+    restart: unless-stopped
+
+  dashboard:
+    build: { context: ., dockerfile: docker/dashboard.Dockerfile }
+    image: retail-churn-dashboard:1.0.0
+    environment:
+      CHURN_API_URL: http://api:8000
+    ports: ["127.0.0.1:8501:8501"]
+    depends_on:
+      api: { condition: service_healthy }
+    networks: [churn-net]
+    restart: unless-stopped
+
+  monitoring:
+    profiles: [monitoring]
+    build: { context: ., dockerfile: docker/monitoring.Dockerfile }
+    image: retail-churn-monitoring:1.0.0
+    command: ["churn_model.monitoring"]
+    volumes:
+      - ./data/modeling:/app/data/modeling:ro          # customer-level snapshots stay on the host, read-only
+      - ./reports/monitoring:/app/reports/monitoring     # aggregate summary + chart (+ git-ignored Evidently HTML in local/)
+      - ./dashboard/data:/app/dashboard/data             # aggregate copy for the dashboard's Monitoring view
+    networks: [churn-net]
+
+  release-gates:
+    profiles: [gates]
+    build: { context: ., dockerfile: docker/monitoring.Dockerfile }
+    image: retail-churn-monitoring:1.0.0
+    command: ["churn_model.release_gates"]          # prints every check; exit code 1 = blocked
+    volumes:
+      - ./reports/latest:/app/reports/latest:ro
+      - ./reports/model:/app/reports/model:ro
+      - ./reports/mlflow_evidence:/app/reports/mlflow_evidence:ro
+    networks: [churn-net]
+
+  pipeline:
+    profiles: [pipeline]
+    build: { context: ., dockerfile: Dockerfile }
+    image: retail-pipeline:1.0.0
+    env_file: [{ path: .env, required: false }]
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+    networks: [churn-net]
+
+networks:
+  churn-net: {}

@@ -1,0 +1,20 @@
+# Batch monitoring job (capstone report Section 7). Thresholds follow the report's monitoring table.
+# This is a HISTORICAL SIMULATION: the reference window is the validation period used for model selection and each later
+# month is treated as a "production" month whose 90-day outcomes have matured. It is run on demand, not on a schedule.
+reference_snapshots: ["2011-03-01", "2011-04-01"]                 # validation period
+current_snapshots: ["2011-05-01", "2011-06-01", "2011-07-01", "2011-08-01", "2011-09-01"]
+# May-July 2011 were never used for training, selection or testing (they are the purge gap); August-September are the test period.
+thresholds:
+  max_mean_score_shift: 0.10        # mean predicted risk within 0.10 of the reference window
+  max_flag_rate_shift: 0.10         # flag rate within 10 percentage points of the reference window
+  psi_alert: 0.20                   # population stability index above 0.2 on any model input or on the score
+  max_drifted_feature_share: 0.50   # Evidently: alert if more than half the inputs drift
+  max_recall_drop: 0.05             # recall on matured outcomes within 5 points of the reference window
+  disparate_impact_band: [0.80, 1.25]
+  relative_band: [0.90, 1.10]       # non-UK TPR and FPR within 10% of overall
+  min_group_n: 100
+outputs:
+  summary: reports/monitoring/monitoring_summary.json   # aggregate only; committed
+  chart: reports/monitoring/monitoring_trend.png        # committed
+  dashboard_copy: dashboard/data/monitoring_summary.json
+  evidently_html_dir: reports/monitoring/local          # Evidently HTML reports; git-ignored (built from customer-level rows)

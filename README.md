@@ -255,3 +255,24 @@ python scripts/build_hf_space.py               # assembles build/hf_space (+ zip
 PYTHONPATH=src python -m pytest tests/test_dashboard.py -q
 ```
 Rebuild the deck: `python scripts/make_qr.py <url>` then `DASHBOARD_URL=<url> DASHBOARD_VERIFIED=<date> node deck/build_module5_deck.js` and `python scripts/verify_module5.py`. Settings are in `.env.example` (no secrets needed). See `dashboard/README.md` for deployment.
+
+## Capstone additions (20 November 2026): Docker Compose, batch monitoring and release gates
+
+### What was added and what was verified
+| Addition | Files | Verified so far |
+|---|---|---|
+| Release gates 1 to 4 (data quality, integrity, performance, fairness); gate 5, human approval, stays manual | `src/churn_model/release_gates.py`, `configs/release_gates.yaml`, `tests/test_release_gates.py` | All four automated gates pass on the committed evidence; 10 tests pass locally. The `churn-model` CI job now fails if a gate fails. |
+| Batch monitoring with Evidently 0.7.23 plus PSI: input drift, score drift, performance on matured outcomes, UK vs non-UK fairness | `src/churn_model/monitoring.py`, `configs/monitoring.yaml`, `requirements-monitoring.txt`, `tests/test_monitoring.py`, `reports/monitoring/` | Run locally on May to September 2011 against the validation months (historical simulation, not scheduled). Aggregate summary and chart committed; Evidently HTML stays local (git-ignored). |
+| Dashboard "Monitoring" view | `dashboard/app.py`, `dashboard/data/monitoring_summary.json` | Renders locally; dashboard tests pass. |
+| Docker Compose stack: `api` + `dashboard` by default; `monitoring`, `release-gates` and `pipeline` on demand | `docker-compose.yml`, `docker/*.Dockerfile`, `docker/requirements-api.txt`, `docker/sample_request.json` | `docker compose config` passes locally. Images could not be pulled in the author's sandbox, so the build-and-run proof is the new `compose` CI job (health, valid prediction, HTTP 422, dashboard-to-API call, release gates). |
+
+### Run
+```bash
+docker compose up --build                                   # API on 127.0.0.1:8000, dashboard on http://127.0.0.1:8501
+docker compose --profile gates run --rm release-gates       # exit code 1 = blocked; keep the current champion
+docker compose --profile monitoring run --rm monitoring     # needs the git-ignored data/modeling/churn_snapshots.parquet
+# without Docker:
+PYTHONPATH=src python -m churn_model.release_gates --out reports/release_gates/latest.json
+pip install -r requirements-monitoring.txt && PYTHONPATH=src python -m churn_model.monitoring
+```
+The release-gate thresholds were declared on 20 November 2026, after v1.0.0 results were known; they bind future versions and re-check v1.0.0, and were not used to select it.

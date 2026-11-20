@@ -1,0 +1,38 @@
+# Release gates for promoting a churn model version (Section 10 of the capstone report).
+# Declared 20 November 2026, AFTER v1.0.0 results were known. They are floors for FUTURE versions and for re-checking v1.0.0;
+# they were not used to select v1.0.0 (selection followed the pre-declared validation rule in reports/model/selection.json).
+# A failed automated gate keeps the current champion. Passing every automated gate does NOT promote a model: a named
+# human approver must still sign off (gate 5), which cannot be automated.
+data_quality:
+  run_summary: reports/latest/run_summary.json
+  require_status: SUCCEEDED
+  max_critical_failures: 0          # Great Expectations critical expectations, bronze and outputs
+  require_all_reconciliation: true
+  max_published_pii_hits: 0
+integrity:
+  model_file: models/churn_logreg_v1.0.0.joblib
+  metadata_file: models/churn_logreg_v1.0.0.metadata.json
+  registry_file: reports/mlflow_evidence/model_registry.json
+  churn_config: configs/churn.yaml
+  required_horizon_days: 90         # agreed with the Marketing Director, 1 Nov 2026
+  required_min_history_days: 180
+performance:
+  results_file: reports/model/final_test_results.json
+  model_key: logreg
+  rule_key: baseline_recency_rule
+  prevalence_key: baseline_prevalence
+  min_roc_auc: 0.78
+  min_auc_lift_over_rule: 0.03      # must beat the "longest-silent first" rule by at least 0.03 AUC
+  min_recall: 0.85
+  min_precision_lift_over_base_rate: 0.05
+  brier_must_beat_rule: true
+fairness:
+  results_file: reports/model/final_test_results.json
+  selection_file: reports/model/selection.json
+  disparate_impact_band: [0.80, 1.25]   # Module 2
+  relative_band: [0.90, 1.10]           # Module 1: group TPR and FPR within 10% of overall
+  min_group_n: 100
+  require_validation_gate: true
+approval:
+  required: true
+  approver_role: "Organisational Model Owner (not yet appointed)"

@@ -1,0 +1,122 @@
+{
+  "evaluated_at": "2026-11-20T08:49:09Z",
+  "model_version": "1.0.0",
+  "gates": {
+    "1_data_quality": [
+      {
+        "check": "pipeline run status",
+        "passed": true,
+        "detail": "SUCCEEDED"
+      },
+      {
+        "check": "critical GX failures (bronze)",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "critical GX failures (outputs)",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "check": "reconciliation checks",
+        "passed": true,
+        "detail": "13/13"
+      },
+      {
+        "check": "published PII hits",
+        "passed": true,
+        "detail": 0
+      }
+    ],
+    "2_integrity": [
+      {
+        "check": "model file matches registry champion",
+        "passed": true,
+        "detail": "801e890a3d65 vs 801e890a3d65 (champion)"
+      },
+      {
+        "check": "threshold agrees (metadata vs evaluation)",
+        "passed": true,
+        "detail": 0.345328
+      },
+      {
+        "check": "dataset hash agrees (metadata vs registry)",
+        "passed": true,
+        "detail": "4a1207e03b61b5ca"
+      },
+      {
+        "check": "churn horizon is the agreed 90 days",
+        "passed": true,
+        "detail": 90
+      },
+      {
+        "check": "eligibility is the agreed 180 days",
+        "passed": true,
+        "detail": 180
+      }
+    ],
+    "3_performance": [
+      {
+        "check": "test ROC-AUC",
+        "passed": true,
+        "detail": "0.810 >= 0.78"
+      },
+      {
+        "check": "AUC lift over recency rule",
+        "passed": true,
+        "detail": "+0.053 >= 0.03"
+      },
+      {
+        "check": "recall",
+        "passed": true,
+        "detail": "0.953 >= 0.85"
+      },
+      {
+        "check": "precision lift over base rate",
+        "passed": true,
+        "detail": "+0.107 >= 0.05"
+      },
+      {
+        "check": "Brier score beats recency rule",
+        "passed": true,
+        "detail": "0.172 < 0.217"
+      }
+    ],
+    "4_fairness": [
+      {
+        "check": "Non-UK: disparate impact",
+        "passed": true,
+        "detail": "0.967 in [0.8, 1.25]"
+      },
+      {
+        "check": "Non-UK: TPR vs overall",
+        "passed": true,
+        "detail": "0.991 in [0.9, 1.1]"
+      },
+      {
+        "check": "Non-UK: FPR vs overall",
+        "passed": true,
+        "detail": "0.963 in [0.9, 1.1]"
+      },
+      {
+        "check": "validation fairness gate (selection)",
+        "passed": true,
+        "detail": "FPR vs overall 0.903"
+      }
+    ]
+  },
+  "gate_summary": {
+    "1_data_quality": true,
+    "2_integrity": true,
+    "3_performance": true,
+    "4_fairness": true
+  },
+  "automated_gates_passed": true,
+  "5_human_approval": {
+    "required": true,
+    "approver_role": "Organisational Model Owner (not yet appointed)",
+    "status": "PENDING"
+  },
+  "decision": "automated gates passed; promotion still requires human approval"
+}
